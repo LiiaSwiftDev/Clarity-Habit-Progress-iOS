@@ -6,17 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		186E67BC2E904193006661CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186E67B82E904193006661CA /* Assets.xcassets */; };
+		186E67BD2E904193006661CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67B92E904193006661CA /* ContentView.swift */; };
+		186E67BE2E904193006661CA /* ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67BA2E904193006661CA /* ProgressApp.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		186E67AA2E8DA5BB006661CA /* Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Progress.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		186E67B82E904193006661CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		186E67B92E904193006661CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		186E67BA2E904193006661CA /* ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		186E67AC2E8DA5BB006661CA /* Progress */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Progress;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		186E67A72E8DA5BB006661CA /* Frameworks */ = {
@@ -32,7 +33,7 @@
 		186E67A12E8DA5BB006661CA = {
 			isa = PBXGroup;
 			children = (
-				186E67AC2E8DA5BB006661CA /* Progress */,
+				186E67BB2E904193006661CA /* Progress */,
 				186E67AB2E8DA5BB006661CA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +44,24 @@
 				186E67AA2E8DA5BB006661CA /* Progress.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		186E67BB2E904193006661CA /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				186E67B82E904193006661CA /* Assets.xcassets */,
+				186E67BA2E904193006661CA /* ProgressApp.swift */,
+				186E67B92E904193006661CA /* ContentView.swift */,
+				186E67BF2E9041F8006661CA /* Models */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		186E67BF2E9041F8006661CA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +78,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				186E67AC2E8DA5BB006661CA /* Progress */,
 			);
 			name = Progress;
 			packageProductDependencies = (
@@ -109,6 +125,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186E67BC2E904193006661CA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +136,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186E67BD2E904193006661CA /* ContentView.swift in Sources */,
+				186E67BE2E904193006661CA /* ProgressApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
