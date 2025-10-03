@@ -8,15 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		186E67BC2E904193006661CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186E67B82E904193006661CA /* Assets.xcassets */; };
-		186E67BD2E904193006661CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67B92E904193006661CA /* ContentView.swift */; };
+		186E67BD2E904193006661CA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67B92E904193006661CA /* MainView.swift */; };
 		186E67BE2E904193006661CA /* ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67BA2E904193006661CA /* ProgressApp.swift */; };
+		186E67C12E9043DE006661CA /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67C02E9043DE006661CA /* Goal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		186E67AA2E8DA5BB006661CA /* Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Progress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186E67B82E904193006661CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		186E67B92E904193006661CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		186E67B92E904193006661CA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		186E67BA2E904193006661CA /* ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressApp.swift; sourceTree = "<group>"; };
+		186E67C02E9043DE006661CA /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +53,7 @@
 			children = (
 				186E67B82E904193006661CA /* Assets.xcassets */,
 				186E67BA2E904193006661CA /* ProgressApp.swift */,
-				186E67B92E904193006661CA /* ContentView.swift */,
+				186E67B92E904193006661CA /* MainView.swift */,
 				186E67BF2E9041F8006661CA /* Models */,
 			);
 			path = Progress;
@@ -60,6 +62,7 @@
 		186E67BF2E9041F8006661CA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				186E67C02E9043DE006661CA /* Goal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -136,7 +139,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186E67BD2E904193006661CA /* ContentView.swift in Sources */,
+				186E67BD2E904193006661CA /* MainView.swift in Sources */,
+				186E67C12E9043DE006661CA /* Goal.swift in Sources */,
 				186E67BE2E904193006661CA /* ProgressApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
