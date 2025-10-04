@@ -8,23 +8,25 @@
 import SwiftUI
 
 struct GoalCardView: View {
+    
+    var goalStorage: Goal
+    
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 366, height: 103)
+             Rectangle()
                 .foregroundStyle(.white)
-                .shadow(radius: 10)
-            
+                .shadow(radius: 40, x: 0, y: 4)
+
             VStack {
                 HStack {
-                    Text("Workout")
+                    Text(goalStorage.goal)
                         .font(.custom("SFProRounded-Medium", size: 30))
                     Spacer()
                     
-                    Text("3/week")
+                    Text("\(goalStorage.timePerWeek)/week")
                         .font(.system(size: 14))
                     
-                }.padding(.horizontal, 40)
+                }
                 
                 HStack {
                     Text("Progress of this week:")
@@ -46,14 +48,14 @@ struct GoalCardView: View {
                             
                     } .frame(width: 100)
                     
-                }.padding(.horizontal, 40)
-            }
-            
+                }
+            }.padding()
             
         }
+        .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
 
 #Preview {
-    GoalCardView()
+    GoalCardView(goalStorage: Goal())
 }
