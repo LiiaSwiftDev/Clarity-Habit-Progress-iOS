@@ -11,6 +11,9 @@
 		186E67BD2E904193006661CA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67B92E904193006661CA /* MainView.swift */; };
 		186E67BE2E904193006661CA /* ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67BA2E904193006661CA /* ProgressApp.swift */; };
 		186E67C12E9043DE006661CA /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67C02E9043DE006661CA /* Goal.swift */; };
+		186E67C62E906B75006661CA /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 186E67C52E906B75006661CA /* SF-Pro-Rounded-Bold.otf */; };
+		186E67C82E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 186E67C72E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf */; };
+		186E67CB2E90B2B4006661CA /* GoalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67CA2E90B2B4006661CA /* GoalCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,10 @@
 		186E67B92E904193006661CA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		186E67BA2E904193006661CA /* ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressApp.swift; sourceTree = "<group>"; };
 		186E67C02E9043DE006661CA /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		186E67C42E906782006661CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		186E67C52E906B75006661CA /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
+		186E67C72E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Medium.otf"; sourceTree = "<group>"; };
+		186E67CA2E90B2B4006661CA /* GoalCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +44,8 @@
 			children = (
 				186E67BB2E904193006661CA /* Progress */,
 				186E67AB2E8DA5BB006661CA /* Products */,
+				186E67C52E906B75006661CA /* SF-Pro-Rounded-Bold.otf */,
+				186E67C72E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,9 +60,10 @@
 		186E67BB2E904193006661CA /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				186E67C42E906782006661CA /* Info.plist */,
 				186E67B82E904193006661CA /* Assets.xcassets */,
 				186E67BA2E904193006661CA /* ProgressApp.swift */,
-				186E67B92E904193006661CA /* MainView.swift */,
+				186E67C92E90B28C006661CA /* FirstScreen */,
 				186E67BF2E9041F8006661CA /* Models */,
 			);
 			path = Progress;
@@ -65,6 +75,15 @@
 				186E67C02E9043DE006661CA /* Goal.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		186E67C92E90B28C006661CA /* FirstScreen */ = {
+			isa = PBXGroup;
+			children = (
+				186E67B92E904193006661CA /* MainView.swift */,
+				186E67CA2E90B2B4006661CA /* GoalCardView.swift */,
+			);
+			path = FirstScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,7 +147,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186E67C82E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf in Resources */,
 				186E67BC2E904193006661CA /* Assets.xcassets in Resources */,
+				186E67C62E906B75006661CA /* SF-Pro-Rounded-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				186E67BD2E904193006661CA /* MainView.swift in Sources */,
+				186E67CB2E90B2B4006661CA /* GoalCardView.swift in Sources */,
 				186E67C12E9043DE006661CA /* Goal.swift in Sources */,
 				186E67BE2E904193006661CA /* ProgressApp.swift in Sources */,
 			);
@@ -276,6 +298,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Progress/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -303,6 +326,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Progress/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
