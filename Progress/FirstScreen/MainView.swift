@@ -15,6 +15,9 @@ struct MainView: View {
     @Query private var goals: [Goal]
 
     @State private var showSheet = false
+    @State var edit = false
+    // optional потому что пока мы не выбрали это nil
+    @State var selectedGoal: Goal?
     
     var body: some View {
         ZStack {
@@ -26,19 +29,26 @@ struct MainView: View {
                     .font(.custom("SFProRounded-Bold", size: 34))
                     .padding(.bottom, 30)
                 
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 40) {
-
+                ScrollView {
+                    VStack(spacing: 10) {
                         ForEach(goals) { g in
                             GoalCardView(goalStorage: g)
-                                
+                                .padding(.top, 10)
+                                .shadow(color: .black.opacity(0.2), radius: 5, x: 10, y: 4)
+                                .onLongPressGesture {
+                                    selectedGoal = g
+                                    showSheet = true
+                                    edit = true
+                                }
+                            
                         }
-                    }
-                } 
-
+                    }.padding(.horizontal)
+                }
+                
                     Button {
                         // Add new goal
                         showSheet = true
+                        edit = false
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
@@ -56,12 +66,11 @@ struct MainView: View {
                     }
                 
             }.padding()
-            .sheet(isPresented: $showSheet) {
-                // show sheet to add new goal
-                AddNewGoalView()
-                    .presentationDetents([.fraction(0.2)])
-            }
-            
+                .sheet(isPresented: $showSheet) {
+                    // show sheet to add new goal
+                        AddNewGoalView(editMood: edit, goalS: selectedGoal)
+                            .presentationDetents([.fraction(0.2)])
+                    }
         }
             
     }

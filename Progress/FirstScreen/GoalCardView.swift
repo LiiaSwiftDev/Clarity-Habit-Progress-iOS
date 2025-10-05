@@ -13,9 +13,10 @@ struct GoalCardView: View {
     
     var body: some View {
         ZStack {
-             Rectangle()
-                .foregroundStyle(.white)
-                .shadow(radius: 40, x: 0, y: 4)
+            RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 4)
+
 
             VStack {
                 HStack {
@@ -52,7 +53,7 @@ struct GoalCardView: View {
             }.padding()
             
         }
-        .clipShape(RoundedRectangle(cornerRadius: 15))
+        
     }
 }
 
