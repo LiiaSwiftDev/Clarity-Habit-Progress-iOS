@@ -18,7 +18,7 @@ struct GoalCardView: View {
                             .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 4)
 
 
-            VStack {
+            VStack(spacing: 10) {
                 HStack {
                     Text(goalStorage.goal)
                         .font(.custom("SFProRounded-Medium", size: 30))

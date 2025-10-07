@@ -20,31 +20,38 @@ struct MainView: View {
     @State var selectedGoal: Goal?
     
     var body: some View {
-        ZStack {
-            Color(red: 243/255, green: 203/255, blue: 228/255)
-                .ignoresSafeArea()
-            
-            VStack {
-                Text("My goals")
-                    .font(.custom("SFProRounded-Bold", size: 34))
-                    .padding(.bottom, 30)
+        NavigationStack {
+            ZStack {
+                Color(red: 243/255, green: 203/255, blue: 228/255)
+                    .ignoresSafeArea()
                 
-                ScrollView {
-                    VStack(spacing: 10) {
-                        ForEach(goals) { g in
-                            GoalCardView(goalStorage: g)
-                                .padding(.top, 10)
-                                .shadow(color: .black.opacity(0.2), radius: 5, x: 10, y: 4)
-                                .onLongPressGesture {
-                                    selectedGoal = g
-                                    showSheet = true
-                                    edit = true
-                                }
-                            
-                        }
-                    }.padding(.horizontal)
-                }
-                
+                VStack {
+                    Text("My goals")
+                        .font(.custom("SFProRounded-Bold", size: 34))
+                        .padding(.bottom, 30)
+                    
+                    ScrollView {
+                        VStack(spacing: 10) {
+                            ForEach(goals) { g in
+                                
+                                NavigationLink {
+                                    
+                                    DetailView(progress: g)
+                                    
+                                } label: {
+                                    GoalCardView(goalStorage: g)
+                                        .padding(.top, 10)
+                                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
+                                        .onLongPressGesture {
+                                            selectedGoal = g
+                                            showSheet = true
+                                            edit = true
+                                        }
+                                } .buttonStyle(.plain)
+                            }
+                        }.padding(.horizontal)
+                    }
+                    
                     Button {
                         // Add new goal
                         showSheet = true
@@ -61,18 +68,18 @@ struct MainView: View {
                                 .foregroundStyle(Color.white)
                             
                         }.frame(width: 366, height: 50)
-                           .padding(.bottom, 34)
+                            .padding(.bottom, 34)
                         
                     }
-                
-            }.padding()
-                .sheet(isPresented: $showSheet) {
-                    // show sheet to add new goal
+                    
+                }
+                    .sheet(isPresented: $showSheet) {
+                        // show sheet to add new goal
                         AddNewGoalView(editMood: edit, goalS: selectedGoal)
                             .presentationDetents([.fraction(0.2)])
                     }
+            }
         }
-            
     }
 }
 
