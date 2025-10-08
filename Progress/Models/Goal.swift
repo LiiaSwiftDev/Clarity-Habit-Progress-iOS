@@ -16,6 +16,7 @@ class Goal: Identifiable {
     var createDate = Date()
     var goal = ""
     var timePerWeek  = 0
+    var markedDaysCount = 0
     
     init() {
         id = UUID().uuidString

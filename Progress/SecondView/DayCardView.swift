@@ -36,6 +36,7 @@ struct DayCardView: View {
                 Button {
                     // make it green when user press and back
                     checked.toggle()
+                    
                     if checked {
                         isMarked += 1
                     }
