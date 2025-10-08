@@ -10,6 +10,7 @@ import SwiftUI
 struct GoalCardView: View {
     
     var goalStorage: Goal
+    @State private var marked: Int = 0
     
     var body: some View {
         ZStack {
@@ -34,20 +35,7 @@ struct GoalCardView: View {
                         .font(.system(size: 14))
                     Spacer()
                     
-                    Text("25%")
-                        .font(.headline)
-                        .foregroundStyle(.red)
-                    
-                    ZStack(alignment: .leading) {
-                        Capsule()
-                        // сначала цвет потом frame
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 8)
-                        Capsule()
-                            .fill(Color.red)
-                            .frame(width: 100 * 0.25, height: 8)
-                            
-                    } .frame(width: 100)
+                    ProgressBarView(myProgress: Double(marked))
                     
                 }
             }.padding()
