@@ -10,6 +10,8 @@ import SwiftUI
 struct DetailView: View {
     
     var progress: Goal
+    // новая переменная состояния, которая хранит, сколько дней уже отмечено пользователем.
+    @State private var markedDays: Int = 0
     
     var body: some View {
         ZStack {
@@ -33,20 +35,8 @@ struct DetailView: View {
                             .font(.system(size: 14))
                         Spacer()
                         
-                        Text("25%")
-                            .font(.headline)
-                            .foregroundStyle(.red)
+                        ProgressBarView(myProgress: Double(markedDays) / Double(progress.timePerWeek))
                         
-                        ZStack(alignment: .leading) {
-                            Capsule()
-                            // сначала цвет потом frame
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(height: 8)
-                            Capsule()
-                                .fill(Color.red)
-                                .frame(width: 100 * 0.25, height: 8)
-                            
-                        } .frame(width: 100)
                     }.padding(.horizontal, 30)
                     
                 }.padding()
@@ -67,7 +57,8 @@ struct DetailView: View {
                     Text("October 6 - October 12, 2025")
                         .font(.system(size: 12))
                     Spacer()
-                    ProgressBarView()
+                    // отмеченные дни делим на сколько всего отмечено дней в неделю 3/week получаем 2/3 or 1/3 and so on and so forth
+                    ProgressBarView(myProgress: Double(markedDays) / Double(progress.timePerWeek))
                 }.padding(.horizontal, 10)
                 ZStack {
                     
@@ -77,13 +68,13 @@ struct DetailView: View {
                     // Thu, Fri, Sat, Sun
                     ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
-                                DayCardView(days: "Mon", numberOfDays: "6")
-                                DayCardView(days: "Tue", numberOfDays: "7")
-                                DayCardView(days: "Wed", numberOfDays: "8")
-                                DayCardView(days: "Thu", numberOfDays: "9")
-                                DayCardView(days: "Fri", numberOfDays: "10")
-                                DayCardView(days: "Sat", numberOfDays: "11")
-                                DayCardView(days: "Sun", numberOfDays: "12")
+                                DayCardView(days: "Mon", numberOfDays: "6", isMarked: $markedDays, totaldays: progress.timePerWeek)
+                                DayCardView(days: "Tue", numberOfDays: "7", isMarked: $markedDays, totaldays: progress.timePerWeek)
+                                DayCardView(days: "Wed", numberOfDays: "8", isMarked: $markedDays, totaldays: progress.timePerWeek)
+                                DayCardView(days: "Thu", numberOfDays: "9", isMarked: $markedDays, totaldays: progress.timePerWeek)
+                                DayCardView(days: "Fri", numberOfDays: "10", isMarked: $markedDays, totaldays: progress.timePerWeek)
+                                DayCardView(days: "Sat", numberOfDays: "11", isMarked: $markedDays, totaldays: progress.timePerWeek)
+                                DayCardView(days: "Sun", numberOfDays: "12", isMarked: $markedDays, totaldays: progress.timePerWeek)
                                 
                                 
                             } .padding(.horizontal)

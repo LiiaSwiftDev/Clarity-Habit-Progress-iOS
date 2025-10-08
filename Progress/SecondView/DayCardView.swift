@@ -12,7 +12,11 @@ struct DayCardView: View {
     var days: String
     var numberOfDays: String
     
-    @State private var isGreen = false
+    // сколько дней было отмечено галочкой перевет значение в Detail View
+    @Binding var isMarked: Int
+    var totaldays: Int
+    
+    @State private var checked = false
     
     var body: some View {
         ZStack {
@@ -31,9 +35,15 @@ struct DayCardView: View {
                     .padding(.bottom, 3)
                 Button {
                     // make it green when user press and back
-                    isGreen.toggle()
+                    checked.toggle()
+                    if checked {
+                        isMarked += 1
+                    }
+                    else{
+                        isMarked -= 1
+                    }
                 } label: {
-                    if isGreen {
+                    if checked {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 20))
                                 .foregroundStyle(Color.green)
@@ -56,5 +66,5 @@ struct DayCardView: View {
 }
 
 #Preview {
-    DayCardView(days: "Mon", numberOfDays: "6")
+    DayCardView(days: "Mon", numberOfDays: "6", isMarked: .constant(0), totaldays: 3)
 }
