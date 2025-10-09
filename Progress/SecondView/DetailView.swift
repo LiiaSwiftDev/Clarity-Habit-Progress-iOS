@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DetailView: View {
     
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) var dismiss
     // @Bindable = автоматическая связь между экраном и SwiftData. только так можно приаязать к $progress.markedDaysCount
     @Bindable var progress: Goal
     // новая переменная состояния, которая хранит, сколько дней уже отмечено пользователем.
@@ -89,7 +92,60 @@ struct DetailView: View {
             } .padding()
                 .padding(.top, 120)
             
+            VStack(alignment: .leading) {
+                
+                Spacer()
+                
+                HStack {
+                    Button {
+                        // add week button
+                    } label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color.black, lineWidth: 1)
+                                        .fill(
+                                            LinearGradient(colors: [Color(red: 230/255, green: 113/255, blue: 142/255), Color(red: 209/255, green: 64/255, blue: 100/255)], startPoint: .top, endPoint: .bottom)
+                                        )
+                                    
+                                    Text("Add week")
+                                        .foregroundStyle(Color.white)
+                                    
+                                }.frame(width: 170, height: 50)
+                                    .padding(.bottom, 34)
+                                    .padding(.leading, 20)
+                            
+                       
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Button {
+                        // back button
+                        dismiss()
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.black)
+                            
+                            Text("Back")
+                                .foregroundStyle(Color.white)
+                            
+                        }.frame(width: 172, height: 52)
+                            .padding(.bottom, 34)
+                            .padding(.trailing, 20)
+                    }
+
+                    
+                }
+                
+                    
+
+               
+            }
+            
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
