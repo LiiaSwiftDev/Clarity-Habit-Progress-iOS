@@ -18,6 +18,8 @@ class Goal: Identifiable {
     var timePerWeek  = 0
     var markedDaysCount = 0
     
+    @Relationship(deleteRule: .cascade, inverse: \Activity.goal) var activities: [Activity] = []
+    
     init() {
         id = UUID().uuidString
     }
