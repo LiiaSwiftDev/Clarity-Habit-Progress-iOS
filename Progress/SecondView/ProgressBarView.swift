@@ -15,8 +15,8 @@ struct ProgressBarView: View {
     var body: some View {
         
         HStack(spacing: 0) {
-            // 0.66 * 100 = 66.0, Int(66.0) = 66
-            Text("\(Int(myProgress * 100))")
+            
+            Text(getPercentage(input: myProgress))
                 .font(.system(size: 14))
                 .bold()
                 .foregroundStyle(colorNumbers(progress: myProgress))
@@ -67,6 +67,11 @@ struct ProgressBarView: View {
             return .gray
         
         }
+    }
+    
+    func getPercentage(input: Double) -> String {
+        // 0.66 * 100 = 66.0, Int(66.0) = 66
+        return String(Int(input * 100))
     }
     
 }

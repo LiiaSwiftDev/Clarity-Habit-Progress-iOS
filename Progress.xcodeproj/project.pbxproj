@@ -10,6 +10,7 @@
 		18475AC62E982FCE00CD18CD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475AC52E982FCE00CD18CD /* OnboardingView.swift */; };
 		18475AC92E98418800CD18CD /* Onboarding1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475AC82E98418800CD18CD /* Onboarding1.swift */; };
 		18475ACB2E98796200CD18CD /* Onboarding2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475ACA2E98796200CD18CD /* Onboarding2.swift */; };
+		18475ACD2E995F5A00CD18CD /* WeekCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475ACC2E995F5A00CD18CD /* WeekCardView.swift */; };
 		186E67BC2E904193006661CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186E67B82E904193006661CA /* Assets.xcassets */; };
 		186E67BD2E904193006661CA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67B92E904193006661CA /* MainView.swift */; };
 		186E67BE2E904193006661CA /* ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67BA2E904193006661CA /* ProgressApp.swift */; };
@@ -27,6 +28,7 @@
 		18475AC52E982FCE00CD18CD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		18475AC82E98418800CD18CD /* Onboarding1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding1.swift; sourceTree = "<group>"; };
 		18475ACA2E98796200CD18CD /* Onboarding2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2.swift; sourceTree = "<group>"; };
+		18475ACC2E995F5A00CD18CD /* WeekCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCardView.swift; sourceTree = "<group>"; };
 		186E67AA2E8DA5BB006661CA /* Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Progress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186E67B82E904193006661CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		186E67B92E904193006661CA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				186E67D12E920301006661CA /* DetailView.swift */,
 				186E67D52E956E8B006661CA /* ProgressBarView.swift */,
 				186E67D72E95A61F006661CA /* DayCardView.swift */,
+				18475ACC2E995F5A00CD18CD /* WeekCardView.swift */,
 			);
 			path = SecondView;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				186E67BE2E904193006661CA /* ProgressApp.swift in Sources */,
 				186E67CD2E9189DE006661CA /* AddNewGoalView.swift in Sources */,
 				186E67D62E956E8B006661CA /* ProgressBarView.swift in Sources */,
+				18475ACD2E995F5A00CD18CD /* WeekCardView.swift in Sources */,
 				186E67D82E95A61F006661CA /* DayCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
