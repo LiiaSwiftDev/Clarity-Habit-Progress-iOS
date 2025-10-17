@@ -12,7 +12,16 @@ struct DetailView: View {
     
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) var dismiss
-    // @Bindable = автоматическая связь между экраном и SwiftData. только так можно приаязать к $progress.markedDaysCount
+    
+    @Query private var allActivities: [Activity]
+
+    var weeks: [Activity] {
+        allActivities.filter { $0.goal?.id == progress.id }
+    }
+
+    
+    @State var numberOfWeeks: Int = 0
+    
     var progress: Goal
     // новая переменная состояния, которая хранит, сколько дней уже отмечено пользователем.
     //@State private var markedDays: Int = 0
@@ -45,7 +54,6 @@ struct DetailView: View {
                     }.padding(.horizontal, 30)
                     
                 }.padding()
-                
                 // background (_content_)
                     .background {
                         Color.white
@@ -55,10 +63,17 @@ struct DetailView: View {
                     }
                 Spacer()
                 
+                VStack {
+                    ScrollView {
+                        // Рисуй недели только если их реально больше нуля.
+                        if numberOfWeeks > 0 {
+                            ForEach(1...numberOfWeeks, id: \.self) { week in
+                                WeekCardView(progress: progress, week: week)
+                            }
+                        }
+                    }.padding(.bottom, 80)
+                }
             }
-            
-            WeekCardView(progress: progress)
-             
             
             VStack(alignment: .leading) {
                 
@@ -67,22 +82,23 @@ struct DetailView: View {
                 HStack {
                     Button {
                         // add week button
+                        numberOfWeeks += 1
                     } label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color.black, lineWidth: 1)
-                                        .fill(
-                                            LinearGradient(colors: [Color(red: 230/255, green: 113/255, blue: 142/255), Color(red: 209/255, green: 64/255, blue: 100/255)], startPoint: .top, endPoint: .bottom)
-                                        )
-                                    
-                                    Text("Add week")
-                                        .foregroundStyle(Color.white)
-                                    
-                                }.frame(width: 170, height: 50)
-                                    .padding(.bottom, 34)
-                                    .padding(.leading, 20)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(Color.black, lineWidth: 1)
+                                .fill(
+                                    LinearGradient(colors: [Color(red: 230/255, green: 113/255, blue: 142/255), Color(red: 209/255, green: 64/255, blue: 100/255)], startPoint: .top, endPoint: .bottom)
+                                )
                             
-                       
+                            Text("Add week")
+                                .foregroundStyle(Color.white)
+                            
+                        }.frame(width: 170, height: 50)
+                            .padding(.bottom, 34)
+                            .padding(.leading, 20)
+                        
+                        
                         
                     }
                     
@@ -103,17 +119,25 @@ struct DetailView: View {
                             .padding(.bottom, 34)
                             .padding(.trailing, 20)
                     }
-
+                    
                     
                 }
                 
-                    
-
-               
+                
+                
+                
             }
             
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            if let showWeeks = weeks.map(\.week).max() {
+                numberOfWeeks = showWeeks
+            }
+            else {
+                numberOfWeeks = 0
+            }
+        }
     }
 }
 

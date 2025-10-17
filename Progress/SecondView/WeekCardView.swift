@@ -13,7 +13,7 @@ struct WeekCardView: View {
     // @Bindable = автоматическая связь между экраном и SwiftData. только так можно приаязать к $progress.markedDaysCount
     @Bindable var progress: Goal
     
-    let week = 1
+    let week: Int
     // Это массив названий дней недели, чтобы знать, что показывать на экране. days[0] = "Mon", days[1] = "Tue" и т.д.
     let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
     
@@ -51,17 +51,17 @@ struct WeekCardView: View {
                             }
                             
                         } .padding(.horizontal)
+                        
                     }
                 
             }.frame(height: 110)
-            
-           // Spacer()
-            
-        } .padding()
+     
+        } .padding(.horizontal)
+          .padding(.vertical, 10)
     }
     
 }
 
 #Preview {
-    WeekCardView(progress: Goal())
+    WeekCardView(progress: Goal(), week: 1)
 }
