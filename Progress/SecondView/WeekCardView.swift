@@ -45,7 +45,8 @@ struct WeekCardView: View {
                                     activityList: activities,
                                     week: week,
                                     day: days[index],
-                                    dayIndex: index
+                                    dayIndex: index,
+                                    goal: progress
                                 )
                             }
                             

@@ -21,12 +21,13 @@ struct DayCardView: View {
     var day: String
     // dayIndex — число 0…6, чтобы понимать, какой это день недели.
     var dayIndex: Int
+    var goal: Goal
     
     // Проверяем, есть ли галочка
     var isMarked: Bool {
         // activityList — это массив всех активностей (галочек) на неделю. .contains { ... } спрашивает: «Есть ли в массиве хотя бы одна активность, которая удовлетворяет условию?»
         // $0 — это каждый объект Activity из массива. «Есть ли в корзине галочка для понедельника первой недели?» $0.week - 1 неделя, $0.dayOfWeek. rawValue - понедельник, rawValue — это число или значение, которое скрыто внутри enum.
-        activityList.contains { $0.week == week && $0.dayOfWeek.rawValue == dayIndex }
+        activityList.contains { $0.week == week && $0.dayOfWeek.rawValue == dayIndex && $0.goal == goal }
     }
 
     
@@ -45,7 +46,7 @@ struct DayCardView: View {
                 Button {
                     // Мы смотрим в списке всех активностей (activityList), есть ли уже галочка для этого дня и недели. first(where:) значит: найти первый объект, который подходит под условие. если есть галочка для понедельника первой недели значит условие получает true и мы выполняем удаление
                     // другими словами если я нажимаю как галочку, програма проверяет да там есть значит убирает таким образом мы можем убрать галочку
-                    if let activity = activityList.first(where: { $0.week == week && $0.dayOfWeek.rawValue == dayIndex }) {
+                    if let activity = activityList.first(where: { $0.week == week && $0.dayOfWeek.rawValue == dayIndex && $0.goal == goal }) {
                         // удалить активность
                         context.delete(activity)
                     } else {
@@ -53,7 +54,9 @@ struct DayCardView: View {
                         // создать активность
                         //Activity.DayOfWeek - Это наш список дней недели: monday, tuesday, wednesday…
                         // rawValue — это число, которое соответствует дню. dayIndex = индекс дня в массиве (["Mon","Tue","Wed",…]).
-                        let activity = Activity(week: week, dayOfWeek: Activity.DayOfWeek(rawValue: dayIndex)!)
+                        let activity = Activity(week: week,
+                                                dayOfWeek: Activity.DayOfWeek(rawValue: dayIndex)!,
+                                                goal: goal)
                         // сохранить
                         context.insert(activity)
                     }

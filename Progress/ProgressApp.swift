@@ -16,7 +16,7 @@ struct ProgressApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .modelContainer(for: Goal.self)
+                .modelContainer(for: [Goal.self, Activity.self])
             // Binding.constant(true) - значит всегда показывай onboarding view
                 .fullScreenCover(isPresented: $needsOnboarding) {
                     // on dismiss

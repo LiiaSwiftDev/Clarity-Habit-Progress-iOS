@@ -24,9 +24,10 @@ class Activity: Identifiable {
         case monday = 0, tuesday, wednesday, thursday, friday, saturday, sunday
     }
     
-    init(week: Int, dayOfWeek: DayOfWeek) {
+    init(week: Int, dayOfWeek: DayOfWeek, goal: Goal?) {
         self.week = week
         self.dayOfWeek = dayOfWeek
+        self.goal = goal
     }
     
 }
