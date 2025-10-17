@@ -9,6 +9,8 @@ import SwiftUI
 
 struct Onboarding1: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     var actionButton: () -> Void
    
     var body: some View {
@@ -19,13 +21,16 @@ struct Onboarding1: View {
             VStack(alignment: .trailing, spacing: 0) {
                 Spacer()
                 
-                Text("Skip")
-                            .foregroundStyle(Color.gray)
-                            .padding(.horizontal, 16)
-                            .padding(.top, 56)
-                            .padding(.bottom, 99)
-                                    
-                 
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Skip")
+                                .foregroundStyle(Color.gray)
+                                .padding(.horizontal, 16)
+                                .padding(.top, 56)
+                                .padding(.bottom, 99)
+                }
+
                 VStack(alignment: .center, spacing: 0) {
                     Image("girl")
                         .resizable()

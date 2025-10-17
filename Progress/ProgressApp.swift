@@ -10,8 +10,8 @@ import SwiftData
 
 @main
 struct ProgressApp: App {
-    // @AppStorage("onboarding")
-    @State var needsOnboarding = true
+    // @AppStorage - сохраняет состояние
+    @AppStorage("onboarding") var needsOnboarding = true
     
     var body: some Scene {
         WindowGroup {

@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct WeekCardView: View {
     
     // @Bindable = автоматическая связь между экраном и SwiftData. только так можно приаязать к $progress.markedDaysCount
     @Bindable var progress: Goal
+    
+    let week = 1
+    // Это массив названий дней недели, чтобы знать, что показывать на экране. days[0] = "Mon", days[1] = "Tue" и т.д.
+    let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+    
+    @Query private var activities: [Activity]  // автоматически подгружаем из SwiftData
     
     var body: some View {
         VStack {
@@ -29,14 +36,18 @@ struct WeekCardView: View {
                 // Thu, Fri, Sat, Sun
                 ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
-                            DayCardView(days: "Mon", numberOfDays: "6", isMarked: $progress.markedDaysCount, totaldays: progress.timePerWeek)
-                            DayCardView(days: "Tue", numberOfDays: "7", isMarked: $progress.markedDaysCount, totaldays: progress.timePerWeek)
-                            DayCardView(days: "Wed", numberOfDays: "8", isMarked: $progress.markedDaysCount, totaldays: progress.timePerWeek)
-                            DayCardView(days: "Thu", numberOfDays: "9", isMarked: $progress.markedDaysCount, totaldays: progress.timePerWeek)
-                            DayCardView(days: "Fri", numberOfDays: "10", isMarked: $progress.markedDaysCount, totaldays: progress.timePerWeek)
-                            DayCardView(days: "Sat", numberOfDays: "11", isMarked: $progress.markedDaysCount, totaldays: progress.timePerWeek)
-                            DayCardView(days: "Sun", numberOfDays: "12", isMarked: $progress.markedDaysCount, totaldays: progress.timePerWeek)
-                            
+                            // 0..<7 = числа от 0 до 6 → 7 дней недели.
+                            // index — это номер дня в массиве days (0 = понедельник, 1 = вторник…).
+                            ForEach(0..<7, id: \.self) { index in
+                                // activityList: activities → передаём все активности из базы через @Query
+                                // days[index] - название дня ("Mon", "Tue"…).
+                                DayCardView(
+                                    activityList: activities,
+                                    week: week,
+                                    day: days[index],
+                                    dayIndex: index
+                                )
+                            }
                             
                         } .padding(.horizontal)
                     }

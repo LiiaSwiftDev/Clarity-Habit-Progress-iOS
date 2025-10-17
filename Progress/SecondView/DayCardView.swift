@@ -6,17 +6,29 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DayCardView: View {
     
-    var days: String
-    var numberOfDays: String
+    // через context мы можешь сохранять и удалять
+    @Environment(\.modelContext) private var context
     
-    // сколько дней было отмечено галочкой перевет значение в Detail View
-    @Binding var isMarked: Int
-    var totaldays: Int
+    //activityList — массив всех активностей из базы (для всех дней недели).
+    var activityList: [Activity]
+    // week — какая неделя (1, 2, 3…).
+    var week: Int
+    // day — название дня ("Mon", "Tue" и т.д.), чтобы показывать текст на кнопке.
+    var day: String
+    // dayIndex — число 0…6, чтобы понимать, какой это день недели.
+    var dayIndex: Int
     
-    @State private var checked = false
+    // Проверяем, есть ли галочка
+    var isMarked: Bool {
+        // activityList — это массив всех активностей (галочек) на неделю. .contains { ... } спрашивает: «Есть ли в массиве хотя бы одна активность, которая удовлетворяет условию?»
+        // $0 — это каждый объект Activity из массива. «Есть ли в корзине галочка для понедельника первой недели?» $0.week - 1 неделя, $0.dayOfWeek. rawValue - понедельник, rawValue — это число или значение, которое скрыто внутри enum.
+        activityList.contains { $0.week == week && $0.dayOfWeek.rawValue == dayIndex }
+    }
+
     
     var body: some View {
         ZStack {
@@ -26,38 +38,31 @@ struct DayCardView: View {
                 .foregroundStyle(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 7))
             VStack(alignment: .center, spacing: 0) {
-                Text(days)
+                Text(day)
                     .font(.system(size: 12, weight: .medium))
                     .padding(.bottom, 6)
                 
-                Text(numberOfDays)
-                    .font(.system(size: 15, weight: .bold))
-                    .padding(.bottom, 3)
                 Button {
-                    // make it green when user press and back
-                    checked.toggle()
-                    
-                    if checked {
-                        isMarked += 1
+                    // Мы смотрим в списке всех активностей (activityList), есть ли уже галочка для этого дня и недели. first(where:) значит: найти первый объект, который подходит под условие. если есть галочка для понедельника первой недели значит условие получает true и мы выполняем удаление
+                    // другими словами если я нажимаю как галочку, програма проверяет да там есть значит убирает таким образом мы можем убрать галочку
+                    if let activity = activityList.first(where: { $0.week == week && $0.dayOfWeek.rawValue == dayIndex }) {
+                        // удалить активность
+                        context.delete(activity)
+                    } else {
+                        // Это значит: если галочки ещё нет, то мы её создаём.
+                        // создать активность
+                        //Activity.DayOfWeek - Это наш список дней недели: monday, tuesday, wednesday…
+                        // rawValue — это число, которое соответствует дню. dayIndex = индекс дня в массиве (["Mon","Tue","Wed",…]).
+                        let activity = Activity(week: week, dayOfWeek: Activity.DayOfWeek(rawValue: dayIndex)!)
+                        // сохранить
+                        context.insert(activity)
                     }
-                    else{
-                        isMarked -= 1
-                    }
+                    // сохранить результат
+                    try? context.save()
                 } label: {
-                    if checked {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 20))
-                                .foregroundStyle(Color.green)
-                                .background(Color.white)
-                              
-                    }
-                    else {
-                        Image(systemName: "circle")
-                            .font(.system(size: 20))
-                            .foregroundStyle(Color.gray.opacity(0.4))
-                                .background(Color.white)
-                              
-                    }
+                    Image(systemName: isMarked ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(.green)
+                        .font(.title)
                 }
 
             } .padding(.vertical, 5)
@@ -66,6 +71,4 @@ struct DayCardView: View {
     }
 }
 
-#Preview {
-    DayCardView(days: "Mon", numberOfDays: "6", isMarked: .constant(0), totaldays: 3)
-}
+
