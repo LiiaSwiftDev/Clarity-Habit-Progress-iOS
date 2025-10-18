@@ -26,6 +26,7 @@ struct MainView: View {
                     .ignoresSafeArea()
                 
                 VStack {
+                    
                     Text("My goals")
                         .font(.custom("SFProRounded-Bold", size: 34))
                         .padding(.bottom, 30)
@@ -51,26 +52,46 @@ struct MainView: View {
                             }
                         }.padding(.horizontal)
                     }
+                }
+                VStack {
                     
-                    Button {
-                        // Add new goal
-                        showSheet = true
-                        edit = false
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.black, lineWidth: 1)
-                                .fill(
-                                    LinearGradient(colors: [Color(red: 230/255, green: 113/255, blue: 142/255), Color(red: 209/255, green: 64/255, blue: 100/255)], startPoint: .top, endPoint: .bottom)
-                                )
-                            
-                            Text("+ New goal")
-                                .foregroundStyle(Color.white)
-                            
-                        }.frame(width: 366, height: 50)
-                            .padding(.bottom, 34)
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
                         
+                        Button {
+                            // Add new goal
+                            showSheet = true
+                            edit = false
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(Color.black, lineWidth: 1)
+                                    .fill(
+                                        LinearGradient(colors: [Color(red: 230/255, green: 113/255, blue: 142/255), Color(red: 209/255, green: 64/255, blue: 100/255)], startPoint: .top, endPoint: .bottom)
+                                    )
+                                
+                                Text("+ New goal")
+                                    .foregroundStyle(Color.white)
+                                
+                            }.frame(width: 366, height: 50)
+                                .padding(.bottom, 20)
+                                .padding(.top, 10)
+                            
+                        }
+
+                        Spacer()
                     }
+                    .background {
+                        Color(red: 243/255, green: 203/255, blue: 228/255)
+                            .background(.ultraThinMaterial)
+                            .opacity(0.7)
+                            .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
+                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
+                            .ignoresSafeArea()
+                    }
+                    
                     
                 }
                     .sheet(isPresented: $showSheet) {

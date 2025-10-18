@@ -16,6 +16,7 @@ struct DetailView: View {
     // "Я храню их в массиве allWeeks — это список всех недель." allWeeks — это полный массив всех недель, которые есть в базе, для всех целей. Например, если у тебя три цели, и у каждой есть по 2 недели, то allWeeks будет содержать все 6 объектов.
     @Query private var allWeeks: [Week]
     
+    @State private var showAlert: Bool = false
     // "На этом экране мы показываем одну конкретную цель и её прогресс."
     var progress: Goal
     
@@ -71,9 +72,24 @@ struct DetailView: View {
                         ForEach(goalWeeks, id: \.id) { week in
                             // у кадлой карточки есть цель и неделя
                             WeekCardView(progress: progress, week: week)
+                                .onLongPressGesture {
+                                    showAlert = true
+                                }
+                                .alert(isPresented: $showAlert) {
+                                    Alert(
+                                        title: Text("Delete Week"),
+                                        message: Text("Delete this week permanently? This action cannot be undone."),
+                                        // .destructive - make button red
+                                        primaryButton: .destructive(Text("Delete"), action: {
+                                            context.delete(week)
+                                            
+                                            try? context.save()
+                                        }),
+                                        secondaryButton: .cancel())
+                                }
                         }
                     }
-                }.padding(.bottom, 80)
+                }
             }
             
             VStack(alignment: .leading) {
@@ -104,9 +120,11 @@ struct DetailView: View {
                             Text("Add week")
                                 .foregroundStyle(Color.white)
                             
-                        }.frame(width: 170, height: 50)
-                            .padding(.bottom, 34)
-                            .padding(.leading, 20)  
+                        } .frame(width: 170, height: 50)
+                            .padding(.bottom, 20)
+                            .padding(.leading, 20)
+                            .padding(.top, 10)
+
                     }
                     
                     Spacer()
@@ -125,9 +143,18 @@ struct DetailView: View {
                         }.frame(width: 172, height: 52)
                             .padding(.bottom, 34)
                             .padding(.trailing, 20)
+                            .padding(.top, 10)
                     }
                     
                     
+                }
+                .background {
+                    Color(red: 243/255, green: 203/255, blue: 228/255)
+                        .background(.ultraThinMaterial)
+                        .opacity(0.7)
+                        .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
+                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
+                        .ignoresSafeArea()
                 }
             }
         } .navigationBarBackButtonHidden(true)
