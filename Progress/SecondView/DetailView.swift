@@ -13,18 +13,20 @@ struct DetailView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) var dismiss
     
-    @Query private var allActivities: [Activity]
-
-    var weeks: [Activity] {
-        allActivities.filter { $0.goal?.id == progress.id }
-    }
-
+    // "Я храню их в массиве allWeeks — это список всех недель." allWeeks — это полный массив всех недель, которые есть в базе, для всех целей. Например, если у тебя три цели, и у каждой есть по 2 недели, то allWeeks будет содержать все 6 объектов.
+    @Query private var allWeeks: [Week]
     
-    @State var numberOfWeeks: Int = 0
-    
+    // "На этом экране мы показываем одну конкретную цель и её прогресс."
     var progress: Goal
-    // новая переменная состояния, которая хранит, сколько дней уже отмечено пользователем.
-    //@State private var markedDays: Int = 0
+    
+    // отфильтрованые недели "Возьми из всего массива только те недели, которые принадлежат текущей цели progress."
+    var goalWeeks: [Week] {
+        // "Возьми только те недели, которые принадлежат этой цели."
+        allWeeks.filter { $0.goal?.id == progress.id }
+        //"И отсортируй их по номеру недели, от последней до первого." Например, если недели в базе были [2,1,3], после сортировки получится [3,2,1].
+            .sorted(by: { $0.number > $1.number })
+    }
+    
     
     var body: some View {
         
@@ -65,14 +67,13 @@ struct DetailView: View {
                 
                 VStack {
                     ScrollView {
-                        // Рисуй недели только если их реально больше нуля.
-                        if numberOfWeeks > 0 {
-                            ForEach(1...numberOfWeeks, id: \.self) { week in
-                                WeekCardView(progress: progress, week: week)
-                            }
+                        // "Для каждой недели создаём отдельную карточку."
+                        ForEach(goalWeeks, id: \.id) { week in
+                            // у кадлой карточки есть цель и неделя
+                            WeekCardView(progress: progress, week: week)
                         }
-                    }.padding(.bottom, 80)
-                }
+                    }
+                }.padding(.bottom, 80)
             }
             
             VStack(alignment: .leading) {
@@ -82,7 +83,16 @@ struct DetailView: View {
                 HStack {
                     Button {
                         // add week button
-                        numberOfWeeks += 1
+                        // let newWeek = Week - "Создаём новую неделю для этой цели."
+                        // goalWeeks → это массив недель для текущей цели.
+                        // .first → это первый элемент массива. после сортировки получится [3,2,1]. тогда первый элемент это 3, (3) + 1
+                        // goalWeeks.number = Week.number
+                        // ?? 0 → То есть, если нет ни одной недели, goalWeeks.last?.number будет nil, а ?? 0 заменит его на 0.
+                        let newWeek = Week(number: (goalWeeks.first?.number ?? 0) + 1, goal: progress)
+                        //"Добавляем неделю в базу данных."
+                        context.insert(newWeek)
+                        // "Сохраняем изменения, чтобы они остались даже после перезапуска."
+                        try? context.save()
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
@@ -96,10 +106,7 @@ struct DetailView: View {
                             
                         }.frame(width: 170, height: 50)
                             .padding(.bottom, 34)
-                            .padding(.leading, 20)
-                        
-                        
-                        
+                            .padding(.leading, 20)  
                     }
                     
                     Spacer()
@@ -122,23 +129,11 @@ struct DetailView: View {
                     
                     
                 }
-                
-                
-                
-                
             }
-            
-        }
-        .navigationBarBackButtonHidden(true)
-        .onAppear {
-            if let showWeeks = weeks.map(\.week).max() {
-                numberOfWeeks = showWeeks
-            }
-            else {
-                numberOfWeeks = 0
-            }
-        }
+        } .navigationBarBackButtonHidden(true)
+
     }
+
 }
 
 #Preview {

@@ -15,19 +15,26 @@ struct DayCardView: View {
     
     //activityList — массив всех активностей из базы (для всех дней недели).
     var activityList: [Activity]
-    // week — какая неделя (1, 2, 3…).
-    var week: Int
+    
     // day — название дня ("Mon", "Tue" и т.д.), чтобы показывать текст на кнопке.
     var day: String
     // dayIndex — число 0…6, чтобы понимать, какой это день недели.
     var dayIndex: Int
+    // week — какая неделя (1, 2, 3…).
+    var week: Week
     var goal: Goal
     
     // Проверяем, есть ли галочка
     var isMarked: Bool {
         // activityList — это массив всех активностей (галочек) на неделю. .contains { ... } спрашивает: «Есть ли в массиве хотя бы одна активность, которая удовлетворяет условию?»
-        // $0 — это каждый объект Activity из массива. «Есть ли в корзине галочка для понедельника первой недели?» $0.week - 1 неделя, $0.dayOfWeek. rawValue - понедельник, rawValue — это число или значение, которое скрыто внутри enum.
-        activityList.contains { $0.week == week && $0.dayOfWeek.rawValue == dayIndex && $0.goal == goal }
+        // activity — это каждый объект Activity из массива. «Есть ли в корзине галочка для понедельника первой недели?» activity.week - 1 неделя, activity.dayOfWeek. rawValue - понедельник, rawValue — это число или значение, которое скрыто внутри enum.
+        activityList.contains { activity in
+            activity.dayOfWeek.rawValue == dayIndex &&
+            activity.week == week &&
+            activity.goal == goal
+            
+        }
+        
     }
 
     
