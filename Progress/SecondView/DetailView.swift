@@ -16,6 +16,8 @@ struct DetailView: View {
     // "Я храню их в массиве allWeeks — это список всех недель." allWeeks — это полный массив всех недель, которые есть в базе, для всех целей. Например, если у тебя три цели, и у каждой есть по 2 недели, то allWeeks будет содержать все 6 объектов.
     @Query private var allWeeks: [Week]
     
+    @State private var showSheet = false
+    
     @State private var showAlert: Bool = false
     // "На этом экране мы показываем одну конкретную цель и её прогресс."
     var progress: Goal
@@ -98,6 +100,7 @@ struct DetailView: View {
                         context.insert(newWeek)
                         // "Сохраняем изменения, чтобы они остались даже после перезапуска."
                         try? context.save()
+                        showSheet = true
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
@@ -146,7 +149,13 @@ struct DetailView: View {
                         .ignoresSafeArea()
                 }
             }
+            
         } .navigationBarBackButtonHidden(true)
+            .sheet(isPresented: $showSheet) {
+                // to do
+                AddWeekView()
+                    .presentationDetents([.fraction(0.6)])
+            }
 
     }
 
