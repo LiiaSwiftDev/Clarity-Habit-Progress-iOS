@@ -35,7 +35,7 @@ struct GoalCardView: View {
                         .font(.system(size: 14))
                     Spacer()
                     
-                    ProgressBarView(myProgress: Double(goalStorage.markedDaysCount) / Double(goalStorage.timePerWeek))
+              //      ProgressBarView(myProgress: Double(goalStorage.markedDaysCount) / Double(goalStorage.timePerWeek))
                     
                 }
             }.padding()

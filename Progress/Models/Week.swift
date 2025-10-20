@@ -16,6 +16,7 @@ class Week: Identifiable {
     // Это номер недели — 1, 2, 3 и т.д.
     var number: Int
     var goal: Goal?
+    var markedDaysCount = 0
     
     init(number: Int, goal: Goal?) {
         self.number = number

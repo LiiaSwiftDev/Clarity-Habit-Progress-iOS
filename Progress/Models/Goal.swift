@@ -16,7 +16,6 @@ class Goal: Identifiable {
     var createDate = Date()
     var goal = ""
     var timePerWeek  = 0
-    var markedDaysCount = 0
     
     @Relationship(deleteRule: .cascade, inverse: \Activity.goal) var activities: [Activity] = []
     @Relationship(deleteRule: .cascade, inverse: \Week.goal) var weeks: [Week] = []

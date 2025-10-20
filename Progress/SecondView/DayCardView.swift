@@ -23,6 +23,7 @@ struct DayCardView: View {
     // week — какая неделя (1, 2, 3…).
     var week: Week
     var goal: Goal
+
     
     // Проверяем, есть ли галочка
     var isMarked: Bool {
@@ -36,9 +37,8 @@ struct DayCardView: View {
         }
         
     }
-
-    
     var body: some View {
+        
         ZStack {
           
             Rectangle()
@@ -56,6 +56,7 @@ struct DayCardView: View {
                     if let activity = activityList.first(where: { $0.week == week && $0.dayOfWeek.rawValue == dayIndex && $0.goal == goal }) {
                         // удалить активность
                         context.delete(activity)
+                        week.markedDaysCount -= 1
                     } else {
                         // Это значит: если галочки ещё нет, то мы её создаём.
                         // создать активность
@@ -66,6 +67,7 @@ struct DayCardView: View {
                                                 goal: goal)
                         // сохранить
                         context.insert(activity)
+                        week.markedDaysCount += 1
                     }
                     // сохранить результат
                     try? context.save()

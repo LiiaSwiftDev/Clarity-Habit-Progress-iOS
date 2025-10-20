@@ -52,7 +52,7 @@ struct DetailView: View {
                             .font(.system(size: 14))
                         Spacer()
                         
-                        ProgressBarView(myProgress: Double(progress.markedDaysCount) / Double(progress.timePerWeek))
+                  //      ProgressBarView(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek))
                         
                     }.padding(.horizontal, 30)
                     
@@ -65,8 +65,7 @@ struct DetailView: View {
                             .ignoresSafeArea()
                     }
                 Spacer()
-                
-                VStack {
+                                
                     ScrollView {
                         // "Для каждой недели создаём отдельную карточку."
                         ForEach(goalWeeks, id: \.id) { week in
@@ -87,9 +86,8 @@ struct DetailView: View {
                                         }),
                                         secondaryButton: .cancel())
                                 }
-                        }
+                        }.padding(.bottom, 160)
                     }
-                }
             }
             
             VStack(alignment: .leading) {
@@ -141,7 +139,7 @@ struct DetailView: View {
                                 .foregroundStyle(Color.white)
                             
                         }.frame(width: 172, height: 52)
-                            .padding(.bottom, 34)
+                            .padding(.bottom, 20)
                             .padding(.trailing, 20)
                             .padding(.top, 10)
                     }
