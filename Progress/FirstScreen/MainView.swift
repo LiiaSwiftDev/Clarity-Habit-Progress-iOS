@@ -48,9 +48,11 @@ struct MainView: View {
                                             showSheet = true
                                             edit = true
                                         }
+                                    
                                 } .buttonStyle(.plain)
                             }
                         }.padding(.horizontal)
+                         .padding(.bottom, 120)
                     }
                 }
                 VStack {

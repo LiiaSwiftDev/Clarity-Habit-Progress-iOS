@@ -6,11 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct GoalCardView: View {
     
+    @Query private var allWeeks: [Week]
+    
     var goalStorage: Goal
     @State private var marked: Int = 0
+    
+    // это как коробочка, в которую мы что-то кладём. В данном случае в неё мы положим последнюю неделю.
+    var lastWeek: Week {
+        // goalWeeks — имя этой новой коробочки. В ней будут только недели для нашей цели.
+        let goalWeek = allWeeks
+            .filter {
+                // тут мы фильтруем все недели и берем все недели к одной цели
+                $0.goal?.id == goalStorage.id
+            }
+        //недели сортируются от самой большой к самой маленькой, т.е. последняя неделя будет первой в списке.
+            .sorted { $0.number > $1.number }
+        return goalWeek.first ?? Week(number: 0, goal: goalStorage)
+    }
     
     var body: some View {
         ZStack {
@@ -35,7 +51,7 @@ struct GoalCardView: View {
                         .font(.system(size: 14))
                     Spacer()
                     
-              //      ProgressBarView(myProgress: Double(goalStorage.markedDaysCount) / Double(goalStorage.timePerWeek))
+                    ProgressBarView(myProgress: Double(lastWeek.markedDaysCount) / Double(goalStorage.timePerWeek))
                     
                 }
             }.padding()
@@ -45,6 +61,3 @@ struct GoalCardView: View {
     }
 }
 
-#Preview {
-    GoalCardView(goalStorage: Goal())
-}

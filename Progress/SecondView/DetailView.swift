@@ -22,8 +22,8 @@ struct DetailView: View {
     
     // отфильтрованые недели "Возьми из всего массива только те недели, которые принадлежат текущей цели progress."
     var goalWeeks: [Week] {
-        // "Возьми только те недели, которые принадлежат этой цели."
-        allWeeks.filter { $0.goal?.id == progress.id }
+        // "Возьми только те недели, которые принадлежат этой цели." и номер которых больше чем 0
+        allWeeks.filter { $0.goal?.id == progress.id && $0.number > 0 }
         //"И отсортируй их по номеру недели, от последней до первого." Например, если недели в базе были [2,1,3], после сортировки получится [3,2,1].
             .sorted(by: { $0.number > $1.number })
     }
@@ -46,15 +46,6 @@ struct DetailView: View {
                             .font(.system(size: 14))
                         
                     }.padding(.horizontal)
-                    
-                    HStack {
-                        Text("Progress of this week:")
-                            .font(.system(size: 14))
-                        Spacer()
-                        
-                  //      ProgressBarView(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek))
-                        
-                    }.padding(.horizontal, 30)
                     
                 }.padding()
                 // background (_content_)

@@ -22,11 +22,12 @@ struct WeekCardView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Week\(week.number)")
+                Text("Week \(week.number)")
                     .font(.system(size: 12))
                 Spacer()
                 // отмеченные дни делим на сколько всего отмечено дней в неделю 3/week получаем 2/3 or 1/3 and so on and so forth
                 ProgressBarView(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek))
+                
             }.padding(.horizontal, 10)
             ZStack {
                 
