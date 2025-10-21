@@ -25,9 +25,9 @@ struct DetailView: View {
     // отфильтрованые недели "Возьми из всего массива только те недели, которые принадлежат текущей цели progress."
     var goalWeeks: [Week] {
         // "Возьми только те недели, которые принадлежат этой цели." и номер которых больше чем 0
-        allWeeks.filter { $0.goal?.id == progress.id && $0.number > 0 }
+        allWeeks.filter { $0.goal?.id == progress.id }
         //"И отсортируй их по номеру недели, от последней до первого." Например, если недели в базе были [2,1,3], после сортировки получится [3,2,1].
-            .sorted(by: { $0.number > $1.number })
+          //  .sorted(by: { $0.number > $1.number })
     }
     
     
@@ -89,6 +89,7 @@ struct DetailView: View {
                 
                 HStack {
                     Button {
+                        /*
                         // add week button
                         // let newWeek = Week - "Создаём новую неделю для этой цели."
                         // goalWeeks → это массив недель для текущей цели.
@@ -100,6 +101,7 @@ struct DetailView: View {
                         context.insert(newWeek)
                         // "Сохраняем изменения, чтобы они остались даже после перезапуска."
                         try? context.save()
+                              */
                         showSheet = true
                     } label: {
                         ZStack {
@@ -153,8 +155,8 @@ struct DetailView: View {
         } .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $showSheet) {
                 // to do
-                AddWeekView()
-                    .presentationDetents([.fraction(0.6)])
+                AddWeekView(goal: progress)
+                    .presentationDetents([.fraction(0.7)])
             }
 
     }

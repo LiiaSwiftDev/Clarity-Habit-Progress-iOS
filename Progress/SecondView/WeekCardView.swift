@@ -22,7 +22,8 @@ struct WeekCardView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Week \(week.number)")
+                // вставляем нашу функуцию с датой 
+                Text("\(formattedDateRange(from: week.startDate, to: week.endDate))")
                     .font(.system(size: 12))
                 Spacer()
                 // отмеченные дни делим на сколько всего отмечено дней в неделю 3/week получаем 2/3 or 1/3 and so on and so forth
@@ -61,6 +62,32 @@ struct WeekCardView: View {
           .padding(.vertical, 10)
     }
     
+    // Функция делает текст дату красивой до 2025-09-28 и 2025-10-04, после September 28 - October 4, 2025
+    // Внешнее имя    from, to    видно при вызове функции
+    // Внутреннее имя    start, end    видно внутри функции
+    func formattedDateRange(from start: Date, to end: Date) -> String {
+        // Мы создаём помощника по имени formatter. Этот помощник умеет превращать дату в текст. (Например, из числа делает слово “September 28”.)
+        let formatter = DateFormatter()
+        // Мы говорим помощнику, на каком языке он должен писать. "en_US" — значит “американский английский”. поэтому месяц будет написан September, а не сентябрь.
+        formatter.locale = Locale(identifier: "en_US")
+        // Мы говорим, в каком виде писать дату. "MMMM d" — это шаблон: MMMM = название месяца (например, September); d = день числа (например, 4). Вместе получится September 4.
+        formatter.dateFormat = "MMMM d"
+        
+        //  Мы берём первую дату (start) И просим помощника превратить её в текст. Теперь startStr = например "September 28".
+        let startStr = formatter.string(from: start)
+        // То же самое, но для второй даты (end). Теперь endStr = например "October 4".
+        let endStr = formatter.string(from: end)
+        
+        // Мы снова говорим помощнику: “Теперь напиши только год.” в таком так виде
+        formatter.dateFormat = "yyyy"
+        // Мы просим написать год из даты end (из конца недели). Теперь yearStr = "2025".
+        let yearStr = formatter.string(from: end)
+        
+        // получаем "September 28 - October 4, 2025"
+        return "\(startStr) - \(endStr), \(yearStr)"
+    }
+
+
 }
 
 

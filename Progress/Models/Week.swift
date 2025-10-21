@@ -13,14 +13,19 @@ import SwiftData
 class Week: Identifiable {
     
     @Attribute(.unique) var id: String = UUID().uuidString
-    // Это номер недели — 1, 2, 3 и т.д.
-    var number: Int
+    
     var goal: Goal?
     var markedDaysCount = 0
     
-    init(number: Int, goal: Goal?) {
-        self.number = number
+    // сохраняем день начала недели
+    var startDate: Date
+    // и конца
+    var endDate: Date
+    
+    init(goal: Goal?, startDate: Date, endDate: Date) {
         self.goal = goal
+        self.startDate = startDate
+        self.endDate = endDate
     }
     
 }
