@@ -17,6 +17,19 @@ struct WeekCardView: View {
     // Это массив названий дней недели, чтобы знать, что показывать на экране. days[0] = "Mon", days[1] = "Tue" и т.д.
     let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
     
+    // массив реальных дат недели (из модели Week)
+    var weekDates: [Date] {
+        [
+            week.startDate,
+            week.tuesday,
+            week.wednesday,
+            week.thursday,
+            week.friday,
+            week.saturday,
+            week.endDate
+        ]
+    }
+    
     @Query private var activities: [Activity]  // автоматически подгружаем из SwiftData
     
     var body: some View {
@@ -47,6 +60,7 @@ struct WeekCardView: View {
                                     activityList: activities,
                                     day: days[index],
                                     dayIndex: index,
+                                    number: convertDatetoString(date: weekDates[index]),
                                     week: week,
                                     goal: progress
                                 )
@@ -60,6 +74,17 @@ struct WeekCardView: View {
      
         } .padding(.horizontal)
           .padding(.vertical, 10)
+    }
+    
+    func convertDatetoString(date: Date) -> String {
+        
+        let formater = DateFormatter()
+        formater.dateFormat = "dd"
+        
+        let numberOfDay = formater.string(from: date)
+        
+        return "\(numberOfDay)"
+        
     }
     
     // Функция делает текст дату красивой до 2025-09-28 и 2025-10-04, после September 28 - October 4, 2025

@@ -19,12 +19,22 @@ class Week: Identifiable {
     
     // сохраняем день начала недели
     var startDate: Date
+    var tuesday: Date
+    var wednesday: Date
+    var thursday: Date
+    var friday: Date
+    var saturday: Date
     // и конца
     var endDate: Date
     
-    init(goal: Goal?, startDate: Date, endDate: Date) {
+    init(goal: Goal?, startDate: Date, tuesday: Date, wednesday: Date, thursday: Date, friday: Date, saturday: Date, endDate: Date) {
         self.goal = goal
         self.startDate = startDate
+        self.tuesday = tuesday
+        self.wednesday = wednesday
+        self.thursday = thursday
+        self.friday = friday
+        self.saturday = saturday
         self.endDate = endDate
     }
     

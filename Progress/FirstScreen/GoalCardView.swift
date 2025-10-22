@@ -25,7 +25,7 @@ struct GoalCardView: View {
             }
         //недели сортируются от самой большой к самой маленькой, т.е. последняя неделя будет первой в списке.
             .sorted { $0.startDate > $1.startDate }
-        return goalWeek.first ?? Week(goal: goalStorage, startDate: Date(), endDate: Date())
+        return goalWeek.first ?? Week(goal: goalStorage, startDate: Date(), tuesday: Date(), wednesday: Date(), thursday: Date(), friday: Date(), saturday: Date(), endDate: Date())
     }
     
     var body: some View {

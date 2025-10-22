@@ -20,6 +20,8 @@ struct DayCardView: View {
     var day: String
     // dayIndex — число 0…6, чтобы понимать, какой это день недели.
     var dayIndex: Int
+    // номер дня 21, 22, 23
+    var number: String
     // week — какая неделя (1, 2, 3…).
     var week: Week
     var goal: Goal
@@ -49,6 +51,9 @@ struct DayCardView: View {
                 Text(day)
                     .font(.system(size: 12, weight: .medium))
                     .padding(.bottom, 6)
+                
+                // номер дня
+                Text(number)
                 
                 Button {
                     // Мы смотрим в списке всех активностей (activityList), есть ли уже галочка для этого дня и недели. first(where:) значит: найти первый объект, который подходит под условие. если есть галочка для понедельника первой недели значит условие получает true и мы выполняем удаление
@@ -81,6 +86,7 @@ struct DayCardView: View {
             
         }
     }
+    
 }
 
 
