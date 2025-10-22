@@ -27,7 +27,7 @@ struct DetailView: View {
         // "Возьми только те недели, которые принадлежат этой цели." и номер которых больше чем 0
         allWeeks.filter { $0.goal?.id == progress.id }
         //"И отсортируй их по номеру недели, от последней до первого." Например, если недели в базе были [2,1,3], после сортировки получится [3,2,1].
-          //  .sorted(by: { $0.number > $1.number })
+            .sorted(by: { $0.startDate > $1.startDate })
     }
     
     
@@ -156,7 +156,7 @@ struct DetailView: View {
             .sheet(isPresented: $showSheet) {
                 // to do
                 AddWeekView(goal: progress)
-                    .presentationDetents([.fraction(0.7)])
+                    .presentationDetents([.fraction(0.8)])
             }
 
     }

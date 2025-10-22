@@ -15,7 +15,7 @@ struct GoalCardView: View {
     var goalStorage: Goal
     @State private var marked: Int = 0
     
-    // это как коробочка, в которую мы что-то кладём. В данном случае в неё мы положим последнюю неделю.
+    // это все фильтр чтобы получить progress bar последней недели. это как коробочка, в которую мы что-то кладём. В данном случае в неё мы положим последнюю неделю.
     var lastWeek: Week {
         // goalWeeks — имя этой новой коробочки. В ней будут только недели для нашей цели.
         let goalWeek = allWeeks
@@ -24,7 +24,7 @@ struct GoalCardView: View {
                 $0.goal?.id == goalStorage.id
             }
         //недели сортируются от самой большой к самой маленькой, т.е. последняя неделя будет первой в списке.
-       //     .sorted { $0.number > $1.number }
+            .sorted { $0.startDate > $1.startDate }
         return goalWeek.first ?? Week(goal: goalStorage, startDate: Date(), endDate: Date())
     }
     
