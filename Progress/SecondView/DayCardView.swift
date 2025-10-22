@@ -44,16 +44,20 @@ struct DayCardView: View {
         ZStack {
           
             Rectangle()
-                .frame(width: 70, height: 80)
+                .frame(width: 70, height: 90)
                 .foregroundStyle(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 7))
             VStack(alignment: .center, spacing: 0) {
                 Text(day)
-                    .font(.system(size: 12, weight: .medium))
-                    .padding(.bottom, 6)
+                    .font(.system(size: 12, weight: .regular))
+                    .padding(.bottom, 4)
+                    
                 
                 // номер дня
                 Text(number)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundStyle(Color.black)
+                    .padding(.bottom, 2)
                 
                 Button {
                     // Мы смотрим в списке всех активностей (activityList), есть ли уже галочка для этого дня и недели. first(where:) значит: найти первый объект, который подходит под условие. если есть галочка для понедельника первой недели значит условие получает true и мы выполняем удаление
@@ -80,9 +84,10 @@ struct DayCardView: View {
                     Image(systemName: isMarked ? "checkmark.circle.fill" : "circle")
                         .foregroundColor(.green)
                         .font(.title)
+                        .frame(width: 20)
                 }
 
-            } .padding(.vertical, 5)
+            } .padding(.vertical, 10)
             
         }
     }

@@ -31,7 +31,7 @@ struct MainView: View {
                         .font(.custom("SFProRounded-Bold", size: 34))
                         .padding(.bottom, 30)
                     
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         VStack(spacing: 10) {
                             ForEach(goals) { g in
                                 
@@ -52,7 +52,7 @@ struct MainView: View {
                                 } .buttonStyle(.plain)
                             }
                         }.padding(.horizontal)
-                         .padding(.bottom, 120)
+                         .padding(.bottom, 160)
                     }
                 }
                 VStack {

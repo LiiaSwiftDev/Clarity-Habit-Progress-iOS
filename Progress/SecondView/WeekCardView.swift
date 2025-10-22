@@ -15,13 +15,13 @@ struct WeekCardView: View {
     
     let week: Week
     // Это массив названий дней недели, чтобы знать, что показывать на экране. days[0] = "Mon", days[1] = "Tue" и т.д.
-    let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+    let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] // mon - 0, tue - 1...
     
-    // массив реальных дат недели (из модели Week)
+    // Мы создаём weekDates, чтобы у каждой даты недели был свой индекс (0–6)
     var weekDates: [Date] {
         [
-            week.startDate,
-            week.tuesday,
+            week.startDate, // mon - 0
+            week.tuesday, // tue - 1
             week.wednesday,
             week.thursday,
             week.friday,
@@ -60,6 +60,7 @@ struct WeekCardView: View {
                                     activityList: activities,
                                     day: days[index],
                                     dayIndex: index,
+                                    // это моя функция которая из даты делает string
                                     number: convertDatetoString(date: weekDates[index]),
                                     week: week,
                                     goal: progress
@@ -79,7 +80,7 @@ struct WeekCardView: View {
     func convertDatetoString(date: Date) -> String {
         
         let formater = DateFormatter()
-        formater.dateFormat = "dd"
+        formater.dateFormat = "d"
         
         let numberOfDay = formater.string(from: date)
         

@@ -72,6 +72,8 @@ struct AddNewGoalView: View {
                 .buttonStyle(.borderedProminent)
                     .foregroundStyle(Color.white)
                     .tint(Color.blue)
+                    .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .disabled(times.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }.padding()
         // Когда AddNewGoalView появляется, если editMood true и goalS не nil, то в TextField подставляются значения выбранной карточки для редактирования.

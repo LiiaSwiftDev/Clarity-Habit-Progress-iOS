@@ -38,28 +38,7 @@ struct DetailView: View {
                 .ignoresSafeArea()
             
             VStack {
-                VStack(spacing: 10) {
-                    HStack {
-                        Text(progress.goal)
-                            .font(.custom("SFProRounded-Medium", size: 30))
-                        Spacer()
-                        
-                        Text("\(progress.timePerWeek)/week")
-                            .font(.system(size: 14))
-                        
-                    }.padding(.horizontal)
-                    
-                }.padding()
-                // background (_content_)
-                    .background {
-                        Color.white
-                            .clipShape(.rect(bottomLeadingRadius: 15, bottomTrailingRadius: 15))
-                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
-                            .ignoresSafeArea()
-                    }
-                Spacer()
-                                
-                    ScrollView {
+                ScrollView(showsIndicators: false) {
                         // "Для каждой недели создаём отдельную карточку."
                         ForEach(goalWeeks, id: \.id) { week in
                             // у кадлой карточки есть цель и неделя
@@ -80,7 +59,34 @@ struct DetailView: View {
                                         secondaryButton: .cancel())
                                 }
                         }.padding(.bottom, 160)
+                        .padding(.top, 20)
+                                                    
+                    }.padding(.top, 60)
+
+            }
+            
+            VStack {
+                VStack(spacing: 10) {
+                    HStack {
+                        Text(progress.goal)
+                            .font(.custom("SFProRounded-Medium", size: 30))
+                        Spacer()
+                        
+                        Text("\(progress.timePerWeek)/week")
+                            .font(.system(size: 14))
+                        
+                    }.padding(.horizontal)
+                    
+                }.padding()
+                // background (_content_)
+                    .background {
+                        Color.white
+                            .clipShape(.rect(bottomLeadingRadius: 15, bottomTrailingRadius: 15))
+                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
+                            .ignoresSafeArea()
                     }
+                
+                Spacer()
             }
             
             VStack(alignment: .leading) {
@@ -89,19 +95,6 @@ struct DetailView: View {
                 
                 HStack {
                     Button {
-                        /*
-                        // add week button
-                        // let newWeek = Week - "Создаём новую неделю для этой цели."
-                        // goalWeeks → это массив недель для текущей цели.
-                        // .first → это первый элемент массива. после сортировки получится [3,2,1]. тогда первый элемент это 3, (3) + 1
-                        // goalWeeks.number = Week.number
-                        // ?? 0 → То есть, если нет ни одной недели, goalWeeks.last?.number будет nil, а ?? 0 заменит его на 0.
-                        let newWeek = Week(number: (goalWeeks.first?.number ?? 0) + 1, goal: progress)
-                        //"Добавляем неделю в базу данных."
-                        context.insert(newWeek)
-                        // "Сохраняем изменения, чтобы они остались даже после перезапуска."
-                        try? context.save()
-                              */
                         showSheet = true
                     } label: {
                         ZStack {
@@ -156,7 +149,7 @@ struct DetailView: View {
             .sheet(isPresented: $showSheet) {
                 // to do
                 AddWeekView(goal: progress)
-                    .presentationDetents([.fraction(0.8)])
+                    .presentationDetents([.fraction(0.7)])
             }
 
     }

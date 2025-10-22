@@ -20,7 +20,7 @@ struct AddWeekView: View {
     @State private var showAlert = false
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             // подпись для пользователя
             Text("Select a day from the week you’d like to track.")
                 .multilineTextAlignment(.center)
@@ -48,6 +48,7 @@ struct AddWeekView: View {
                     .cornerRadius(12)
             }
             .padding(.horizontal)
+            .padding(.top, 20)
         }
         .padding()
         .alert("This week already exists.", isPresented: $showAlert) {
