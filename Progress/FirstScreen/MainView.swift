@@ -18,6 +18,11 @@ struct MainView: View {
     @State var edit = false
     // optional потому что пока мы не выбрали это nil
     @State var selectedGoal: Goal?
+   
+    
+    var allGoals: [Goal] {
+        goals.sorted(by: { $0.createDate > $1.createDate })
+    }
     
     var body: some View {
         NavigationStack {
@@ -33,7 +38,7 @@ struct MainView: View {
                     
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 10) {
-                            ForEach(goals) { g in
+                            ForEach(allGoals) { g in
                                 
                                 NavigationLink {
                                     

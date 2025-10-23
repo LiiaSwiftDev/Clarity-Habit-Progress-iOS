@@ -17,7 +17,7 @@ struct DetailView: View {
     @Query private var allWeeks: [Week]
     
     @State private var showSheet = false
-    
+    @State private var weekToDelete: Week? = nil
     @State private var showAlert: Bool = false
     // "На этом экране мы показываем одну конкретную цель и её прогресс."
     var progress: Goal
@@ -39,33 +39,39 @@ struct DetailView: View {
             
             VStack {
                 ScrollView(showsIndicators: false) {
-                        // "Для каждой недели создаём отдельную карточку."
-                        ForEach(goalWeeks, id: \.id) { week in
-                            // у кадлой карточки есть цель и неделя
-                            WeekCardView(progress: progress, week: week)
-                                .onLongPressGesture {
-                                    showAlert = true
-                                }
-                                .alert(isPresented: $showAlert) {
-                                    Alert(
-                                        title: Text("Delete Week"),
-                                        message: Text("Delete this week permanently? This action cannot be undone."),
-                                        // .destructive - make button red
-                                        primaryButton: .destructive(Text("Delete"), action: {
+                    // "Для каждой недели создаём отдельную карточку."
+                    ForEach(goalWeeks, id: \.id) { week in
+                        // у кадлой карточки есть цель и неделя
+                        WeekCardView(progress: progress, week: week)
+                            .onLongPressGesture {
+                                weekToDelete = week
+                                showAlert = true
+                            }
+                            .alert(isPresented: $showAlert) {
+                                Alert(
+                                    title: Text("Delete Week"),
+                                    message: Text("Delete this week permanently? This action cannot be undone."),
+                                    // .destructive - make button red
+                                    primaryButton: .destructive(Text("Delete"), action: {
+                                        if let week = weekToDelete {
                                             context.delete(week)
-                                            
                                             try? context.save()
-                                        }),
-                                        secondaryButton: .cancel())
-                                }
-                        }.padding(.bottom, 160)
-                        .padding(.top, 20)
-                                                    
-                    }.padding(.top, 60)
-
+                                        }
+                                        
+                                        
+                                        
+                                    }),
+                                    secondaryButton: .cancel())
+                            }
+                    } //.animation(.default, value: goalWeeks)
+                    .padding(.bottom, 160)
+                    .padding(.top, 20)
+                    
+                }.padding(.top, 60)
+                
             }
             
-            VStack {
+            VStack(alignment: .leading) {
                 VStack(spacing: 10) {
                     HStack {
                         Text(progress.goal)
@@ -82,14 +88,9 @@ struct DetailView: View {
                     .background {
                         Color.white
                             .clipShape(.rect(bottomLeadingRadius: 15, bottomTrailingRadius: 15))
-                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
+                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                             .ignoresSafeArea()
                     }
-                
-                Spacer()
-            }
-            
-            VStack(alignment: .leading) {
                 
                 Spacer()
                 
@@ -111,7 +112,7 @@ struct DetailView: View {
                             .padding(.bottom, 20)
                             .padding(.leading, 20)
                             .padding(.top, 10)
-
+                        
                     }
                     
                     Spacer()
@@ -151,9 +152,9 @@ struct DetailView: View {
                 AddWeekView(goal: progress)
                     .presentationDetents([.fraction(0.7)])
             }
-
+        
     }
-
+    
 }
 
 #Preview {
