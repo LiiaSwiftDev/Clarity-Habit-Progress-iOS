@@ -14,8 +14,10 @@ struct AddNewGoalView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var text: String = ""
-    @State private var times: String = ""
     @State private var showConfirmation: Bool = false
+    
+    @State private var selectedOption = 1
+    let options = [1, 2, 3, 4, 5, 6, 7]
     
     var editMood: Bool
     var goalS: Goal?
@@ -26,12 +28,12 @@ struct AddNewGoalView: View {
                 .textFieldStyle(.roundedBorder)
 
             // limit
-            HStack {
-                TextField("", text: $times)
-                    .textFieldStyle(.roundedBorder)
-                    .keyboardType(.numberPad)
-                    .frame(width: 60)
-                // limit 7
+            HStack(spacing: 0) {
+                Picker("", selection: $selectedOption) {
+                    ForEach(options, id: \.self) { option in
+                        Text("\(option)")
+                    }
+                }
                 Text("times per week")
                 
                 Spacer()
@@ -53,7 +55,7 @@ struct AddNewGoalView: View {
                     if editMood, let goal = goalS {
                         withAnimation {
                             goal.goal = text
-                            goal.timePerWeek = Int(times) ?? 0
+                            goal.timePerWeek = selectedOption
                             
                             try? context.save()
                         }
@@ -62,7 +64,7 @@ struct AddNewGoalView: View {
                             // Если editMood == false (режим создания новой цели), то создаёт новый объект Goal и вставляет его в базу данных (context.insert).
                             let newGoal = Goal()
                             newGoal.goal = text
-                            newGoal.timePerWeek = Int(times) ?? 0
+                            newGoal.timePerWeek = selectedOption
                             context.insert(newGoal)
                             
                             // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
@@ -77,7 +79,7 @@ struct AddNewGoalView: View {
                     .foregroundStyle(Color.white)
                     .tint(Color.blue)
                     .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    .disabled(times.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    
             }
         }.padding()
         // Когда AddNewGoalView появляется, если editMood true и goalS не nil, то в TextField подставляются значения выбранной карточки для редактирования.
@@ -85,7 +87,7 @@ struct AddNewGoalView: View {
                 // editMood должно быть true, goalS дожно быть не nil. обы услови должны быть true
                 if editMood, let goal = goalS {
                     text = goal.goal
-                    times = String(goal.timePerWeek)
+                    selectedOption = goal.timePerWeek
                 }
             
             }

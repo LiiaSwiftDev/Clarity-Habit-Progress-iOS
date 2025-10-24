@@ -63,7 +63,7 @@ struct DetailView: View {
                                     }),
                                     secondaryButton: .cancel())
                             }
-                    } //.animation(.default, value: goalWeeks)
+                    } 
                     .padding(.bottom, 160)
                     .padding(.top, 20)
                     
