@@ -25,36 +25,37 @@ struct GoalCardView: View {
             }
         //недели сортируются от самой большой к самой маленькой, т.е. последняя неделя будет первой в списке.
             .sorted { $0.startDate > $1.startDate }
-        return goalWeek.first ?? Week(goal: goalStorage, startDate: Date(), tuesday: Date(), wednesday: Date(), thursday: Date(), friday: Date(), saturday: Date(), endDate: Date())
+        return goalWeek.first ?? Week(goal: goalStorage, startDate: Date(), endDate: Date())
     }
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 15)
                             .fill(Color.white)
-                            .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 4)
+                            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
 
 
             VStack(spacing: 10) {
                 HStack {
                     Text(goalStorage.goal)
-                        .font(.custom("SFProRounded-Medium", size: 30))
+                        .font(.nameOfGoal)
                     Spacer()
                     
                     Text("\(goalStorage.timePerWeek)/week")
-                        .font(.system(size: 14))
+                        .font(.textInCard)
                     
-                }
+                }//.padding(.vertical, 10)
                 
                 HStack {
-                    Text("Progress of this week:")
-                        .font(.system(size: 14))
+                    Text("This week")
+                        .font(.textInCard)
                     Spacer()
                     
-                    ProgressBarView(myProgress: Double(lastWeek.markedDaysCount) / Double(goalStorage.timePerWeek))
+                    ProgressBarView(myProgress: Double(lastWeek.markedDaysCount) / Double(goalStorage.timePerWeek), width: 80.0)
                     
                 }
-            }.padding()
+            }.padding(.horizontal, 20)
+                .padding(.vertical, 18)
             
         }
         

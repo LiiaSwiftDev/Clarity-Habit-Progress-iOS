@@ -18,13 +18,18 @@
 		186E67BD2E904193006661CA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67B92E904193006661CA /* MainView.swift */; };
 		186E67BE2E904193006661CA /* ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67BA2E904193006661CA /* ProgressApp.swift */; };
 		186E67C12E9043DE006661CA /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67C02E9043DE006661CA /* Goal.swift */; };
-		186E67C62E906B75006661CA /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 186E67C52E906B75006661CA /* SF-Pro-Rounded-Bold.otf */; };
-		186E67C82E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 186E67C72E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf */; };
 		186E67CB2E90B2B4006661CA /* GoalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67CA2E90B2B4006661CA /* GoalCardView.swift */; };
 		186E67CD2E9189DE006661CA /* AddNewGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67CC2E9189DE006661CA /* AddNewGoalView.swift */; };
 		186E67D22E920301006661CA /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67D12E920301006661CA /* DetailView.swift */; };
 		186E67D62E956E8B006661CA /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67D52E956E8B006661CA /* ProgressBarView.swift */; };
 		186E67D82E95A61F006661CA /* DayCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E67D72E95A61F006661CA /* DayCardView.swift */; };
+		187043F82EB2BB270021D1B5 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187043F72EB2BB270021D1B5 /* FontHelper.swift */; };
+		187043FD2EB2FF990021D1B5 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 187043FC2EB2FF990021D1B5 /* SF-Pro-Display-Semibold.otf */; };
+		187044012EB3027F0021D1B5 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 187044002EB3027F0021D1B5 /* SF-Pro-Text-Medium.otf */; };
+		187044032EB304050021D1B5 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 187044022EB304050021D1B5 /* SF-Pro-Text-Light.otf */; };
+		187044052EB305420021D1B5 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 187044042EB305420021D1B5 /* SF-Pro-Display-Regular.otf */; };
+		187044082EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 187044072EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf */; };
+		1870440A2EB552360021D1B5 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187044092EB552360021D1B5 /* Percent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,13 +46,18 @@
 		186E67BA2E904193006661CA /* ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressApp.swift; sourceTree = "<group>"; };
 		186E67C02E9043DE006661CA /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		186E67C42E906782006661CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		186E67C52E906B75006661CA /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
-		186E67C72E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Medium.otf"; sourceTree = "<group>"; };
 		186E67CA2E90B2B4006661CA /* GoalCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCardView.swift; sourceTree = "<group>"; };
 		186E67CC2E9189DE006661CA /* AddNewGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewGoalView.swift; sourceTree = "<group>"; };
 		186E67D12E920301006661CA /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		186E67D52E956E8B006661CA /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		186E67D72E95A61F006661CA /* DayCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCardView.swift; sourceTree = "<group>"; };
+		187043F72EB2BB270021D1B5 /* FontHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontHelper.swift; sourceTree = "<group>"; };
+		187043FC2EB2FF990021D1B5 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		187044002EB3027F0021D1B5 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		187044022EB304050021D1B5 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
+		187044042EB305420021D1B5 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		187044072EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Thin.otf"; sourceTree = "<group>"; };
+		187044092EB552360021D1B5 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +85,9 @@
 			isa = PBXGroup;
 			children = (
 				186E67BB2E904193006661CA /* Progress */,
+				187043F62EB2BAEA0021D1B5 /* Helper */,
 				186E67AB2E8DA5BB006661CA /* Products */,
-				186E67C52E906B75006661CA /* SF-Pro-Rounded-Bold.otf */,
-				186E67C72E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf */,
+				187044062EB305670021D1B5 /* Font */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,12 +137,33 @@
 			isa = PBXGroup;
 			children = (
 				186E67D12E920301006661CA /* DetailView.swift */,
-				186E67D52E956E8B006661CA /* ProgressBarView.swift */,
 				186E67D72E95A61F006661CA /* DayCardView.swift */,
 				18475ACC2E995F5A00CD18CD /* WeekCardView.swift */,
 				18475B092EA6DADE00CD18CD /* AddWeekView.swift */,
+				186E67D52E956E8B006661CA /* ProgressBarView.swift */,
+				187044092EB552360021D1B5 /* Percent.swift */,
 			);
 			path = SecondView;
+			sourceTree = "<group>";
+		};
+		187043F62EB2BAEA0021D1B5 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				187043F72EB2BB270021D1B5 /* FontHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		187044062EB305670021D1B5 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				187043FC2EB2FF990021D1B5 /* SF-Pro-Display-Semibold.otf */,
+				187044002EB3027F0021D1B5 /* SF-Pro-Text-Medium.otf */,
+				187044072EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf */,
+				187044042EB305420021D1B5 /* SF-Pro-Display-Regular.otf */,
+				187044022EB304050021D1B5 /* SF-Pro-Text-Light.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,9 +227,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186E67C82E90AE1A006661CA /* SF-Pro-Rounded-Medium.otf in Resources */,
+				187043FD2EB2FF990021D1B5 /* SF-Pro-Display-Semibold.otf in Resources */,
+				187044032EB304050021D1B5 /* SF-Pro-Text-Light.otf in Resources */,
 				186E67BC2E904193006661CA /* Assets.xcassets in Resources */,
-				186E67C62E906B75006661CA /* SF-Pro-Rounded-Bold.otf in Resources */,
+				187044082EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf in Resources */,
+				187044012EB3027F0021D1B5 /* SF-Pro-Text-Medium.otf in Resources */,
+				187044052EB305420021D1B5 /* SF-Pro-Display-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +245,7 @@
 			files = (
 				186E67BD2E904193006661CA /* MainView.swift in Sources */,
 				186E67D22E920301006661CA /* DetailView.swift in Sources */,
+				187043F82EB2BB270021D1B5 /* FontHelper.swift in Sources */,
 				18475AC92E98418800CD18CD /* Onboarding1.swift in Sources */,
 				186E67CB2E90B2B4006661CA /* GoalCardView.swift in Sources */,
 				18475AC62E982FCE00CD18CD /* OnboardingView.swift in Sources */,
@@ -222,6 +257,7 @@
 				186E67D62E956E8B006661CA /* ProgressBarView.swift in Sources */,
 				18475B0A2EA6DADE00CD18CD /* AddWeekView.swift in Sources */,
 				18475ACD2E995F5A00CD18CD /* WeekCardView.swift in Sources */,
+				1870440A2EB552360021D1B5 /* Percent.swift in Sources */,
 				18475B022EA1B2A900CD18CD /* Activity.swift in Sources */,
 				186E67D82E95A61F006661CA /* DayCardView.swift in Sources */,
 			);

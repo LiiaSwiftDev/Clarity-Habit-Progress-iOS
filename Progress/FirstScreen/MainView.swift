@@ -27,17 +27,23 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(red: 243/255, green: 203/255, blue: 228/255)
+                Color("Background")
                     .ignoresSafeArea()
                 
-                VStack {
-                    
-                    Text("My goals")
-                        .font(.custom("SFProRounded-Bold", size: 34))
-                        .padding(.bottom, 30)
-                    
+                VStack(spacing: 0) {
+                    HStack {
+                        Text("My goals")
+                            .font(.screanTitle)
+                            .padding(.bottom, 10)
+                        
+                        Spacer()
+                        
+                    } .padding(.horizontal, 22)
+                        .padding(.top, 20)
+                        
+           
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 10) {
+                        VStack(spacing: 6) {
                             ForEach(allGoals) { g in
                                 
                                 NavigationLink {
@@ -47,7 +53,6 @@ struct MainView: View {
                                 } label: {
                                     GoalCardView(goalStorage: g)
                                         .padding(.top, 10)
-                                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                                         .onLongPressGesture {
                                             selectedGoal = g
                                             showSheet = true
@@ -74,24 +79,30 @@ struct MainView: View {
                         } label: {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.black, lineWidth: 1)
-                                    .fill(
-                                        LinearGradient(colors: [Color(red: 230/255, green: 113/255, blue: 142/255), Color(red: 209/255, green: 64/255, blue: 100/255)], startPoint: .top, endPoint: .bottom)
-                                    )
+                                    .foregroundStyle(Color("ButtonColor"))
+                                    .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
                                 
-                                Text("+ New goal")
-                                    .foregroundStyle(Color.white)
+                                Text("New goal")
+                                    .font(.buttonText)
+                                    .foregroundStyle(Color("GrayInside"))
+                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0.5, y: 0)
+                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: -0.5, y: 0)
+                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: 0.5)
+                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: -0.5)
+                                    
+                                    
                                 
-                            }.frame(width: 366, height: 50)
+                            }.frame(height: 60)
                                 .padding(.bottom, 20)
                                 .padding(.top, 10)
+                                .padding(.horizontal, 10)
                             
                         }
 
                         Spacer()
                     }
                     .background {
-                        Color(red: 243/255, green: 203/255, blue: 228/255)
+                        Color("Background")
                             .background(.ultraThinMaterial)
                             .opacity(0.7)
                             .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))

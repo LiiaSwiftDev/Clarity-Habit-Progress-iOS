@@ -71,15 +71,6 @@ struct AddWeekView: View {
         // Неделя начинается с понедельника, потому что мы сделали calendar.firstWeekday = 2» Календарь автоматически берёт первый день этой недели, то есть понедельник 20 октября 2025.
         let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: selectedDate))!
         
-        let tuesday = calendar.date(byAdding: .day, value: 1, to: weekStart)!
-        
-        let wednesday = calendar.date(byAdding: .day, value: 2, to: weekStart)!
-        
-        let thursday = calendar.date(byAdding: .day, value: 3, to: weekStart)!
-        
-        let friday = calendar.date(byAdding: .day, value: 4, to: weekStart)!
-        
-        let satuday = calendar.date(byAdding: .day, value: 5, to: weekStart)!
         
         // воскресенье = +6 дней от понедельника
         // calendar.date - говорим помощнику: «сделай дату».
@@ -103,17 +94,26 @@ struct AddWeekView: View {
             goal: goal,
             // понедельник это? : справа результат нашего высчета
             startDate: weekStart,
-            tuesday: tuesday,
-            wednesday: wednesday,
-            thursday: thursday,
-            friday: friday,
-            saturday: satuday,
+            
             // воскресенье это? : справа результат нашего высчета
             endDate: weekEnd
         )
+        
+        
+        if goal.weeks.isEmpty {
+            withAnimation(.none) {
+                    // вставляем первую неделю без анимации
+                    context.insert(newWeek)
+                    try? context.save()
+            }
+        } else {
+                withAnimation {
+                    context.insert(newWeek)
+                    try? context.save()
+                }
+            
+        }
 
-        context.insert(newWeek)
-        try? context.save()
     }
 
 }

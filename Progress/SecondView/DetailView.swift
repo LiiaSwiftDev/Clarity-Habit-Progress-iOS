@@ -34,110 +34,112 @@ struct DetailView: View {
     var body: some View {
         
         ZStack {
-            Color(red: 243/255, green: 203/255, blue: 228/255)
+            Color("Background")
                 .ignoresSafeArea()
             
             VStack {
-                ScrollView(showsIndicators: false) {
-                    // "Для каждой недели создаём отдельную карточку."
-                    ForEach(goalWeeks, id: \.id) { week in
-                        // у кадлой карточки есть цель и неделя
-                        WeekCardView(progress: progress, week: week)
-                            .onLongPressGesture {
-                                weekToDelete = week
-                                showAlert = true
-                            }
-                            .alert(isPresented: $showAlert) {
-                                Alert(
-                                    title: Text("Delete Week"),
-                                    message: Text("Delete this week permanently? This action cannot be undone."),
-                                    // .destructive - make button red
-                                    primaryButton: .destructive(Text("Delete"), action: {
-                                        if let week = weekToDelete {
-                                            context.delete(week)
-                                            try? context.save()
-                                        }
-                                        
-                                        
-                                        
-                                    }),
-                                    secondaryButton: .cancel())
-                            }
-                    } 
-                    .padding(.bottom, 160)
-                    .padding(.top, 20)
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        ZStack {
+                            Rectangle()
+                                .frame(width: 38, height: 40)
+                                .foregroundStyle(Color.white)
+                                .cornerRadius(15)
+                                .shadow(radius: 4, x: 0, y: 4)
+                            
+                            Image(systemName: "chevron.backward")
+                                .foregroundStyle(Color.black)
+                        }
+                    }.padding(.leading, 20)
                     
-                }.padding(.top, 60)
-                
+                    Spacer()
+                    
+                }
+
+                HStack {
+                    Text(progress.goal)
+                        .font(.screanTitle)
+                        .foregroundStyle(Color.black)
+                    
+                    Spacer()
+                    
+                    Text("\(progress.timePerWeek)/week")
+                        .font(.timesPerWeek)
+                        .foregroundStyle(Color("TimesPerWeek"))
+                    
+                }.padding(.horizontal)
+
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 16) {
+                            // "Для каждой недели создаём отдельную карточку."
+                            ForEach(goalWeeks, id: \.id) { week in
+                                // у кадлой карточки есть цель и неделя
+                                WeekCardView(progress: progress, week: week)
+                                    .animation(.easeInOut(duration: 0.5), value: goalWeeks)
+                                    .onLongPressGesture {
+                                        weekToDelete = week
+                                        showAlert = true
+                                    }
+                                    .alert(isPresented: $showAlert) {
+                                        Alert(
+                                            title: Text("Delete Week"),
+                                            message: Text("Delete this week permanently? This action cannot be undone."),
+                                            // .destructive - make button red
+                                            primaryButton: .destructive(Text("Delete"), action: {
+                                                 
+                                                    if let week = weekToDelete {
+                                                        
+                                                                    context.delete(week)
+                                                                    try? context.save()
+                                                                }
+                                            }),
+                                            secondaryButton: .cancel())
+                                    }
+                            }
+                           
+                        } .padding(.bottom, 160)
+                }    
             }
             
-            VStack(alignment: .leading) {
-                VStack(spacing: 10) {
-                    HStack {
-                        Text(progress.goal)
-                            .font(.custom("SFProRounded-Medium", size: 30))
-                        Spacer()
-                        
-                        Text("\(progress.timePerWeek)/week")
-                            .font(.system(size: 14))
-                        
-                    }.padding(.horizontal)
-                    
-                }.padding()
-                // background (_content_)
-                    .background {
-                        Color.white
-                            .clipShape(.rect(bottomLeadingRadius: 15, bottomTrailingRadius: 15))
-                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
-                            .ignoresSafeArea()
-                    }
+            VStack {
                 
                 Spacer()
                 
                 HStack {
+                    Spacer()
+                    
                     Button {
                         showSheet = true
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.black, lineWidth: 1)
-                                .fill(
-                                    LinearGradient(colors: [Color(red: 230/255, green: 113/255, blue: 142/255), Color(red: 209/255, green: 64/255, blue: 100/255)], startPoint: .top, endPoint: .bottom)
-                                )
+                                .foregroundStyle(Color("ButtonColor"))
+                                .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
                             
-                            Text("Add week")
-                                .foregroundStyle(Color.white)
+                            Text("Add Week")
+                                .font(.buttonText)
+                                .foregroundStyle(Color("GrayInside"))
+                                .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0.5, y: 0)
+                                .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: -0.5, y: 0)
+                                .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: 0.5)
+                                .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: -0.5)
+                                
+                                
                             
-                        } .frame(width: 170, height: 50)
+                        } .frame(height: 60)
                             .padding(.bottom, 20)
-                            .padding(.leading, 20)
                             .padding(.top, 10)
+                            .padding(.horizontal, 10)
                         
                     }
                     
                     Spacer()
-                    
-                    Button {
-                        // back button
-                        dismiss()
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(Color.black)
-                            
-                            Text("Back")
-                                .foregroundStyle(Color.white)
-                            
-                        }.frame(width: 172, height: 52)
-                            .padding(.bottom, 20)
-                            .padding(.trailing, 20)
-                            .padding(.top, 10)
-                    }
-                    
-                    
+
                 }
                 .background {
-                    Color(red: 243/255, green: 203/255, blue: 228/255)
+                    Color("Background")
                         .background(.ultraThinMaterial)
                         .opacity(0.7)
                         .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))

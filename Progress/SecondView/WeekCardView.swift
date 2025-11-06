@@ -17,64 +17,59 @@ struct WeekCardView: View {
     // Это массив названий дней недели, чтобы знать, что показывать на экране. days[0] = "Mon", days[1] = "Tue" и т.д.
     let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] // mon - 0, tue - 1...
     
-    // Мы создаём weekDates, чтобы у каждой даты недели был свой индекс (0–6)
-    var weekDates: [Date] {
-        [
-            week.startDate, // mon - 0
-            week.tuesday, // tue - 1
-            week.wednesday,
-            week.thursday,
-            week.friday,
-            week.saturday,
-            week.endDate
-        ]
-    }
+   
     
     @Query private var activities: [Activity]  // автоматически подгружаем из SwiftData
     
     var body: some View {
         VStack {
-            HStack {
-                // вставляем нашу функуцию с датой 
-                Text("\(formattedDateRange(from: week.startDate, to: week.endDate))")
-                    .font(.system(size: 12))
-                Spacer()
-                // отмеченные дни делим на сколько всего отмечено дней в неделю 3/week получаем 2/3 or 1/3 and so on and so forth
-                ProgressBarView(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek))
+                        ZStack {
                 
-            }.padding(.horizontal, 10)
-            ZStack {
-                
-                RoundedRectangle(cornerRadius: 10)
-                    .opacity(0.6)
-                    .shadow(color: .black,radius: 5, x: 0, y: 4)
-                // Thu, Fri, Sat, Sun
-                ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 20) {
-                            // 0..<7 = числа от 0 до 6 → 7 дней недели.
-                            // index — это номер дня в массиве days (0 = понедельник, 1 = вторник…).
-                            ForEach(0..<7, id: \.self) { index in
-                                // activityList: activities → передаём все активности из базы через @Query
-                                // days[index] - название дня ("Mon", "Tue"…).
-                                DayCardView(
-                                    activityList: activities,
-                                    day: days[index],
-                                    dayIndex: index,
-                                    // это моя функция которая из даты делает string
-                                    number: convertDatetoString(date: weekDates[index]),
-                                    week: week,
-                                    goal: progress
-                                )
-                            }
+                RoundedRectangle(cornerRadius: 15)
+                    .foregroundStyle(Color.white)
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
                             
-                        } .padding(.horizontal)
-                        
-                    }
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text("\(formattedDateRange(from: week.startDate, to: week.endDate))")
+                                    .font(.date)
+                                    .padding(.top, 21)
+                                    .padding(.bottom, 17)
+                                
+                                HStack(spacing: 0) {
+                                    // Thu, Fri, Sat, Sun
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 16) {
+                                            // 0..<7 = числа от 0 до 6 → 7 дней недели.
+                                            // index — это номер дня в массиве days (0 = понедельник, 1 = вторник…).
+                                            ForEach(0..<7, id: \.self) { index in
+                                                // activityList: activities → передаём все активности из базы через @Query
+                                                // days[index] - название дня ("Mon", "Tue"…).
+                                                DayCardView(
+                                                    activityList: activities,
+                                                    day: days[index],
+                                                    dayIndex: index,
+                                                    week: week,
+                                                    goal: progress
+                                                )
+                                            }
+                                        }
+                                    }
+                                    .frame(width: 265)
+                                    
+                                    Percent(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek))
+                                        .padding(.bottom, 20)
+                                        .frame(width: 70, alignment: .trailing)
+                                }
+                                
+                                ProgressBarView(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek), width: 321.0)
+                                    .padding(.bottom, 21)
+                                    .padding(.top, 17)
+                                
+                            } .padding(.horizontal)
                 
-            }.frame(height: 110)
+            }
      
-        } .padding(.horizontal)
-          .padding(.vertical, 10)
+        }.padding(.horizontal)
     }
     
     func convertDatetoString(date: Date) -> String {

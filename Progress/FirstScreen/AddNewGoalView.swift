@@ -10,8 +10,12 @@ import SwiftData
 
 struct AddNewGoalView: View {
     
+    // context - сохраняем, редактируем и удаляем (кладем)
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    
+    // вынимаем. Сам следит за изменениями. Сам перерисовывает экран, если данные изменились
+    @Query private var allGoals: [Goal]
     
     @State private var text: String = ""
     @State private var showConfirmation: Bool = false
@@ -33,7 +37,8 @@ struct AddNewGoalView: View {
                     ForEach(options, id: \.self) { option in
                         Text("\(option)")
                     }
-                }
+                }.pickerStyle(.menu)
+                
                 Text("times per week")
                 
                 Spacer()
@@ -46,6 +51,7 @@ struct AddNewGoalView: View {
                     }.buttonStyle(.borderedProminent)
                         .foregroundStyle(Color.white)
                     .tint(.red)
+                    .padding(.trailing, 10)
                 }
                
                 
@@ -60,8 +66,7 @@ struct AddNewGoalView: View {
                             try? context.save()
                         }
                     } else {
-                        withAnimation {
-                            // Если editMood == false (режим создания новой цели), то создаёт новый объект Goal и вставляет его в базу данных (context.insert).
+                        if allGoals.count == 0 {
                             let newGoal = Goal()
                             newGoal.goal = text
                             newGoal.timePerWeek = selectedOption
@@ -70,6 +75,19 @@ struct AddNewGoalView: View {
                             // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
                             try? context.save()
                         }
+                        else {
+                            withAnimation {
+                                // Если editMood == false (режим создания новой цели), то создаёт новый объект Goal и вставляет его в базу данных (context.insert).
+                                let newGoal = Goal()
+                                newGoal.goal = text
+                                newGoal.timePerWeek = selectedOption
+                                context.insert(newGoal)
+                                
+                                // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
+                                try? context.save()
+                            }
+                        }
+                        
                     }
 
                     dismiss()
@@ -93,14 +111,25 @@ struct AddNewGoalView: View {
             }
             .confirmationDialog("Delete this permanently?", isPresented: $showConfirmation, titleVisibility: .visible) {
                         Button("Delete") {
-                            withAnimation {
+                            if allGoals.count == 1 {
                                 if let goal = goalS {
-                                     context.delete(goal)
-                                     try? context.save()
-                                     
-                                     dismiss()
-                                 }
+                                    context.delete(goal)
+                                    try? context.save()
+                                    
+                                    dismiss()
+                                }
                             }
+                                else {
+                                    withAnimation {
+                                        if let goal = goalS {
+                                             context.delete(goal)
+                                             try? context.save()
+                                             
+                                             dismiss()
+                                         }
+                                    }
+                                }
+                            
                             
                         }
                     }
