@@ -21,6 +21,7 @@ struct DetailView: View {
     @State private var showAlert: Bool = false
     // "На этом экране мы показываем одну конкретную цель и её прогресс."
     var progress: Goal
+    @State private var showSheetComment = false
     
     // отфильтрованые недели "Возьми из всего массива только те недели, которые принадлежат текущей цели progress."
     var goalWeeks: [Week] {
@@ -78,6 +79,9 @@ struct DetailView: View {
                                 // у кадлой карточки есть цель и неделя
                                 WeekCardView(progress: progress, week: week)
                                     .animation(.easeInOut(duration: 0.5), value: goalWeeks)
+                                    .onTapGesture {
+                                        showSheetComment = true
+                                    }
                                     .onLongPressGesture {
                                         weekToDelete = week
                                         showAlert = true
@@ -153,6 +157,10 @@ struct DetailView: View {
                 // to do
                 AddWeekView(goal: progress)
                     .presentationDetents([.fraction(0.7)])
+            }
+            .sheet(isPresented: $showSheetComment) {
+                CommentView()
+                    .presentationDetents([.fraction(1)])
             }
         
     }

@@ -30,6 +30,8 @@
 		187044052EB305420021D1B5 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 187044042EB305420021D1B5 /* SF-Pro-Display-Regular.otf */; };
 		187044082EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 187044072EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf */; };
 		1870440A2EB552360021D1B5 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187044092EB552360021D1B5 /* Percent.swift */; };
+		187044342EC79BED0021D1B5 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187044332EC79BED0021D1B5 /* CommentView.swift */; };
+		187044362ECBA54F0021D1B5 /* OneCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187044352ECBA54F0021D1B5 /* OneCommentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		187044042EB305420021D1B5 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		187044072EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Thin.otf"; sourceTree = "<group>"; };
 		187044092EB552360021D1B5 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
+		187044332EC79BED0021D1B5 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		187044352ECBA54F0021D1B5 /* OneCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCommentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,8 +141,10 @@
 			isa = PBXGroup;
 			children = (
 				186E67D12E920301006661CA /* DetailView.swift */,
-				186E67D72E95A61F006661CA /* DayCardView.swift */,
 				18475ACC2E995F5A00CD18CD /* WeekCardView.swift */,
+				187044332EC79BED0021D1B5 /* CommentView.swift */,
+				187044352ECBA54F0021D1B5 /* OneCommentView.swift */,
+				186E67D72E95A61F006661CA /* DayCardView.swift */,
 				18475B092EA6DADE00CD18CD /* AddWeekView.swift */,
 				186E67D52E956E8B006661CA /* ProgressBarView.swift */,
 				187044092EB552360021D1B5 /* Percent.swift */,
@@ -243,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				187044342EC79BED0021D1B5 /* CommentView.swift in Sources */,
 				186E67BD2E904193006661CA /* MainView.swift in Sources */,
 				186E67D22E920301006661CA /* DetailView.swift in Sources */,
 				187043F82EB2BB270021D1B5 /* FontHelper.swift in Sources */,
@@ -259,6 +266,7 @@
 				18475ACD2E995F5A00CD18CD /* WeekCardView.swift in Sources */,
 				1870440A2EB552360021D1B5 /* Percent.swift in Sources */,
 				18475B022EA1B2A900CD18CD /* Activity.swift in Sources */,
+				187044362ECBA54F0021D1B5 /* OneCommentView.swift in Sources */,
 				186E67D82E95A61F006661CA /* DayCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
