@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TelemetryDeck
 
 struct DetailView: View {
     
@@ -93,6 +94,8 @@ struct DetailView: View {
                                                         
                                                                     context.delete(week)
                                                                     try? context.save()
+                                                        
+                                                        TelemetryDeck.signal("Delete week")
                                                                 }
                                             }),
                                             secondaryButton: .cancel())
@@ -153,6 +156,9 @@ struct DetailView: View {
                 // to do
                 AddWeekView(goal: progress)
                     .presentationDetents([.fraction(0.7)])
+            }
+            .onAppear {
+                TelemetryDeck.signal("Visited Detail Screen")
             }
         
     }

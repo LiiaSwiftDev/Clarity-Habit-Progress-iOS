@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TelemetryDeck
 
 struct AddNewGoalView: View {
     
@@ -85,6 +86,10 @@ struct AddNewGoalView: View {
                                 
                                 // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
                                 try? context.save()
+                                
+                              //  TelemetryManager.send("Add new goal",with: ["Name":text])
+                                
+                                TelemetryDeck.signal("Add new goal", parameters: ["Goal":text])
                             }
                         }
                         
@@ -117,6 +122,8 @@ struct AddNewGoalView: View {
                                     try? context.save()
                                     
                                     dismiss()
+                                    
+                                    TelemetryDeck.signal("Delete goal")
                                 }
                             }
                                 else {
@@ -126,6 +133,8 @@ struct AddNewGoalView: View {
                                              try? context.save()
                                              
                                              dismiss()
+                                            
+                                            TelemetryDeck.signal("Delete goal")
                                          }
                                     }
                                 }
