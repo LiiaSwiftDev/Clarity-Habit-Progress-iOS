@@ -17,8 +17,6 @@ struct WeekCardView: View {
     // Это массив названий дней недели, чтобы знать, что показывать на экране. days[0] = "Mon", days[1] = "Tue" и т.д.
     let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] // mon - 0, tue - 1...
     
-   
-    
     @Query private var activities: [Activity]  // автоматически подгружаем из SwiftData
     
     var body: some View {
@@ -51,6 +49,7 @@ struct WeekCardView: View {
                                                     week: week,
                                                     goal: progress
                                                 )
+                                                
                                             }
                                         }
                                     }
@@ -70,6 +69,7 @@ struct WeekCardView: View {
             }
      
         }.padding(.horizontal)
+            
     }
     
     func convertDatetoString(date: Date) -> String {
