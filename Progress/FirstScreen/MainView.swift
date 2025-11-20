@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TelemetryDeck
 
 struct MainView: View {
     // для того чтобы положить. Через него можно сохранять, изменять и удалять объекты в вашей модели данных.
@@ -118,6 +119,9 @@ struct MainView: View {
                             .presentationDetents([.fraction(0.2)])
                     }
             }
+        }
+        .onAppear {
+            TelemetryDeck.signal("Visited Home Screen")
         }
     }
 }

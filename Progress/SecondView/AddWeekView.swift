@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TelemetryDeck
 
 struct AddWeekView: View {
     @Environment(\.dismiss) var dismiss
@@ -105,11 +106,15 @@ struct AddWeekView: View {
                     // вставляем первую неделю без анимации
                     context.insert(newWeek)
                     try? context.save()
+                
+                TelemetryDeck.signal("Add week")
             }
         } else {
                 withAnimation {
                     context.insert(newWeek)
                     try? context.save()
+                    
+                    TelemetryDeck.signal("Add week")
                 }
             
         }

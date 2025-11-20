@@ -7,9 +7,18 @@
 
 import SwiftUI
 import SwiftData
+import TelemetryDeck
 
 @main
 struct ProgressApp: App {
+    
+    init() {
+            let config = TelemetryDeck.Config(appID: "15E29687-5792-4F26-BD26-BB0B285173CA")
+            TelemetryDeck.initialize(config: config)
+        
+        TelemetryDeck.signal("App Opened")
+        }
+    
     // @AppStorage - сохраняет состояние
     @AppStorage("onboarding") var needsOnboarding = true
     
