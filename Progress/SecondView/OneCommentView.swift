@@ -11,22 +11,20 @@ struct OneCommentView: View {
     
     var day: String
     var bindingDay: Binding<String>
-    var buttonAction: () -> Void
+   // var buttonAction: () -> Void
     
     var body: some View {
         
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 10) {
             Text(day)
+                .font(.system(size: 20))
                 .bold()
+            
             HStack {
-                TextField("Enter a comment", text: bindingDay)
+                TextField("", text: bindingDay)
                     .textFieldStyle(.roundedBorder)
-                    .padding(.trailing, 20)
-                
-                Button("Save") {
-                    buttonAction()
-                }
-                .buttonStyle(.borderedProminent)
+                    .font(.system(size: 22))
+
             }
         }.padding(.bottom, 20)
     }

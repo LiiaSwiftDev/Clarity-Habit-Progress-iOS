@@ -19,47 +19,55 @@ struct CommentView: View {
     
     var body: some View {
         ZStack {
-            
+
             Color("Background")
                 .ignoresSafeArea()
             
-            VStack(alignment: .center) {
+            VStack(alignment: .leading, spacing: 0) {
+
+                HStack {
+                    
+                    Spacer()
+                    
+                    Button {
+                        //
+                    } label: {
+                        ZStack {
+                            Capsule()
+                                .frame(width: 70, height: 35)
+                            
+                            Text("Save")
+                                .foregroundStyle(Color.white)
+                                .bold()
+                            
+                        }
+                        
+                        
+                    }
+                }
                 
-                Text("Add Comments")
+                Text("Comments")
                     .bold()
-                    .font(.system(size: 25))
-                    .padding(.bottom, 20)
+                    .font(.system(size: 37))
+                    .padding(.bottom, 10)
                     
                  
-                OneCommentView(day: "Monday", bindingDay: $monday) {
-                    // save
-                }
+                OneCommentView(day: "Monday", bindingDay: $monday)
                 
-                OneCommentView(day: "Tuesday", bindingDay: $tuesday) {
-                    // save
-                }
+                OneCommentView(day: "Tuesday", bindingDay: $tuesday)
                 
-                OneCommentView(day: "Wednesday", bindingDay: $wednesday) {
-                    // save
-                }
+                OneCommentView(day: "Wednesday", bindingDay: $wednesday)
                 
-                OneCommentView(day: "Thursday", bindingDay: $thursday) {
-                    // save
-                }
+                OneCommentView(day: "Thursday", bindingDay: $thursday)
                 
-                OneCommentView(day: "Friday", bindingDay: $friday) {
-                    // save
-                }
+                OneCommentView(day: "Friday", bindingDay: $friday)
                 
-                OneCommentView(day: "Saturday", bindingDay: $saturday) {
-                    // save
-                }
+                OneCommentView(day: "Saturday", bindingDay: $saturday)
                 
-                OneCommentView(day: "Sunday", bindingDay: $sunday) {
-                    // save
-                }
+                OneCommentView(day: "Sunday", bindingDay: $sunday)
                     
                 } .padding()
+                
             
         }
         

@@ -29,6 +29,7 @@ struct WeekCardView: View {
                             
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("\(formattedDateRange(from: week.startDate, to: week.endDate))")
+                                    .foregroundStyle(Color.black)
                                     .font(.date)
                                     .padding(.top, 21)
                                     .padding(.bottom, 17)
