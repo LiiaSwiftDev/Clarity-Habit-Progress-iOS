@@ -12,6 +12,13 @@ import TelemetryDeck
 struct MainView: View {
     // для того чтобы положить. Через него можно сохранять, изменять и удалять объекты в вашей модели данных.
     @Environment(\.modelContext) private var context
+    
+    //Это объект, который SwiftUI даёт тебе автоматически из окружения. Его тип — OpenURLAction. Ты можешь передать его в функцию send, чтобы функция знала, как открывать почту.
+    @Environment(\.openURL) var openURL
+    // @State — чтобы можно было менять email прямо в приложении.
+    @State private var email = SupportEmail(toAddress: "liiakoshelenko1@gmail.com",
+                                     subject: "Support Email",
+                                     messageHeader: "Please describe your issue below")
     // для того чтобы взять. достаёт объекты из базы данных
     @Query private var goals: [Goal]
 
@@ -35,9 +42,20 @@ struct MainView: View {
                     HStack {
                         Text("My goals")
                             .font(.screanTitle)
+                            .foregroundStyle(Color.black)
                             .padding(.bottom, 10)
                         
                         Spacer()
+                        
+                        Button {
+                            // email
+                            email.send(urlOpener: openURL)
+                        } label: {
+                            HStack {
+                                Text("Email Support")
+                                Image(systemName: "envelope.circle.fill")
+                            }
+                        }.padding(.bottom, 70)
                         
                     } .padding(.horizontal, 22)
                         .padding(.top, 20)
@@ -104,8 +122,9 @@ struct MainView: View {
                     }
                     .background {
                         Color("Background")
-                            .background(.ultraThinMaterial)
-                            .opacity(0.7)
+                            .background(.thinMaterial)
+                            //.blur(radius: 10)
+                           // .opacity(0.7)
                             .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
                             .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                             .ignoresSafeArea()
@@ -119,6 +138,7 @@ struct MainView: View {
                             .presentationDetents([.fraction(0.2)])
                     }
             }
+            
         }
         .onAppear {
             TelemetryDeck.signal("Visited Home Screen")

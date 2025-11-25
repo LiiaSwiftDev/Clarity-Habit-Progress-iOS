@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import TelemetryDeck
+import DeviceKit
 
 @main
 struct ProgressApp: App {
@@ -33,6 +34,19 @@ struct ProgressApp: App {
                 } content: {
                     // что покажем
                     OnboardingView()
+                }
+                .onAppear {
+                    //
+                    print(UIDevice.current.systemVersion)
+                    // говорит какая модель телефона, например iPhone 14 plus
+                    let device = Device.current
+                    print(device.description)
+                    // название приложения
+                    print(Bundle.main.displayName)
+                    // Buld number
+                    print(Bundle.main.appBuild)
+                    // App Version
+                    print(Bundle.main.appVersion)
                 }
 
         }

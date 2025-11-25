@@ -147,8 +147,8 @@ struct DetailView: View {
                 }
                 .background {
                     Color("Background")
-                        .background(.ultraThinMaterial)
-                        .opacity(0.7)
+                        .background(.thinMaterial)
+                        //.opacity(0.7)
                         .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
                         .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                         .ignoresSafeArea()
@@ -161,11 +161,11 @@ struct DetailView: View {
                 AddWeekView(goal: progress)
                     .presentationDetents([.fraction(0.7)])
             }
-           // .sheet(isPresented: $showSheetComment) {
-             //   CommentView()
-               //     .presentationDetents([.fraction(1)])
+            .sheet(isPresented: $showSheetComment) {
+                CommentView()
+                   .presentationDetents([.fraction(1)])
 
-           // }
+            }
 
             .onAppear {
                 TelemetryDeck.signal("Visited Detail Screen") 

@@ -44,11 +44,12 @@ struct GoalCardView: View {
                     Text("\(goalStorage.timePerWeek)/week")
                         .font(.textInCard)
                     
-                }//.padding(.vertical, 10)
+                }.foregroundStyle(Color.black)
                 
                 HStack {
                     Text("This week")
                         .font(.textInCard)
+                        .foregroundStyle(Color.black)
                     Spacer()
                     
                     ProgressBarView(myProgress: Double(lastWeek.markedDaysCount) / Double(goalStorage.timePerWeek), width: 80.0)

@@ -73,7 +73,8 @@ struct DayCardView: View {
                 
                 Text(day)
                     .font(.daysOfWeek)
-            } 
+                    .foregroundStyle(Color.black)
+            }
     }
     
 }
