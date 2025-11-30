@@ -31,6 +31,9 @@ struct AddNewGoalView: View {
         VStack(alignment: .leading, spacing: 20) {
             TextField("My goal is...", text: $text)
                 .textFieldStyle(.roundedBorder)
+                .onChange(of: text) { oldValue, newValue in
+                    text = TextHelper.limitChars(input: text, limit: 15)
+                }
 
             // limit
             HStack(spacing: 0) {
