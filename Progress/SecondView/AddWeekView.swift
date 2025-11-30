@@ -42,6 +42,7 @@ struct AddWeekView: View {
                 dismiss()
             } label: {
                 Text("Add Week")
+                    .font(.system(size: 20, weight: .semibold))
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.pink)

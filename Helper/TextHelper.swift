@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct TextHelper {
     
@@ -17,5 +18,14 @@ struct TextHelper {
             return input
 
     }
+    
+    static func limitByWidth(_ input: String, font: UIFont, maxWidth: CGFloat) -> String {
+        var newText = input
+        while (newText as NSString).size(withAttributes: [.font: font]).width > maxWidth, !newText.isEmpty {
+            newText.removeLast()
+        }
+        return newText
+    }
+
     
 }
