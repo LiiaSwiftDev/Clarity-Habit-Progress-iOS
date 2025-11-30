@@ -163,7 +163,7 @@ struct DetailView: View {
             }
             .sheet(isPresented: $showSheetComment) {
                 CommentView()
-                   .presentationDetents([.fraction(1)])
+                    .presentationDetents([.fraction(0.85)])
 
             }
 
