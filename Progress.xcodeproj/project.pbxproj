@@ -36,6 +36,7 @@
 		187044342EC79BED0021D1B5 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187044332EC79BED0021D1B5 /* CommentView.swift */; };
 		187044362ECBA54F0021D1B5 /* OneCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187044352ECBA54F0021D1B5 /* OneCommentView.swift */; };
 		1870443E2ECCE3D10021D1B5 /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = 1870443D2ECCE3D10021D1B5 /* TelemetryDeck */; };
+		1887F1152EDBCC3E008B8C18 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887F1142EDBCC3E008B8C18 /* TextHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		187044092EB552360021D1B5 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
 		187044332EC79BED0021D1B5 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		187044352ECBA54F0021D1B5 /* OneCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCommentView.swift; sourceTree = "<group>"; };
+		1887F1142EDBCC3E008B8C18 /* TextHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				187043F72EB2BB270021D1B5 /* FontHelper.swift */,
+				1887F1142EDBCC3E008B8C18 /* TextHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				186E67C12E9043DE006661CA /* Goal.swift in Sources */,
 				186E67BE2E904193006661CA /* ProgressApp.swift in Sources */,
 				186E67CD2E9189DE006661CA /* AddNewGoalView.swift in Sources */,
+				1887F1152EDBCC3E008B8C18 /* TextHelper.swift in Sources */,
 				18475B062EA40A4B00CD18CD /* Week.swift in Sources */,
 				186E67D62E956E8B006661CA /* ProgressBarView.swift in Sources */,
 				18475B0A2EA6DADE00CD18CD /* AddWeekView.swift in Sources */,
