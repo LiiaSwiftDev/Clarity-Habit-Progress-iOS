@@ -24,6 +24,7 @@ struct DetailView: View {
     var progress: Goal
     @State private var showSheetComment = false
     
+    @State private var selectedWeek: Week?
     // отфильтрованые недели "Возьми из всего массива только те недели, которые принадлежат текущей цели progress."
     var goalWeeks: [Week] {
         // "Возьми только те недели, которые принадлежат этой цели." и номер которых больше чем 0
@@ -81,6 +82,7 @@ struct DetailView: View {
                                 WeekCardView(progress: progress, week: week)
                                     .animation(.easeInOut(duration: 0.5), value: goalWeeks)
                                     .onTapGesture {
+                                        selectedWeek = week
                                         showSheetComment = true
                                     }
                                     .onLongPressGesture {
@@ -162,9 +164,10 @@ struct DetailView: View {
                     .presentationDetents([.fraction(0.7)])
             }
             .sheet(isPresented: $showSheetComment) {
-                CommentView()
-                    .presentationDetents([.fraction(0.85)])
-
+                if let selectedWeek {
+                    CommentView(goal: progress, week: selectedWeek)
+                        .presentationDetents([.fraction(0.85)])
+                }
             }
 
             .onAppear {
