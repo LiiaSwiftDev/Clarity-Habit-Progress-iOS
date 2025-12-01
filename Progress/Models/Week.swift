@@ -21,10 +21,17 @@ class Week: Identifiable {
     var startDate: Date
     var endDate: Date
     
+    var monday: String = ""
+    var tuesday: String = ""
+    var wednesday: String = ""
+    var thursday: String = ""
+    var friday: String = ""
+    var saturday: String = ""
+    var sunday: String = ""
+    
     init(goal: Goal?, startDate: Date, endDate: Date) {
         self.goal = goal
         self.startDate = startDate
-        
         self.endDate = endDate
     }
     

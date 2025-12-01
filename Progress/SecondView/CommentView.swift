@@ -6,22 +6,28 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CommentView: View {
     
-    @State var monday: String = ""
-    @State var tuesday: String = ""
-    @State var wednesday: String = ""
-    @State var thursday: String = ""
-    @State var friday: String = ""
-    @State var saturday: String = ""
-    @State var sunday: String = ""
+    // чтобы сохранять, удалять
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var monday: String = ""
+    @State private var tuesday: String = ""
+    @State private var wednesday: String = ""
+    @State private var thursday: String = ""
+    @State private var friday: String = ""
+    @State private var saturday: String = ""
+    @State private var sunday: String = ""
+
+    var goal: Goal
+    var week: Week
+   // var haveComments: Week?
 
     var body: some View {
         ZStack {
-
-           // Color("Background")
-             //   .ignoresSafeArea()
             
             VStack(alignment: .leading) {
                 
@@ -66,7 +72,19 @@ struct CommentView: View {
                         }
             
                     Button {
-                        //
+                        // save
+                        week.monday = monday
+                        week.tuesday = tuesday
+                        week.wednesday = wednesday
+                        week.thursday = thursday
+                        week.friday = friday
+                        week.saturday = saturday
+                        week.sunday = sunday
+                        
+                        try? context.save()
+                        
+                        dismiss()
+                        
                     } label: {
                         Text("Save")
                             .font(.system(size: 20, weight: .semibold))
@@ -88,7 +106,16 @@ struct CommentView: View {
                         .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
                 }
                 
-            }
+            }.onAppear(perform: {
+                    monday = week.monday
+                    tuesday = week.tuesday
+                    wednesday = week.wednesday
+                    thursday = week.thursday
+                    friday = week.friday
+                    saturday = week.saturday
+                    sunday = week.sunday
+                
+            })
             .ignoresSafeArea()
             
         }
@@ -96,6 +123,6 @@ struct CommentView: View {
         }
     }
 
-#Preview {
-    CommentView()
-}
+//#Preview {
+  //  CommentView()
+//}
