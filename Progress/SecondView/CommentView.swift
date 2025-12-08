@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TelemetryDeck
 
 struct CommentView: View {
     
@@ -85,6 +86,8 @@ struct CommentView: View {
                         
                         dismiss()
                         
+                        TelemetryDeck.signal("Saved comments")
+                        
                     } label: {
                         Text("Save")
                             .font(.system(size: 20, weight: .semibold))
@@ -114,6 +117,8 @@ struct CommentView: View {
                     friday = week.friday
                     saturday = week.saturday
                     sunday = week.sunday
+                
+                TelemetryDeck.signal("Visit Comment View")
                 
             })
             .ignoresSafeArea()
