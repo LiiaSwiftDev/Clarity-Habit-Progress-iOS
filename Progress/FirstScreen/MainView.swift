@@ -16,7 +16,7 @@ struct MainView: View {
     //Это объект, который SwiftUI даёт тебе автоматически из окружения. Его тип — OpenURLAction. Ты можешь передать его в функцию send, чтобы функция знала, как открывать почту.
     @Environment(\.openURL) var openURL
     // @State — чтобы можно было менять email прямо в приложении.
-    @State private var email = SupportEmail(toAddress: "liiakoshelenko1@gmail.com",
+    @State private var email = SupportEmail(toAddress: "app.team.liia@gmail.com",
                                      subject: "Support Email",
                                      messageHeader: "Please describe your issue below")
     // для того чтобы взять. достаёт объекты из базы данных
