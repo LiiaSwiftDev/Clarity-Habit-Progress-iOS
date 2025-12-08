@@ -62,24 +62,6 @@ struct ProgressBarView: View {
         }
         }
     }
-/*
-    func colorNumbers(progress: Double) -> Color {
-        switch progress {
-        case 0..<0.31 : return .red
-        case 0.31..<0.7 : return .orange
-        case 0.7..<100 : return .green
-        default:
-            return .gray
-        
-        }
-    }
-    
-    func getPercentage(input: Double) -> String {
-        // 0.66 * 100 = 66.0, Int(66.0) = 66
-        return String(Int(input * 100))
-    }
-    */
-
 
 #Preview {
     ProgressBarView(myProgress: 0.6, width: 100.0)
