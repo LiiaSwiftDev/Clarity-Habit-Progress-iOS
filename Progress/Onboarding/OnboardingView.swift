@@ -51,7 +51,7 @@ struct OnboardingView: View {
                         .frame(width: 10)
                         .foregroundStyle(selectedIndex == 1 ? .white : .gray)
                     Spacer()
-                }.padding(.bottom, 215)
+                }.padding(.bottom, 235)
             }
                 
         }.ignoresSafeArea()
