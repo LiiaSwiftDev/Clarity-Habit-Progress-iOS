@@ -16,10 +16,11 @@ struct Onboarding1: View {
     var body: some View {
         ZStack {
             
-            Color(red: 5/255, green: 114/255, blue: 161/255)
+           // Color(red: 5/255, green: 114/255, blue: 161/255)
+            Color("Background")
+                
             
             VStack(alignment: .trailing, spacing: 0) {
-                Spacer()
                 
                 Button {
                     dismiss()
@@ -28,25 +29,30 @@ struct Onboarding1: View {
                                 .foregroundStyle(Color.gray)
                                 .padding(.horizontal, 16)
                                 .padding(.top, 56)
-                                .padding(.bottom, 99)
+                              //  .padding(.bottom, 0)
                 }
+                
+                
 
                 VStack(alignment: .center, spacing: 0) {
-                    Image("girl")
+                    
+                    Spacer()
+                    
+                    Image("girl1")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .padding(.horizontal, 40)
-                        .padding(.bottom, 45)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 70)
                         
                     
                     Text("Welcome to Progress App!")
                         .font(.system(size: 26, weight: .bold, design: .default))
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(Color.black)
                         .padding(.bottom, 20)
                     
                     Text("Track your goals, celebrate your achievements, and stay motivated every day.")
-                        .foregroundStyle(Color.white)
-                        .padding(.bottom, 110)
+                        .foregroundStyle(Color.black)
+                        .padding(.bottom, 150)
                         .multilineTextAlignment(.center)
                     
                     Button {
@@ -55,18 +61,17 @@ struct Onboarding1: View {
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
-                                .stroke(.black ,lineWidth: 1)
-                                .fill(Color.white)
+                                .fill(Color.pink)
                                 .frame(height: 50)
                             
                             Text("Continue")
-                                .bold()
-                                .foregroundStyle(Color.black)
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundStyle(Color.white)
                         }
                     }.padding(.bottom, 115)
                     
                 }
-
+                
             }
             .padding(.horizontal)
             
