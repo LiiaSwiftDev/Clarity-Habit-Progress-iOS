@@ -36,6 +36,7 @@ struct GoalCardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
                             .fill(Color.white)
+                            .frame(width: 500)
                             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
 
 
@@ -59,7 +60,9 @@ struct GoalCardView: View {
                     ProgressBarView(myProgress: progressForThisWeek, width: 80.0)
                     
                 }
-            }.padding(.horizontal, 20)
+            }
+            .padding(.horizontal, 20)
+            .frame(width: 500)
                 .padding(.vertical, 18)
             
         }
