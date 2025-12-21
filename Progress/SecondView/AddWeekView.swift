@@ -39,7 +39,7 @@ struct AddWeekView: View {
 
             Button {
                 addWeek()
-                dismiss()
+                
             } label: {
                 Text("Add Week")
                     .font(.system(size: 20, weight: .semibold))
@@ -119,6 +119,8 @@ struct AddWeekView: View {
                 }
             
         }
+        
+        dismiss()
 
     }
 

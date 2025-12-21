@@ -25,7 +25,7 @@ struct WeekCardView: View {
                 
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundStyle(Color.white)
-                    .frame(width: 400)
+                    .frame(maxWidth: 420)
                     .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
                             
                             VStack(alignment: .leading, spacing: 0) {

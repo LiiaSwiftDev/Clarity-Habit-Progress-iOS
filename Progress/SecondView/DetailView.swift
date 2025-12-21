@@ -173,6 +173,21 @@ struct DetailView: View {
                         .presentationCompactAdaptation(.popover)
                 }
             }
+            .sheet(isPresented: $showSheetComment, content: {
+                if let week = selectedWeek {
+                    if hSize == .compact  {
+                        CommentView(goal: progress, week: week)
+                            .presentationDetents([.fraction(0.8)])
+                    }
+                    else {
+                        CommentView(goal: progress, week: week)
+                            .frame(width: 430)
+                            .presentationCompactAdaptation(.popover)
+                            
+                    }
+                    
+                }
+            })
         
         
             .onAppear {
