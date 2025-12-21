@@ -17,12 +17,21 @@ struct OneCommentView: View {
         
         HStack {
             Text(day)
-                .font(.system(size: 24, weight: .semibold))
+                .foregroundStyle(.black)
+                .font(.system(.title3, design: .default).weight(.semibold))
+            // «Тексту разрешена ТОЛЬКО ОДНА строка»
+                .lineLimit(1)
+            // я разрешаю уменшить максимум на 20 проц от исходного размера
+                .minimumScaleFactor(0.8)
+
             Spacer()
             
             TextField("Add short comment", text: bindingDay)
+                .foregroundStyle(.black)
                 .padding(.horizontal, 25)
-                .frame(width: 275, height: 58)
+              //  .frame(width: 275, height: 58)
+                .frame(minHeight: 50)
+                .frame(maxWidth: 275)
                 .background(Color("Background"))
                 .overlay(
                         RoundedRectangle(cornerRadius: 15)

@@ -36,7 +36,7 @@ struct GoalCardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
                             .fill(Color.white)
-                            .frame(width: 500)
+                            // .frame(width: 500)
                             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
 
 
@@ -62,7 +62,7 @@ struct GoalCardView: View {
                 }
             }
             .padding(.horizontal, 20)
-            .frame(width: 500)
+           // .frame(width: 500)
                 .padding(.vertical, 18)
             
         }

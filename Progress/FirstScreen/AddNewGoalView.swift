@@ -28,60 +28,54 @@ struct AddNewGoalView: View {
     var goalS: Goal?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            TextField("My goal is...", text: $text)
-                .textFieldStyle(.roundedBorder)
-                .onChange(of: text) { oldValue, newValue in
-                    text = TextHelper.limitChars(input: text, limit: 15)
-                }
-
-            // limit
-            HStack(spacing: 0) {
-                Picker("", selection: $selectedOption) {
-                    ForEach(options, id: \.self) { option in
-                        Text("\(option)")
+        
+        ZStack {
+            
+            Color.white
+            
+            VStack(alignment: .leading, spacing: 20) {
+                TextField("My goal is...", text: $text)
+                    .textFieldStyle(.roundedBorder)
+                    .onChange(of: text) { oldValue, newValue in
+                        text = TextHelper.limitChars(input: text, limit: 15)
                     }
-                }.pickerStyle(.menu)
-                
-                Text("times per week")
-                
-                Spacer()
-                
-                if editMood {
-                    Button("Delete") {
-                        
-                        showConfirmation = true
-                        
-                    }.buttonStyle(.borderedProminent)
-                        .foregroundStyle(Color.white)
-                    .tint(.red)
-                    .padding(.trailing, 10)
-                }
-               
-                
-                Button("Save") {
-                    // Если editMood == true и выбранная цель есть (goalS != nil), то сохраняет изменения в существующем объекте.
-                    // editMood должно быть true, goalS дожно быть не nil. обы услови должны быть true
-                    if editMood, let goal = goalS {
-                        withAnimation {
-                            goal.goal = text
-                            goal.timePerWeek = selectedOption
-                            
-                            try? context.save()
+
+                // limit
+                HStack(spacing: 0) {
+                    Picker("", selection: $selectedOption) {
+                        ForEach(options, id: \.self) { option in
+                            Text("\(option)")
                         }
-                    } else {
-                        if allGoals.count == 0 {
-                            let newGoal = Goal()
-                            newGoal.goal = text
-                            newGoal.timePerWeek = selectedOption
-                            context.insert(newGoal)
+                    }.pickerStyle(.menu)
+                    
+                    Text("times per week")
+                    
+                    Spacer()
+                    
+                    if editMood {
+                        Button("Delete") {
                             
-                            // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
-                            try? context.save()
-                        }
-                        else {
+                            showConfirmation = true
+                            
+                        }.buttonStyle(.borderedProminent)
+                            .foregroundStyle(Color.white)
+                        .tint(.red)
+                        .padding(.trailing, 10)
+                    }
+                   
+                    
+                    Button("Save") {
+                        // Если editMood == true и выбранная цель есть (goalS != nil), то сохраняет изменения в существующем объекте.
+                        // editMood должно быть true, goalS дожно быть не nil. обы услови должны быть true
+                        if editMood, let goal = goalS {
                             withAnimation {
-                                // Если editMood == false (режим создания новой цели), то создаёт новый объект Goal и вставляет его в базу данных (context.insert).
+                                goal.goal = text
+                                goal.timePerWeek = selectedOption
+                                
+                                try? context.save()
+                            }
+                        } else {
+                            if allGoals.count == 0 {
                                 let newGoal = Goal()
                                 newGoal.goal = text
                                 newGoal.timePerWeek = selectedOption
@@ -89,62 +83,77 @@ struct AddNewGoalView: View {
                                 
                                 // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
                                 try? context.save()
-                                
-                              //  TelemetryManager.send("Add new goal",with: ["Name":text])
-                                
-                                TelemetryDeck.signal("Add new goal", parameters: ["Goal":text])
                             }
-                        }
-                        
-                    }
-
-                    dismiss()
-                        
-                }
-                .buttonStyle(.borderedProminent)
-                    .foregroundStyle(Color.white)
-                    .tint(Color.blue)
-                    .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    
-            }
-        }.padding()
-        // Когда AddNewGoalView появляется, если editMood true и goalS не nil, то в TextField подставляются значения выбранной карточки для редактирования.
-            .onAppear {
-                // editMood должно быть true, goalS дожно быть не nil. обы услови должны быть true
-                if editMood, let goal = goalS {
-                    text = goal.goal
-                    selectedOption = goal.timePerWeek
-                }
-            
-            }
-            .confirmationDialog("Delete this permanently?", isPresented: $showConfirmation, titleVisibility: .visible) {
-                        Button("Delete") {
-                            if allGoals.count == 1 {
-                                if let goal = goalS {
-                                    context.delete(goal)
+                            else {
+                                withAnimation {
+                                    // Если editMood == false (режим создания новой цели), то создаёт новый объект Goal и вставляет его в базу данных (context.insert).
+                                    let newGoal = Goal()
+                                    newGoal.goal = text
+                                    newGoal.timePerWeek = selectedOption
+                                    context.insert(newGoal)
+                                    
+                                    // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
                                     try? context.save()
                                     
-                                    dismiss()
+                                  //  TelemetryManager.send("Add new goal",with: ["Name":text])
                                     
-                                    TelemetryDeck.signal("Delete goal")
+                                    TelemetryDeck.signal("Add new goal", parameters: ["Goal":text])
                                 }
                             }
-                                else {
-                                    withAnimation {
-                                        if let goal = goalS {
-                                             context.delete(goal)
-                                             try? context.save()
-                                             
-                                             dismiss()
-                                            
-                                            TelemetryDeck.signal("Delete goal")
-                                         }
-                                    }
-                                }
-                            
                             
                         }
+
+                        dismiss()
+                            
                     }
+                    .buttonStyle(.borderedProminent)
+                        .foregroundStyle(Color.white)
+                        .tint(Color.blue)
+                        .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        
+                }
+            }.padding()
+            // Когда AddNewGoalView появляется, если editMood true и goalS не nil, то в TextField подставляются значения выбранной карточки для редактирования.
+                .onAppear {
+                    // editMood должно быть true, goalS дожно быть не nil. обы услови должны быть true
+                    if editMood, let goal = goalS {
+                        text = goal.goal
+                        selectedOption = goal.timePerWeek
+                    }
+                
+                }
+                .confirmationDialog("Delete this permanently?", isPresented: $showConfirmation, titleVisibility: .visible) {
+                            Button("Delete") {
+                                if allGoals.count == 1 {
+                                    if let goal = goalS {
+                                        context.delete(goal)
+                                        try? context.save()
+                                        
+                                        dismiss()
+                                        
+                                        TelemetryDeck.signal("Delete goal")
+                                    }
+                                }
+                                    else {
+                                        withAnimation {
+                                            if let goal = goalS {
+                                                 context.delete(goal)
+                                                 try? context.save()
+                                                 
+                                                 dismiss()
+                                                
+                                                TelemetryDeck.signal("Delete goal")
+                                             }
+                                        }
+                                    }
+                                
+                                
+                            }
+                        }
+            
+        }
+        
+        
     }
 }
 
