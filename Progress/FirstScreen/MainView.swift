@@ -123,8 +123,7 @@ struct MainView: View {
                     .background {
                         Color("Background")
                             .background(.thinMaterial)
-                            //.blur(radius: 10)
-                           // .opacity(0.7)
+                            .opacity(0.7)
                             .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
                             .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                             .ignoresSafeArea()
