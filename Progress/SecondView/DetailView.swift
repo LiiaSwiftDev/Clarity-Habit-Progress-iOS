@@ -153,19 +153,20 @@ struct DetailView: View {
                 .background {
                     Color("Background")
                         .background(.thinMaterial)
-                    //.opacity(0.7)
+                        .opacity(0.7)
                         .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
                         .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                         .ignoresSafeArea()
                 }
             }
             
-        } .navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $showSheet) {
                 if hSize == .compact {
-                    // iPhone
+                    // iPhone 
                     AddWeekView(goal: progress)
-                        .presentationDetents([.fraction(0.7)])
+                        .presentationDetents([.height(540)])
                 } else {
                     // iPad
                     AddWeekView(goal: progress)
@@ -177,7 +178,7 @@ struct DetailView: View {
                 if let week = selectedWeek {
                     if hSize == .compact  {
                         CommentView(goal: progress, week: week)
-                            .presentationDetents([.fraction(0.8)])
+                            .presentationDetents([.height(560)])
                     }
                     else {
                         CommentView(goal: progress, week: week)
@@ -188,8 +189,7 @@ struct DetailView: View {
                     
                 }
             })
-        
-        
+            
             .onAppear {
                 TelemetryDeck.signal("Visited Detail Screen")
             }

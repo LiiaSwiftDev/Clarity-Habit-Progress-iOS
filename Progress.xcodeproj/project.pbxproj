@@ -162,9 +162,9 @@
 			children = (
 				186E67D12E920301006661CA /* DetailView.swift */,
 				18475ACC2E995F5A00CD18CD /* WeekCardView.swift */,
+				186E67D72E95A61F006661CA /* DayCardView.swift */,
 				187044332EC79BED0021D1B5 /* CommentView.swift */,
 				187044352ECBA54F0021D1B5 /* OneCommentView.swift */,
-				186E67D72E95A61F006661CA /* DayCardView.swift */,
 				18475B092EA6DADE00CD18CD /* AddWeekView.swift */,
 				186E67D52E956E8B006661CA /* ProgressBarView.swift */,
 				187044092EB552360021D1B5 /* Percent.swift */,
