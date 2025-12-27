@@ -20,12 +20,14 @@ struct WeekCardView: View {
     @Query private var activities: [Activity]  // автоматически подгружаем из SwiftData
     
     var body: some View {
+        
         VStack {
                         ZStack {
                 
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundStyle(Color.white)
-                    .frame(maxWidth: 420)
+                            //
+                    .frame(maxWidth: .infinity)
                     .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
                             
                             VStack(alignment: .leading, spacing: 0) {
@@ -55,22 +57,32 @@ struct WeekCardView: View {
                                             }
                                         }
                                     }
-                                    .frame(width: 265)
+                                    .frame(maxWidth: .infinity)
                                     
                                     Percent(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek))
                                         .padding(.bottom, 20)
                                         .frame(width: 70, alignment: .trailing)
                                 }
                                 
-                                ProgressBarView(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek), width: 321.0)
-                                    .padding(.bottom, 21)
-                                    .padding(.top, 17)
+                                GeometryReader { geo in
+                                    ProgressBarView(
+                                        myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek),
+                                        width: geo.size.width
+                                    )
+                                }
+                                .frame(height: 8)
+                                .padding(.top, 17)
+                                .padding(.bottom, 21)
                                 
-                            } .padding(.horizontal)
+                            }
+                            .frame(maxWidth: 350)
+                            
+                            .padding(.horizontal, 16)
                 
             }
      
-        }.padding(.horizontal)
+        }//.padding(.horizontal)
+        
             
     }
     
