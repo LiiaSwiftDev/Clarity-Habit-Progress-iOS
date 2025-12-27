@@ -83,6 +83,8 @@ struct DetailView: View {
                         ForEach(goalWeeks, id: \.id) { week in
                             // у кадлой карточки есть цель и неделя
                             WeekCardView(progress: progress, week: week)
+                            //
+                                .padding(.horizontal, 20)
                                 .animation(.easeInOut(duration: 0.5), value: goalWeeks)
                                 .onTapGesture {
                                     selectedWeek = week
