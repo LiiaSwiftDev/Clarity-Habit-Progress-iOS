@@ -104,14 +104,15 @@ struct CommentView: View {
                                 .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
                         }
                         // «Каждый раз, когда focusedField изменится — выполни код».
-                        .onChange(of: focusedField) { field in
-                            // Когда поле фокусируется, скроллим к нему
-                            if let field = field {
+                        // oldValue - nil (нечего не выбрано), newValue - выбранный textfield
+                        .onChange(of: focusedField, { oldValue, newValue in
+                            // proxy — это объект, который умеет управлять прокруткой ScrollView Он позволяет программно прокручивать ScrollView к конкретным элементам
+                            if let field = newValue {
                                 withAnimation {
                                     proxy.scrollTo(field, anchor: .center)
                                 }
                             }
-                        }
+                        })
                         
                     }.onAppear(perform: {
                         monday = week.monday
@@ -126,7 +127,6 @@ struct CommentView: View {
                         
                     })
                     .padding(.bottom, 8)
-                    //.ignoresSafeArea(.keyboard)
                 }
                 .safeAreaInset(edge: .bottom) {
                     //

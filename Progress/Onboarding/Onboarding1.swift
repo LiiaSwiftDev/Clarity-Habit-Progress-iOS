@@ -15,8 +15,7 @@ struct Onboarding1: View {
    
     var body: some View {
         ZStack {
-            
-           // Color(red: 5/255, green: 114/255, blue: 161/255)
+
             Color("Background")
                 
             
@@ -29,10 +28,7 @@ struct Onboarding1: View {
                                 .foregroundStyle(Color.gray)
                                 .padding(.horizontal, 16)
                                 .padding(.top, 56)
-                              //  .padding(.bottom, 0)
                 }
-                
-                
 
                 VStack(alignment: .center, spacing: 0) {
                     

@@ -168,7 +168,7 @@ struct DetailView: View {
                 if hSize == .compact {
                     // iPhone 
                     AddWeekView(goal: progress)
-                        .presentationDetents([.height(540)])
+                        .presentationDetents([.height(560)])
                 } else {
                     // iPad
                     AddWeekView(goal: progress)

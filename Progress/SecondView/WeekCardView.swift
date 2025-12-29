@@ -20,8 +20,7 @@ struct WeekCardView: View {
     @Query private var activities: [Activity]  // автоматически подгружаем из SwiftData
     
     var body: some View {
-        
-        VStack {
+
                         ZStack {
                 
                 RoundedRectangle(cornerRadius: 15)
@@ -29,7 +28,7 @@ struct WeekCardView: View {
                             //
                     .frame(maxWidth: .infinity)
                     .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
-                            
+                            // Это родитель у GeometryReader
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("\(formattedDateRange(from: week.startDate, to: week.endDate))")
                                     .foregroundStyle(Color.black)
@@ -56,34 +55,30 @@ struct WeekCardView: View {
                                                 
                                             }
                                         }
-                                    }
+                                    } // «Я готов занять всю доступную ширину, если мне её дадут»
                                     .frame(maxWidth: .infinity)
                                     
                                     Percent(myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek))
                                         .padding(.bottom, 20)
                                         .frame(width: 70, alignment: .trailing)
                                 }
-                                
+                                // GeometryReader считает ВСЮ доступную ширину и высоту, которую родитель ему разрешил. Родитель это VStack
                                 GeometryReader { geo in
+                                    // geo.size.width - вся доступная ширина
                                     ProgressBarView(
                                         myProgress: Double(week.markedDaysCount) / Double(progress.timePerWeek),
                                         width: geo.size.width
                                     )
-                                }
+                                } // фиксированная высота
                                 .frame(height: 8)
                                 .padding(.top, 17)
                                 .padding(.bottom, 21)
                                 
                             }
                             .frame(maxWidth: 350)
-                            
                             .padding(.horizontal, 16)
                 
             }
-     
-        }//.padding(.horizontal)
-        
-            
     }
     
     func convertDatetoString(date: Date) -> String {
