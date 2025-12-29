@@ -17,16 +17,24 @@ struct Onboarding2: View {
             //Color(red: 5/255, green: 114/255, blue: 161/255)
             Color("Background")
             
-            VStack(alignment: .trailing, spacing: 0) {
-                Spacer()
+
+            GeometryReader { geo in
                 
-                Image("girl2")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(.horizontal, 40)
-                    .padding(.bottom, 60)
-                 
+                //это ширина доступного пространства (например, ширина экрана или контейнера, в котором находится вьюшка).
+                let width = geo.size.width
+                // CGFloat Числа с плавающей точкой для UI. Любые размеры, координаты, радиусы, масштабы в графике (UIKit/SwiftUI)
+                let scale: CGFloat = width < 380 ? 0.35 : 1.0
+                
                 VStack(alignment: .center, spacing: 0) {
+                    
+                    Spacer()
+                    
+                    Image("girl2")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: geo.size.width * scale)
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 60)
 
                     Text("Set your goals")
                         .font(.system(size: 26, weight: .bold, design: .default))
@@ -46,6 +54,7 @@ struct Onboarding2: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color.pink)
                                 .frame(height: 50)
+                               // .frame(maxWidth: 400)
                             
                             Text("Get Started")
                                 .font(.system(size: 20, weight: .semibold))
@@ -57,8 +66,8 @@ struct Onboarding2: View {
                 }
                 .padding(.horizontal)
             }
-            
-            
+                
+
         }
     }
 }
