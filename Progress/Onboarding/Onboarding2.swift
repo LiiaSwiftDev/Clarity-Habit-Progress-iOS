@@ -19,11 +19,25 @@ struct Onboarding2: View {
             
 
             GeometryReader { geo in
-                
-                //это ширина доступного пространства (например, ширина экрана или контейнера, в котором находится вьюшка).
-                let width = geo.size.width
-                // CGFloat Числа с плавающей точкой для UI. Любые размеры, координаты, радиусы, масштабы в графике (UIKit/SwiftUI)
-                let scale: CGFloat = width < 380 ? 0.35 : 1.0
+                // geo.size.height - высота контейнера или экрана в points (pt)
+                // Вычитание safeAreaInsets → реальная доступная высота, где можно рисовать контент. Без этого элементы могут попасть под чёлку или Home indicator
+                let height =
+                        geo.size.height
+                        - geo.safeAreaInsets.top
+                        - geo.safeAreaInsets.bottom
+
+                    let scale: CGFloat = {
+                        if height >= 850 {
+                            // Если экран большой (height >= 850 pt) → scale = 1
+                            return 1.0
+                        } else if height >= 750 {
+                            // Средний экран (height >= 750 pt) → scale = 0.65
+                            return 0.65
+                        } else {
+                            // Маленький экран (height < 750 pt) → scale = 0.35
+                            return 0.35
+                        }
+                    }()
                 
                 VStack(alignment: .center, spacing: 0) {
                     
@@ -34,7 +48,7 @@ struct Onboarding2: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: geo.size.width * scale)
                         .padding(.horizontal, 40)
-                        .padding(.bottom, 60)
+                        .padding(.bottom, 70)
 
                     Text("Set your goals")
                         .font(.system(size: 26, weight: .bold, design: .default))

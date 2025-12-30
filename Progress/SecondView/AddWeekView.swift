@@ -43,7 +43,7 @@ struct AddWeekView: View {
             } label: {
                 Text("Add Week")
                     .font(.system(size: 20, weight: .semibold))
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: 370)
                     .padding()
                     .background(Color.pink)
                     .foregroundColor(.white)

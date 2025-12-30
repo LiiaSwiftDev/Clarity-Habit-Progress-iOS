@@ -184,8 +184,9 @@ struct DetailView: View {
                     }
                     else {
                         CommentView(goal: progress, week: week)
+                            .presentationDetents([.height(560)])
                             .frame(width: 430)
-                            .presentationCompactAdaptation(.popover)
+                          //  .presentationCompactAdaptation(.popover)
                             
                     }
                     

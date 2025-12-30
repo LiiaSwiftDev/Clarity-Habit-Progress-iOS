@@ -22,99 +22,95 @@ struct CommentView: View {
     @State private var friday: String = ""
     @State private var saturday: String = ""
     @State private var sunday: String = ""
-
+    
     var goal: Goal
     var week: Week
     
     // Хранит какое TextField сейчас активно (куда нажал пользователь).
     @FocusState private var focusedField: DayField?
-
+    
     // Просто имена для каждого поля, чтобы их различать.
     enum DayField: Hashable {
-            case monday, tuesday, wednesday, thursday, friday, saturday, sunday
-        }
-
+        case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+    }
+    
     var body: some View {
         ZStack {
             // «Прокрути ScrollView туда, куда я скажу».
             ScrollViewReader { proxy in
                 ScrollView {
-                    VStack(alignment: .leading) {
+
+                    VStack(alignment: .center, spacing: 0) {
                         
-                        //Spacer()
-                        
-                        VStack(spacing: 0) {
-                            
-                            OneCommentView(day: "Mon", bindingDay: $monday)
-                            // «Это поле — Monday. Когда на него нажали, запомни это».
-                                .focused($focusedField, equals: .monday)
-                                .id(DayField.monday)
-                                .padding(.top, 30)
-                                .onChange(of: monday) { oldValue, newValue in
-                                    monday = TextHelper.limitByWidth(monday, font: UIFont.systemFont(ofSize: 17, weight: .regular), maxWidth: 225)
-                                }
-                            
-                            OneCommentView(day: "Tue", bindingDay: $tuesday)
-                                .focused($focusedField, equals: .tuesday)
-                                .id(DayField.tuesday)
-                                .onChange(of: tuesday) { oldValue, newValue in
-                                    tuesday = TextHelper.limitByWidth(tuesday, font: UIFont.systemFont(ofSize: 17, weight: .regular), maxWidth: 225)
-                                }
-                            
-                            OneCommentView(day: "Wed", bindingDay: $wednesday)
-                                .focused($focusedField, equals: .wednesday)
-                                .id(DayField.wednesday)
-                                .onChange(of: wednesday) { oldValue, newValue in
-                                    wednesday = TextHelper.limitByWidth(wednesday, font: UIFont.systemFont(ofSize: 17, weight: .regular), maxWidth: 225)
-                                }
-                            
-                            OneCommentView(day: "Thu", bindingDay: $thursday)
-                                .focused($focusedField, equals: .thursday)
-                                .id(DayField.thursday)
-                                .onChange(of: thursday) { oldValue, newValue in
-                                    thursday = TextHelper.limitByWidth(thursday, font: UIFont.systemFont(ofSize: 17, weight: .regular), maxWidth: 225)
-                                }
-                            
-                            OneCommentView(day: "Fri", bindingDay: $friday)
-                                .focused($focusedField, equals: .friday)
-                                .id(DayField.friday)
-                                .onChange(of: friday) { oldValue, newValue in
-                                    friday = TextHelper.limitByWidth(friday, font: UIFont.systemFont(ofSize: 17, weight: .regular), maxWidth: 225)
-                                }
-                            
-                            OneCommentView(day: "Sat", bindingDay: $saturday)
-                                .focused($focusedField, equals: .saturday)
-                                .id(DayField.saturday)
-                                .onChange(of: saturday) { oldValue, newValue in
-                                    saturday = TextHelper.limitByWidth(saturday, font: UIFont.systemFont(ofSize: 17, weight: .regular), maxWidth: 225)
-                                }
-                            
-                            OneCommentView(day: "Sun", bindingDay: $sunday)
-                                .focused($focusedField, equals: .sunday)
-                                .id(DayField.sunday)
-                                .onChange(of: sunday) { oldValue, newValue in
-                                    sunday = TextHelper.limitByWidth(sunday, font: UIFont.systemFont(ofSize: 17, weight: .regular), maxWidth: 225)
-                                }
-                            
-                            
-                        }
-                        .padding(.horizontal, 30)
-                        .background {
-                            Color.white
-                                .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
-                        }
-                        // «Каждый раз, когда focusedField изменится — выполни код».
-                        // oldValue - nil (нечего не выбрано), newValue - выбранный textfield
-                        .onChange(of: focusedField, { oldValue, newValue in
-                            // proxy — это объект, который умеет управлять прокруткой ScrollView Он позволяет программно прокручивать ScrollView к конкретным элементам
-                            if let field = newValue {
-                                withAnimation {
-                                    proxy.scrollTo(field, anchor: .center)
-                                }
+                        OneCommentView(day: "Mon", bindingDay: $monday)
+                        // «Это поле — Monday. Когда на него нажали, запомни это».
+                            .focused($focusedField, equals: .monday)
+                            .id(DayField.monday)
+                            .padding(.top, 30)
+                            .onChange(of: monday) { oldValue, newValue in
+                                monday = TextHelper.limitByWidth(monday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
-                        })
                         
-                    }.onAppear(perform: {
+                        OneCommentView(day: "Tue", bindingDay: $tuesday)
+                            .focused($focusedField, equals: .tuesday)
+                            .id(DayField.tuesday)
+                            .onChange(of: tuesday) { oldValue, newValue in
+                                tuesday = TextHelper.limitByWidth(tuesday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            }
+                        
+                        OneCommentView(day: "Wed", bindingDay: $wednesday)
+                            .focused($focusedField, equals: .wednesday)
+                            .id(DayField.wednesday)
+                            .onChange(of: wednesday) { oldValue, newValue in
+                                wednesday = TextHelper.limitByWidth(wednesday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            }
+                        
+                        OneCommentView(day: "Thu", bindingDay: $thursday)
+                            .focused($focusedField, equals: .thursday)
+                            .id(DayField.thursday)
+                            .onChange(of: thursday) { oldValue, newValue in
+                                thursday = TextHelper.limitByWidth(thursday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            }
+                        
+                        OneCommentView(day: "Fri", bindingDay: $friday)
+                            .focused($focusedField, equals: .friday)
+                            .id(DayField.friday)
+                            .onChange(of: friday) { oldValue, newValue in
+                                friday = TextHelper.limitByWidth(friday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            }
+                        
+                        OneCommentView(day: "Sat", bindingDay: $saturday)
+                            .focused($focusedField, equals: .saturday)
+                            .id(DayField.saturday)
+                            .onChange(of: saturday) { oldValue, newValue in
+                                saturday = TextHelper.limitByWidth(saturday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            }
+                        
+                        OneCommentView(day: "Sun", bindingDay: $sunday)
+                            .focused($focusedField, equals: .sunday)
+                            .id(DayField.sunday)
+                            .onChange(of: sunday) { oldValue, newValue in
+                                sunday = TextHelper.limitByWidth(sunday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            }
+                        
+                        
+                    }
+                    .padding(.horizontal, 30)
+                    .background {
+                        Color.white
+                            .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
+                    }
+                    // «Каждый раз, когда focusedField изменится — выполни код».
+                    // oldValue - nil (нечего не выбрано), newValue - выбранный textfield
+                    .onChange(of: focusedField, { oldValue, newValue in
+                        // proxy — это объект, который умеет управлять прокруткой ScrollView Он позволяет программно прокручивать ScrollView к конкретным элементам
+                        if let field = newValue {
+                            withAnimation {
+                                proxy.scrollTo(field, anchor: .center)
+                            }
+                        }
+                    })
+                    .onAppear(perform: {
                         monday = week.monday
                         tuesday = week.tuesday
                         wednesday = week.wednesday
@@ -149,7 +145,7 @@ struct CommentView: View {
                     } label: {
                         Text("Save")
                             .font(.system(size: 20, weight: .semibold))
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: 310)
                             .padding()
                             .background(Color.pink)
                             .foregroundColor(.white)
@@ -161,9 +157,9 @@ struct CommentView: View {
             }
         }
         
-        }
     }
+}
 
 //#Preview {
-  //  CommentView()
+//  CommentView()
 //}

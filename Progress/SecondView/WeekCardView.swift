@@ -25,8 +25,7 @@ struct WeekCardView: View {
                 
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundStyle(Color.white)
-                            //
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: 400)
                     .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
                             // Это родитель у GeometryReader
                             VStack(alignment: .leading, spacing: 0) {
