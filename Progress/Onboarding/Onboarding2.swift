@@ -46,6 +46,10 @@ struct Onboarding2: View {
                     Image("girl2")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                    // scale возвращает размер экрана, если экран большой то вернет 1.0
+                    // geo.size.width - это вся достурная ширина картинки
+                    // тогда ширина * 1.0 = изображение большое
+                    // или ширина * 0.35 = изображение маленькое
                         .frame(maxWidth: geo.size.width * scale)
                         .padding(.horizontal, 40)
                         .padding(.bottom, 70)

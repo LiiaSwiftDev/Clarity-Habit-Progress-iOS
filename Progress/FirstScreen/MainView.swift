@@ -40,7 +40,7 @@ struct MainView: View {
                 
                 VStack(spacing: 0) {
                     HStack {
-                        Text("My goals")
+                        Text("My habits")
                             .font(.screanTitle)
                             .foregroundStyle(Color.black)
                             .padding(.bottom, 10)
@@ -101,7 +101,7 @@ struct MainView: View {
                                     .foregroundStyle(Color("ButtonColor"))
                                     .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
                                 
-                                Text("New goal")
+                                Text("New habit")
                                     .font(.buttonText)
                                     .foregroundStyle(Color("GrayInside"))
                                     .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0.5, y: 0)
