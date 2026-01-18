@@ -95,9 +95,9 @@ struct AddNewGoalView: View {
                                     // Force SwiftData save. Потому что .save() это throws поэтому мы должны add try?
                                     try? context.save()
                                     
-                                  //  TelemetryManager.send("Add new goal",with: ["Name":text])
+                                  //  TelemetryManager.send("Add new goal",with: ["Name":text]) - если яя хочу знать какую цель написал user
                                     
-                                    TelemetryDeck.signal("Add new goal", parameters: ["Goal":text])
+                                    TelemetryDeck.signal("Add new goal")
                                 }
                             }
                             
