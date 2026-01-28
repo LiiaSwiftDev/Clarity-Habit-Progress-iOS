@@ -15,4 +15,4 @@ iOS habit and progress tracking app, available on the App Store.
 - SwiftData  
 
 ### 📸 Screenshots
-![App Screenshot](Screenshots/clarity.png)
+![App Screenshot](Screenshot7.png)
