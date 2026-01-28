@@ -12,7 +12,10 @@ iOS habit and progress tracking app, available on the App Store.
 ### 🛠 Tech Stack
 - Swift  
 - SwiftUI  
-- SwiftData  
+- SwiftData
+
+### 📅 App Store
+[Download Clarity — Habit & Progress](https://apps.apple.com/ca/app/clarity-habit-progress/id6757761931)
 
 ### 📸 Screenshots
 ![App Screenshot](Screenshot7.png)
