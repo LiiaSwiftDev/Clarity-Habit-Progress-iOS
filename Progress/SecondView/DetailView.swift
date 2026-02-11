@@ -165,31 +165,14 @@ struct DetailView: View {
         }
         .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $showSheet) {
-                if hSize == .compact {
                     // iPhone 
                     AddWeekView(goal: progress)
                         .presentationDetents([.height(560)])
-                } else {
-                    // iPad
-                    AddWeekView(goal: progress)
-                    // попробуй показать этот модальный экран в стиле popover вместо обычного sheet
-                        .presentationCompactAdaptation(.popover)
-                }
             }
             .sheet(isPresented: $showSheetComment, content: {
                 if let week = selectedWeek {
-                    if hSize == .compact  {
                         CommentView(goal: progress, week: week)
                             .presentationDetents([.height(560)])
-                    }
-                    else {
-                        CommentView(goal: progress, week: week)
-                            .presentationDetents([.height(560)])
-                            .frame(width: 430)
-                          //  .presentationCompactAdaptation(.popover)
-                            
-                    }
-                    
                 }
             })
             
