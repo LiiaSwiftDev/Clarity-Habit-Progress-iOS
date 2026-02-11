@@ -17,16 +17,14 @@ struct MainView: View {
     @Environment(\.openURL) var openURL
     // @State — чтобы можно было менять email прямо в приложении.
     @State private var email = SupportEmail(toAddress: "app.team.liia@gmail.com",
-                                     subject: "Support Email",
-                                     messageHeader: "Please describe your issue below")
+                                            subject: "Support Email",
+                                            messageHeader: "Please describe your issue below")
     // для того чтобы взять. достаёт объекты из базы данных
     @Query private var goals: [Goal]
-
     @State private var showSheet = false
     @State var edit = false
-    // optional потому что пока мы не выбрали это nil
-    @State var selectedGoal: Goal?
-   
+    
+    @State private var newGoal: Goal?
     
     var allGoals: [Goal] {
         goals.sorted(by: { $0.createDate > $1.createDate })
@@ -34,6 +32,7 @@ struct MainView: View {
     
     var body: some View {
         NavigationStack {
+            
             ZStack {
                 Color("Background")
                     .ignoresSafeArea()
@@ -59,8 +58,8 @@ struct MainView: View {
                         
                     } .padding(.horizontal, 22)
                         .padding(.top, 20)
-                        
-           
+                    
+                    
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 6) {
                             ForEach(allGoals) { g in
@@ -72,16 +71,14 @@ struct MainView: View {
                                 } label: {
                                     GoalCardView(goalStorage: g)
                                         .padding(.top, 10)
-                                        .onLongPressGesture {
-                                            selectedGoal = g
-                                            showSheet = true
-                                            edit = true
-                                        }
+                                      .onLongPressGesture {
+                                          newGoal = g
+                                      }
                                     
                                 } .buttonStyle(.plain)
                             }
                         }.padding(.horizontal)
-                         .padding(.bottom, 160)
+                            .padding(.bottom, 160)
                     }
                 }
                 VStack {
@@ -92,9 +89,10 @@ struct MainView: View {
                         Spacer()
                         
                         Button {
-                            // Add new goal
-                            showSheet = true
-                            edit = false
+                            // Create new goal
+                            // Goal() - это пустой обьект, пустой обьект это не nil. значит newGoal заполняется пустым обьектом и открывается sheet
+                            self.newGoal = Goal()
+
                         } label: {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 15)
@@ -108,8 +106,8 @@ struct MainView: View {
                                     .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: -0.5, y: 0)
                                     .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: 0.5)
                                     .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: -0.5)
-                                    
-                                    
+                                
+                                
                                 
                             }.frame(height: 60)
                                 .padding(.bottom, 20)
@@ -117,7 +115,7 @@ struct MainView: View {
                                 .padding(.horizontal, 10)
                             
                         }
-
+                        
                         Spacer()
                     }
                     .background {
@@ -128,23 +126,22 @@ struct MainView: View {
                             .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                             .ignoresSafeArea()
                     }
-                    
-                    
                 }
-                    .sheet(isPresented: $showSheet) {
-                        // show sheet to add new goal
-                        AddNewGoalView(editMood: edit, goalS: selectedGoal)
-                            .presentationDetents([.fraction(0.2)])
-                    }
             }
-            
+            .sheet(item: $newGoal) { goal in
+                let isEdit = goal.goal.trimmingCharacters(in: .whitespacesAndNewlines) != ""
+                
+                AddNewGoalView(goal: goal, editMood: isEdit)
+                    .presentationDetents([.fraction(0.2)])
+            }
+            .onAppear {
+                TelemetryDeck.signal("Visited Home Screen")
+            }
         }
-        .onAppear {
-            TelemetryDeck.signal("Visited Home Screen")
-        }
+        
     }
+    
 }
-
 #Preview {
     MainView()
 }
