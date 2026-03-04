@@ -132,7 +132,7 @@ struct MainView: View {
                 let isEdit = goal.goal.trimmingCharacters(in: .whitespacesAndNewlines) != ""
                 
                 AddNewGoalView(goal: goal, editMood: isEdit)
-                    .presentationDetents([.fraction(0.2)])
+                    .presentationDetents([.fraction(0.35)])
             }
             .onAppear {
                 TelemetryDeck.signal("Visited Home Screen")
