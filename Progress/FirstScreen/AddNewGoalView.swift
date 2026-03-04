@@ -26,6 +26,12 @@ struct AddNewGoalView: View {
     
     var goal: Goal
     var editMood: Bool
+    var service = DataService()
+    // выбранный вариант
+    @State var selectedGoal: Options?
+    
+    // все наши emoji and options
+    @State private var displayOptions = [Options]()
     
     var body: some View {
         
@@ -33,14 +39,44 @@ struct AddNewGoalView: View {
             
             Color.white
             
+            
             VStack(alignment: .leading, spacing: 20) {
+                
+                Spacer()
+                
+                // goal
                 TextField("My habit is...", text: $text)
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: text) { oldValue, newValue in
-                        text = TextHelper.limitChars(input: text, limit: 17)
+                        text = TextHelper.limitChars(input: text, limit: 18)
                     }
                 
-                // limit
+                // options
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(displayOptions) { option in
+                            // если пользователь нажал 2, тогда selectedOption = 2, если в списке displayOptions, каждый их него это option он в этом списке ищет 2, когда находит станоивтся true и появляется обводка
+                            // Когда SwiftUI видит, что пользователь нажал на кружок (onTapGesture), оно выполняет функцию, которая хранится в onTap.
+                            OptionView(emoji: option.emoji, habitOption: option.goalOption, isSelected: selectedGoal?.id == option.id, onTap: {
+                                // если она уже выбрана, тогда selectedOption сделай nil тогда уберется обводка. 2 слева, справа в списке ищет 2, находит тогда isSelected = true
+                                if selectedGoal?.id == option.id {
+                                    selectedGoal = nil
+                                    text = ""
+                                                                    }
+                                else {
+                                    // если не выбрана то selectedOption = выбранная карточка
+                                    selectedGoal = option
+
+                                    text = "\(option.emoji) \(option.goalOption)" // заполняем поле
+                                    
+                                }
+                            })
+                                
+                        }
+                    }
+                }
+                
+                // times per week
                 HStack(spacing: 0) {
                     Picker("", selection: $selectedOption) {
                         ForEach(options, id: \.self) { option in
@@ -106,6 +142,8 @@ struct AddNewGoalView: View {
                 }
             }.padding()
                 .onAppear {
+                    displayOptions = service.getOptions()
+                    
                     text = goal.goal
                     
                     // eсли то число в скорбах (goal.timePerWeek) есть в списке массиве options тогда ответ будет true и сработает код в скобках
