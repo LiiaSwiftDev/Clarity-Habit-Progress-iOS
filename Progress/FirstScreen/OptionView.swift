@@ -37,13 +37,12 @@ struct OptionView: View {
 
                     // emoji "💪"
                     Text(emoji)
-                        .font(Font.system(size: 30))
+                        .font(Font.system(size: 31))
                         .padding(.top, 10)
                 }
                 
                 // "Workout"
                 Text(habitOption)
-                   // .font(.body)
                     .font(Font.system(size: 16))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)

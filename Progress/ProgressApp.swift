@@ -36,7 +36,7 @@ struct ProgressApp: App {
                     OnboardingView()
                 }
                 .onAppear {
-                    //
+                    // info about device
                     print(UIDevice.current.systemVersion)
                     // говорит какая модель телефона, например iPhone 14 plus
                     let device = Device.current
