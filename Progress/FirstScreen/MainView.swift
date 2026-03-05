@@ -10,6 +10,7 @@ import SwiftData
 import TelemetryDeck
 
 struct MainView: View {
+    
     // для того чтобы положить. Через него можно сохранять, изменять и удалять объекты в вашей модели данных.
     @Environment(\.modelContext) private var context
     
@@ -37,96 +38,119 @@ struct MainView: View {
                 Color("Background")
                     .ignoresSafeArea()
                 
-                VStack(spacing: 0) {
-                    HStack {
-                        Text("My habits")
-                            .font(.screanTitle)
-                            .foregroundStyle(Color.black)
-                            .padding(.bottom, 10)
+                // show coach mark if there is no habits
+                if allGoals.isEmpty {
+                    VStack {
+                        Spacer()
+                        // image when there is no habits yet
+                        Image("empty-box")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 176)
+                            .padding(.bottom, 65)
+                        
+                        Text("No Habits\nCreate your first habit")
+                            .font(Font.system(size: 18))
+                            .foregroundStyle(Color(red: 129/255, green: 129/255, blue: 129/255))
+                            .multilineTextAlignment(.center)
+                            .frame(width: 185)
                         
                         Spacer()
-                        
-                        Button {
-                            // email
-                            email.send(urlOpener: openURL)
-                        } label: {
-                            HStack {
-                                Text("Email Support")
-                                Image(systemName: "envelope.circle.fill")
-                            }
-                        }.padding(.bottom, 70)
-                        
-                    } .padding(.horizontal, 22)
-                        .padding(.top, 20)
-                    
-                    
-                    ScrollView(showsIndicators: false) {
-                        VStack(spacing: 6) {
-                            ForEach(allGoals) { g in
-                                
-                                NavigationLink {
-                                    
-                                    DetailView(progress: g)
-                                    
-                                } label: {
-                                    GoalCardView(goalStorage: g)
-                                        .padding(.top, 10)
-                                      .onLongPressGesture {
-                                          newGoal = g
-                                      }
-                                    
-                                } .buttonStyle(.plain)
-                            }
-                        }.padding(.horizontal)
-                            .padding(.bottom, 160)
                     }
                 }
-                VStack {
-                    
-                    Spacer()
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            // Create new goal
-                            // Goal() - это пустой обьект, пустой обьект это не nil. значит newGoal заполняется пустым обьектом и открывается sheet
-                            self.newGoal = Goal()
 
-                        } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .foregroundStyle(Color("ButtonColor"))
-                                    .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
-                                
-                                Text("New habit")
-                                    .font(.buttonText)
-                                    .foregroundStyle(Color("GrayInside"))
-                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0.5, y: 0)
-                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: -0.5, y: 0)
-                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: 0.5)
-                                    .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: -0.5)
-                                
-                                
-                                
-                            }.frame(height: 60)
-                                .padding(.bottom, 20)
-                                .padding(.top, 10)
-                                .padding(.horizontal, 10)
+
+                    VStack(spacing: 0) {
+                        HStack {
+                            Text("My habits")
+                                .font(.screanTitle)
+                                .foregroundStyle(Color.black)
+                                .padding(.bottom, 10)
                             
+                            Spacer()
+                            
+                            Button {
+                                // email
+                                email.send(urlOpener: openURL)
+                            } label: {
+                                HStack {
+                                    Text("Email Support")
+                                    Image(systemName: "envelope.circle.fill")
+                                }
+                            }.padding(.bottom, 70)
+                            
+                        } .padding(.horizontal, 22)
+                            .padding(.top, 20)
+                        
+                        
+                        ScrollView(showsIndicators: false) {
+                            VStack(spacing: 6) {
+                                ForEach(allGoals) { g in
+                                    
+                                    NavigationLink {
+                                        
+                                        DetailView(progress: g)
+                                        
+                                    } label: {
+                                        GoalCardView(goalStorage: g)
+                                            .padding(.top, 10)
+                                            .onLongPressGesture {
+                                                newGoal = g
+                                            }
+                                        
+                                    } .buttonStyle(.plain)
+                                }
+                            }.padding(.horizontal)
+                                .padding(.bottom, 160)
                         }
+                    }
+                    VStack {
                         
                         Spacer()
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button {
+                                // Create new goal
+                                // Goal() - это пустой обьект, пустой обьект это не nil. значит newGoal заполняется пустым обьектом и открывается sheet
+                                self.newGoal = Goal()
+                                
+                            } label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundStyle(Color("ButtonColor"))
+                                        .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
+                                    
+                                    Text("New habit")
+                                        .font(.buttonText)
+                                        .foregroundStyle(Color("GrayInside"))
+                                        .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0.5, y: 0)
+                                        .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: -0.5, y: 0)
+                                        .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: 0.5)
+                                        .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: -0.5)
+                                    
+                                    
+                                    
+                                }.frame(height: 60)
+                                    .padding(.bottom, 20)
+                                    .padding(.top, 10)
+                                    .padding(.horizontal, 10)
+                                
+                            }
+                            
+                            Spacer()
+                        }
+                        .background {
+                            Color("Background")
+                                .background(.thinMaterial)
+                                .opacity(0.7)
+                                .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
+                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
+                                .ignoresSafeArea()
+                        }
                     }
-                    .background {
-                        Color("Background")
-                            .background(.thinMaterial)
-                            .opacity(0.7)
-                            .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
-                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
-                            .ignoresSafeArea()
-                    }
-                }
+                
             }
             .sheet(item: $newGoal) { goal in
                 let isEdit = goal.goal.trimmingCharacters(in: .whitespacesAndNewlines) != ""

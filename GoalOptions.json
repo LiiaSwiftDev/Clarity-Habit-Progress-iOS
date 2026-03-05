@@ -20,16 +20,16 @@
         "goalOption":"Dance classes"
     },
     {
+        "emoji":"🧘‍♀️",
+        "goalOption":"Yoga"
+    },
+    {
         "emoji":"📝",
         "goalOption":"Journaling"
     },
     {
-        "emoji":"🧘‍♀️",
+        "emoji":"🪷",
         "goalOption":"Meditation"
-    },
-    {
-        "emoji":"🌍",
-        "goalOption":"Learn a Language"
     },
     {
         "emoji":"💆‍♀️",
@@ -41,6 +41,10 @@
     },
     {
         "emoji":"🏃‍♀️",
-        "goalOption":"Running"
+        "goalOption":"Run"
+    },
+    {
+        "emoji":"🌍",
+        "goalOption":"Learn Language"
     }
 ]

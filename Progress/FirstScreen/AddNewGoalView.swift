@@ -115,8 +115,9 @@ struct AddNewGoalView: View {
                                 goal.goal = text
                                 goal.timePerWeek = selectedOption
                                 context.insert(goal)
-                                
+
                                 try? context.save()
+                                
                                 TelemetryDeck.signal("Add new goal")
                             }
                             else {
