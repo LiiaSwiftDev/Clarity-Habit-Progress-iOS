@@ -178,8 +178,40 @@ struct DetailView: View {
             
             .onAppear {
                 TelemetryDeck.signal("Visited Detail Screen")
+                
+                // Проверяем, есть ли недели у этой цели
+                    if goalWeeks.isEmpty {
+                        firstWeek()
+                    }
             }
         
+    }
+    
+    func firstWeek() {
+        // узнает даты пн и вс этой недели
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2 // 1 = Sunday, 2 = Monday ✅
+        let today = Date()
+        let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+        // воскресенье = +6 дней от понедельника
+        // calendar.date - говорим помощнику: «сделай дату».
+        // byAdding: – «добавь…» , .day – «…дни», to: weekStart – «к понедельнику» ! – говорим: «Я уверен, что это получится, не бойся».
+        let weekEnd = calendar.date(byAdding: .day, value: 6, to: weekStart)!
+        
+        
+        // создаём неделю только если ещё нет такой
+        // if ! — если такой недели нет, создаём её.
+        //.contains(where: { ... }) — функция, которая проверяет, есть ли элемент, который удовлетворяет условию.
+        // week это каждый элемент из массива weeks
+        if !progress.weeks.contains(where: { week in
+            week.startDate == weekStart && week.endDate == weekEnd
+        }) {
+            // создаем новую неделю и кладем на пн и вс
+            let firstWeek = Week(goal: progress, startDate: weekStart, endDate: weekEnd)
+            // сохраняем
+            context.insert(firstWeek)
+            try? context.save()
+        }
     }
     
 }
