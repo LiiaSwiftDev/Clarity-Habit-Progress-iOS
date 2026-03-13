@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180AE72B2F6111B90079E196 /* Onboarding2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180AE72A2F6111B90079E196 /* Onboarding2.swift */; };
+		180AE72D2F6111C80079E196 /* Onboarding3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180AE72C2F6111C80079E196 /* Onboarding3.swift */; };
 		1826536D2F57BBA200F8A400 /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826536C2F57BBA200F8A400 /* OptionView.swift */; };
 		182653712F57BC4C00F8A400 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182653702F57BC4C00F8A400 /* DataService.swift */; };
 		182653742F57BCAB00F8A400 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182653732F57BCAB00F8A400 /* Options.swift */; };
 		18475AC62E982FCE00CD18CD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475AC52E982FCE00CD18CD /* OnboardingView.swift */; };
-		18475AC92E98418800CD18CD /* Onboarding1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475AC82E98418800CD18CD /* Onboarding1.swift */; };
-		18475ACB2E98796200CD18CD /* Onboarding2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475ACA2E98796200CD18CD /* Onboarding2.swift */; };
+		18475ACB2E98796200CD18CD /* Onboarding1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475ACA2E98796200CD18CD /* Onboarding1.swift */; };
 		18475ACD2E995F5A00CD18CD /* WeekCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475ACC2E995F5A00CD18CD /* WeekCardView.swift */; };
 		18475B022EA1B2A900CD18CD /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475B012EA1B2A900CD18CD /* Activity.swift */; };
 		18475B062EA40A4B00CD18CD /* Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475B052EA40A4B00CD18CD /* Week.swift */; };
@@ -44,12 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180AE72A2F6111B90079E196 /* Onboarding2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2.swift; sourceTree = "<group>"; };
+		180AE72C2F6111C80079E196 /* Onboarding3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding3.swift; sourceTree = "<group>"; };
 		1826536C2F57BBA200F8A400 /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
 		182653702F57BC4C00F8A400 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		182653732F57BCAB00F8A400 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		18475AC52E982FCE00CD18CD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		18475AC82E98418800CD18CD /* Onboarding1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding1.swift; sourceTree = "<group>"; };
-		18475ACA2E98796200CD18CD /* Onboarding2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2.swift; sourceTree = "<group>"; };
+		18475ACA2E98796200CD18CD /* Onboarding1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding1.swift; sourceTree = "<group>"; };
 		18475ACC2E995F5A00CD18CD /* WeekCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCardView.swift; sourceTree = "<group>"; };
 		18475B012EA1B2A900CD18CD /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		18475B052EA40A4B00CD18CD /* Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week.swift; sourceTree = "<group>"; };
@@ -105,8 +107,9 @@
 			isa = PBXGroup;
 			children = (
 				18475AC52E982FCE00CD18CD /* OnboardingView.swift */,
-				18475AC82E98418800CD18CD /* Onboarding1.swift */,
-				18475ACA2E98796200CD18CD /* Onboarding2.swift */,
+				18475ACA2E98796200CD18CD /* Onboarding1.swift */,
+				180AE72A2F6111B90079E196 /* Onboarding2.swift */,
+				180AE72C2F6111C80079E196 /* Onboarding3.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -301,11 +304,12 @@
 				186E67BD2E904193006661CA /* MainView.swift in Sources */,
 				186E67D22E920301006661CA /* DetailView.swift in Sources */,
 				187043F82EB2BB270021D1B5 /* FontHelper.swift in Sources */,
+				180AE72B2F6111B90079E196 /* Onboarding2.swift in Sources */,
 				186D5ED12ED2AEF200439BAF /* Bundle.swift in Sources */,
-				18475AC92E98418800CD18CD /* Onboarding1.swift in Sources */,
 				186E67CB2E90B2B4006661CA /* GoalCardView.swift in Sources */,
 				18475AC62E982FCE00CD18CD /* OnboardingView.swift in Sources */,
-				18475ACB2E98796200CD18CD /* Onboarding2.swift in Sources */,
+				180AE72D2F6111C80079E196 /* Onboarding3.swift in Sources */,
+				18475ACB2E98796200CD18CD /* Onboarding1.swift in Sources */,
 				1826536D2F57BBA200F8A400 /* OptionView.swift in Sources */,
 				186E67C12E9043DE006661CA /* Goal.swift in Sources */,
 				186E67BE2E904193006661CA /* ProgressApp.swift in Sources */,

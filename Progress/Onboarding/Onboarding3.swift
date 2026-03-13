@@ -1,5 +1,5 @@
 //
-//  Onboarding3.swift
+//  Onboarding4.swift
 //  Progress
 //
 //  Created by Лия Кошеленко on 2026-03-10.
@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct Onboarding2: View {
+struct Onboarding3: View {
     
-    @State private var showDetail = false
+    @State private var showComment = false
     @State private var pointerOpacity = 0.0
     @State private var scale = 1.0
     @State private var animationTask: Task<Void, Never>?
     
     var actionButton: () -> Void
-    
     
     var body: some View {
         ZStack {
@@ -23,25 +22,25 @@ struct Onboarding2: View {
             Color(red: 149/255, green: 100/255, blue: 152/255)
                 .ignoresSafeArea()
             
-                Image(showDetail ? "screen2" : "screen1")
+                Image(showComment ? "screen4" : "screen3")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 650)
-                    .animation(.easeInOut(duration: 0.5), value: showDetail) // плавное переключение
+                    .animation(.easeInOut(duration: 0.5), value: showComment) // плавное переключение
                     .padding(.top, 50)
                 
                 Image("hand")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 60)
-                    .padding(.bottom, 210)
-                    .padding(.leading, 50)
+                    .padding(.bottom, 200)
+                    .padding(.leading, 190)
                     .opacity(pointerOpacity)
                     .scaleEffect(scale)
             
             VStack {
                 
-                Text("Track your growth\nand enjoy\nyour progress")
+                Text("We take care of\n your notes,\nso nothing slips")
                     .foregroundStyle(Color.white)
                     .multilineTextAlignment(.center)
                     .font(Font.system(size: 22, weight: .semibold))
@@ -82,7 +81,7 @@ struct Onboarding2: View {
 
                 while !Task.isCancelled {
 
-                    showDetail = false
+                    showComment = false
                     pointerOpacity = 0
                     scale = 1
 
@@ -121,7 +120,7 @@ struct Onboarding2: View {
                     try? await Task.sleep(nanoseconds: 300_000_000)
 
                     await MainActor.run {
-                        showDetail = true
+                        showComment = true
                     }
 
                     try? await Task.sleep(nanoseconds: 2_000_000_000)
@@ -133,6 +132,6 @@ struct Onboarding2: View {
 }
 
 #Preview {
-    Onboarding2(actionButton: { // nothing
+    Onboarding3(actionButton: { // nothing
     })
 }

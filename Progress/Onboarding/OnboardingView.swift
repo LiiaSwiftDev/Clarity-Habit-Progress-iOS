@@ -16,7 +16,7 @@ struct OnboardingView: View {
         
         ZStack {
             
-            Color(red: 5/255, green: 114/255, blue: 161/255)
+            Color(red: 149/255, green: 100/255, blue: 152/255)
             
             TabView(selection: $selectedIndex) {
                 
@@ -30,30 +30,24 @@ struct OnboardingView: View {
                 .ignoresSafeArea()
                 .tag(0)
                 
-                Onboarding2(actionButton: {
-                    // выходим из onboarding и переходим в приложение
-                    dismiss()
-                })
+                Onboarding2 {
+                    withAnimation {
+                        // переходим на сторую страницу
+                        selectedIndex = 2
+                    }
+                }
                 .ignoresSafeArea()
                 .tag(1)
                 
+                Onboarding3 {
+                    // выходим из onboarding и переходим в приложение
+                    dismiss()
+                }
+                .ignoresSafeArea()
+                .tag(2)
+                
             }.tabViewStyle(.page(indexDisplayMode: .never))
             
-            VStack {
-                Spacer()
-                HStack(spacing: 16) {
-                    Spacer()
-                    Circle()
-                        .frame(width: 10)
-                        .foregroundStyle(selectedIndex == 0 ? .white : .gray)
-                    
-                    Circle()
-                        .frame(width: 10)
-                        .foregroundStyle(selectedIndex == 1 ? .white : .gray)
-                    Spacer()
-                }.padding(.bottom, 235)
-            }
-                
         }.ignoresSafeArea()
     }
 }
