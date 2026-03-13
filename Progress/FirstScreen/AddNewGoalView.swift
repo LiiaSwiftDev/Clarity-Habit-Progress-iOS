@@ -38,8 +38,7 @@ struct AddNewGoalView: View {
         ZStack {
             
             Color.white
-            
-            
+
             VStack(alignment: .leading, spacing: 20) {
                 
                 Spacer()
@@ -139,8 +138,10 @@ struct AddNewGoalView: View {
                     .foregroundStyle(Color.white)
                     .tint(Color.blue)
                     .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .padding(.trailing, 10)
                     
                 }
+
             }.padding()
                 .onAppear {
                     displayOptions = service.getOptions()
