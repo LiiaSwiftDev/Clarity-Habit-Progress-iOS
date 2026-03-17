@@ -13,6 +13,8 @@ import DeviceKit
 @main
 struct ProgressApp: App {
     
+    @State var model = HabitModel()
+    
     init() {
             let config = TelemetryDeck.Config(appID: "***REMOVED***")
             TelemetryDeck.initialize(config: config)
@@ -26,6 +28,7 @@ struct ProgressApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environment(model)
                 .modelContainer(for: [Goal.self, Activity.self])
             // Binding.constant(true) - значит всегда показывай onboarding view
                 .fullScreenCover(isPresented: $needsOnboarding) {

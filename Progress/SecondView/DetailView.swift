@@ -11,23 +11,18 @@ import TelemetryDeck
 
 struct DetailView: View {
     
+    @Environment(HabitModel.self) var model
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) var dismiss
     // Скажи мне, сколько места есть по ширине экрана прямо сейчас
     @Environment(\.horizontalSizeClass) private var hSize
     
-    
     // "Я храню их в массиве allWeeks — это список всех недель." allWeeks — это полный массив всех недель, которые есть в базе, для всех целей. Например, если у тебя три цели, и у каждой есть по 2 недели, то allWeeks будет содержать все 6 объектов.
     @Query private var allWeeks: [Week]
     
-    @State private var showSheet = false
-    @State private var weekToDelete: Week? = nil
-    @State private var showAlert: Bool = false
     // "На этом экране мы показываем одну конкретную цель и её прогресс."
     var progress: Goal
-    @State private var showSheetComment = false
     
-    @State private var selectedWeek: Week?
     // отфильтрованые недели "Возьми из всего массива только те недели, которые принадлежат текущей цели progress."
     var goalWeeks: [Week] {
         // "Возьми только те недели, которые принадлежат этой цели." и номер которых больше чем 0
@@ -36,8 +31,9 @@ struct DetailView: View {
             .sorted(by: { $0.startDate > $1.startDate })
     }
     
-    
     var body: some View {
+        
+        @Bindable var model = model
         
         ZStack {
             Color("Background")
@@ -87,21 +83,21 @@ struct DetailView: View {
                                 .padding(.horizontal, 20)
                                 .animation(.easeInOut(duration: 0.5), value: goalWeeks)
                                 .onTapGesture {
-                                    selectedWeek = week
-                                    showSheetComment = true
+                                    model.selectedWeek = week
+                                    model.showSheetComment = true
                                 }
                                 .onLongPressGesture {
-                                    weekToDelete = week
-                                    showAlert = true
+                                    model.weekToDelete = week
+                                    model.showAlert = true
                                 }
-                                .alert(isPresented: $showAlert) {
+                                .alert(isPresented: $model.showAlert) {
                                     Alert(
                                         title: Text("Delete Week"),
                                         message: Text("Delete this week permanently? This action cannot be undone."),
                                         // .destructive - make button red
                                         primaryButton: .destructive(Text("Delete"), action: {
                                             
-                                            if let week = weekToDelete {
+                                            if let week = model.weekToDelete {
                                                 
                                                 context.delete(week)
                                                 try? context.save()
@@ -125,7 +121,7 @@ struct DetailView: View {
                     Spacer()
                     
                     Button {
-                        showSheet = true
+                        model.showSheet = true
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
@@ -164,13 +160,13 @@ struct DetailView: View {
             
         }
         .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $showSheet) {
-                    // iPhone 
+        .sheet(isPresented: $model.showSheet) {
+                    // iPhone
                     AddWeekView(goal: progress)
                         .presentationDetents([.height(560)])
             }
-            .sheet(isPresented: $showSheetComment, content: {
-                if let week = selectedWeek {
+        .sheet(isPresented: $model.showSheetComment, content: {
+            if let week = model.selectedWeek {
                         CommentView(goal: progress, week: week)
                             .presentationDetents([.height(560)])
                 }

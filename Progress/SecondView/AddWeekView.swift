@@ -101,7 +101,6 @@ struct AddWeekView: View {
             endDate: weekEnd
         )
         
-        
         if goal.weeks.isEmpty {
             withAnimation(.none) {
                     // вставляем первую неделю без анимации

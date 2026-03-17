@@ -9,11 +9,11 @@ import SwiftUI
 
 struct OptionView: View {
     
+    @Environment(HabitModel.self) var model
+    
     var emoji: String
     var habitOption: String
     var isSelected: Bool
-    @State private var scale: CGFloat = 1.0
-    
     //То есть onTap — это как кнопка-пустышка, в которую можно положить любую функцию, и потом вызвать её.
     let onTap: () -> Void
     
@@ -50,21 +50,21 @@ struct OptionView: View {
         
             }
                 .frame(width: 75, height: 140, alignment: .top)
-                .scaleEffect(scale)
+                .scaleEffect(model.scale)
                 .onTapGesture {
                     // 1️⃣ сжать до 0.85
                         withAnimation(.easeIn(duration: 0.2)) {
-                            scale = 0.85
+                            model.scale = 0.85
                         }
                         
                         // 2️⃣ расширить до 1.1 с небольшой задержкой
                         withAnimation(.easeOut(duration: 0.3).delay(0.12)) {
-                            scale = 1.1
+                            model.scale = 1.1
                         }
                         
                         // 3️⃣ вернуть в 1.0
                         withAnimation(.easeOut(duration: 0.35).delay(0.17)) {
-                        scale = 1.0
+                            model.scale = 1.0
                     }
                     
                     //Когда SwiftUI видит, что пользователь нажал на кружок (onTapGesture), оно выполняет функцию, которая хранится в onTap.
