@@ -18,62 +18,65 @@ struct Onboarding2: View {
     
     
     var body: some View {
-        ZStack {
-            
-            Color(red: 149/255, green: 100/255, blue: 152/255)
-                .ignoresSafeArea()
-            
-                Image(showDetail ? "screen2" : "screen1")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 650)
-                    .animation(.easeInOut(duration: 0.5), value: showDetail) // плавное переключение
-                    .padding(.top, 50)
+        GeometryReader { geo in
+            ZStack {
                 
-                Image("hand")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 60)
-                    .padding(.bottom, 210)
-                    .padding(.leading, 50)
-                    .opacity(pointerOpacity)
-                    .scaleEffect(scale)
-            
-            VStack {
+                Color(red: 149/255, green: 100/255, blue: 152/255)
+                    .ignoresSafeArea()
                 
-                Text("Track your growth\nand enjoy\nyour progress")
-                    .foregroundStyle(Color.white)
-                    .multilineTextAlignment(.center)
-                    .font(Font.system(size: 22, weight: .semibold))
-                    .padding(.top, 100)
-                
-                Spacer()
-                
-            Button {
-                actionButton()
-            } label: {
-                ZStack {
-                    Image("Button")
+                    Image(showDetail ? "screen2" : "screen1")
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 200, height: 42)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: geo.size.height * 0.8)
+                        .animation(.easeInOut(duration: 0.5), value: showDetail) // плавное переключение
+                        .padding(.top, 70)
                     
-                    Text("Continue")
-                        .font(Font.system(size: 18, weight: .medium))
+                    Image("hand")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: geo.size.height * 0.08)
+                        .padding(.bottom, 230)
+                        .padding(.leading, 50)
+                        .opacity(pointerOpacity)
+                        .scaleEffect(scale)
+                
+                VStack {
+                    
+                    Text("Track your growth\nand enjoy\nyour progress")
                         .foregroundStyle(Color.white)
+                        .multilineTextAlignment(.center)
+                        .font(Font.system(size: geo.size.width * 0.05, weight: .semibold))
+                        .padding(.top, geo.size.height * 0.12)
+                    
+                    Spacer()
+                    
+                Button {
+                    actionButton()
+                } label: {
+                    ZStack {
+                        Image("Button")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geo.size.width * 0.6, height: 42)
+                        
+                        Text("Continue")
+                            .font(Font.system(size: 18, weight: .medium))
+                            .foregroundStyle(Color.white)
+                    }
                 }
+                .padding(.bottom, geo.size.height * 0.1)
+                 
+                }
+                
             }
-            .padding(.bottom, 90)
-             
+            .onAppear {
+                startAnimationLoop()
             }
-            
+            .onDisappear {
+                animationTask?.cancel()
+            }
         }
-        .onAppear {
-            startAnimationLoop()
-        }
-        .onDisappear {
-            animationTask?.cancel()
-        }
+        
     }
     
     func startAnimationLoop() {
