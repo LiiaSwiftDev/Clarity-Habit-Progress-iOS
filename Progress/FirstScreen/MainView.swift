@@ -10,28 +10,26 @@ import SwiftData
 import TelemetryDeck
 
 struct MainView: View {
+    // // Access the shared HabitModel from the SwiftUI environment
+    @Environment(HabitModel.self) var model
     
-    // для того чтобы положить. Через него можно сохранять, изменять и удалять объекты в вашей модели данных.
+    // To add/edit/delete in SwiftData. Через него можно сохранять, изменять и удалять объекты в вашей модели данных.
     @Environment(\.modelContext) private var context
     
     //Это объект, который SwiftUI даёт тебе автоматически из окружения. Его тип — OpenURLAction. Ты можешь передать его в функцию send, чтобы функция знала, как открывать почту.
     @Environment(\.openURL) var openURL
-    // @State — чтобы можно было менять email прямо в приложении.
-    @State private var email = SupportEmail(toAddress: "app.team.liia@gmail.com",
-                                            subject: "Support Email",
-                                            messageHeader: "Please describe your issue below")
+    
     // для того чтобы взять. достаёт объекты из базы данных
     @Query private var goals: [Goal]
-    @State private var showSheet = false
-    @State var edit = false
-    
-    @State private var newGoal: Goal?
-    
+
     var allGoals: [Goal] {
         goals.sorted(by: { $0.createDate > $1.createDate })
     }
     
     var body: some View {
+        
+        @Bindable var model = model
+        
         NavigationStack {
             
             ZStack {
@@ -71,7 +69,7 @@ struct MainView: View {
                             
                             Button {
                                 // email
-                                email.send(urlOpener: openURL)
+                                model.email.send(urlOpener: openURL)
                             } label: {
                                 HStack {
                                     Text("Email Support")
@@ -95,7 +93,7 @@ struct MainView: View {
                                         GoalCardView(goalStorage: g)
                                             .padding(.top, 10)
                                             .onLongPressGesture {
-                                                newGoal = g
+                                                model.newGoal = g
                                             }
                                         
                                     } .buttonStyle(.plain)
@@ -112,9 +110,9 @@ struct MainView: View {
                             Spacer()
                             
                             Button {
-                                // Create new goal
+                                // Create new habit
                                 // Goal() - это пустой обьект, пустой обьект это не nil. значит newGoal заполняется пустым обьектом и открывается sheet
-                                self.newGoal = Goal()
+                                self.model.newGoal = Goal()
                                 
                             } label: {
                                 ZStack {
@@ -152,7 +150,7 @@ struct MainView: View {
                     }
                 
             }
-            .sheet(item: $newGoal) { goal in
+            .sheet(item: $model.newGoal) { goal in
                 let isEdit = goal.goal.trimmingCharacters(in: .whitespacesAndNewlines) != ""
                 
                 AddNewGoalView(goal: goal, editMood: isEdit)

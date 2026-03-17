@@ -11,17 +11,10 @@ import TelemetryDeck
 
 struct CommentView: View {
     
+    @Environment(HabitModel.self) var model
     // чтобы сохранять, удалять
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    
-    @State private var monday: String = ""
-    @State private var tuesday: String = ""
-    @State private var wednesday: String = ""
-    @State private var thursday: String = ""
-    @State private var friday: String = ""
-    @State private var saturday: String = ""
-    @State private var sunday: String = ""
     
     var goal: Goal
     var week: Week
@@ -35,6 +28,9 @@ struct CommentView: View {
     }
     
     var body: some View {
+        
+        @Bindable var model = model
+        
         ZStack {
             // «Прокрути ScrollView туда, куда я скажу».
             ScrollViewReader { proxy in
@@ -42,55 +38,55 @@ struct CommentView: View {
 
                     VStack(alignment: .center, spacing: 0) {
                         
-                        OneCommentView(day: "Mon", bindingDay: $monday)
+                        OneCommentView(day: "Mon", bindingDay: $model.monday)
                         // «Это поле — Monday. Когда на него нажали, запомни это».
                             .focused($focusedField, equals: .monday)
                             .id(DayField.monday)
                             .padding(.top, 30)
-                            .onChange(of: monday) { oldValue, newValue in
-                                monday = TextHelper.limitByWidth(monday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            .onChange(of: model.monday) { oldValue, newValue in
+                                model.monday = TextHelper.limitByWidth(model.monday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
                         
-                        OneCommentView(day: "Tue", bindingDay: $tuesday)
+                        OneCommentView(day: "Tue", bindingDay: $model.tuesday)
                             .focused($focusedField, equals: .tuesday)
                             .id(DayField.tuesday)
-                            .onChange(of: tuesday) { oldValue, newValue in
-                                tuesday = TextHelper.limitByWidth(tuesday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            .onChange(of: model.tuesday) { oldValue, newValue in
+                                model.tuesday = TextHelper.limitByWidth(model.tuesday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
                         
-                        OneCommentView(day: "Wed", bindingDay: $wednesday)
+                        OneCommentView(day: "Wed", bindingDay: $model.wednesday)
                             .focused($focusedField, equals: .wednesday)
                             .id(DayField.wednesday)
-                            .onChange(of: wednesday) { oldValue, newValue in
-                                wednesday = TextHelper.limitByWidth(wednesday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            .onChange(of: model.wednesday) { oldValue, newValue in
+                                model.wednesday = TextHelper.limitByWidth(model.wednesday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
                         
-                        OneCommentView(day: "Thu", bindingDay: $thursday)
+                        OneCommentView(day: "Thu", bindingDay: $model.thursday)
                             .focused($focusedField, equals: .thursday)
                             .id(DayField.thursday)
-                            .onChange(of: thursday) { oldValue, newValue in
-                                thursday = TextHelper.limitByWidth(thursday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            .onChange(of: model.thursday) { oldValue, newValue in
+                                model.thursday = TextHelper.limitByWidth(model.thursday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
                         
-                        OneCommentView(day: "Fri", bindingDay: $friday)
+                        OneCommentView(day: "Fri", bindingDay: $model.friday)
                             .focused($focusedField, equals: .friday)
                             .id(DayField.friday)
-                            .onChange(of: friday) { oldValue, newValue in
-                                friday = TextHelper.limitByWidth(friday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            .onChange(of: model.friday) { oldValue, newValue in
+                                model.friday = TextHelper.limitByWidth(model.friday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
                         
-                        OneCommentView(day: "Sat", bindingDay: $saturday)
+                        OneCommentView(day: "Sat", bindingDay: $model.saturday)
                             .focused($focusedField, equals: .saturday)
                             .id(DayField.saturday)
-                            .onChange(of: saturday) { oldValue, newValue in
-                                saturday = TextHelper.limitByWidth(saturday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            .onChange(of: model.saturday) { oldValue, newValue in
+                                model.saturday = TextHelper.limitByWidth(model.saturday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
                         
-                        OneCommentView(day: "Sun", bindingDay: $sunday)
+                        OneCommentView(day: "Sun", bindingDay: $model.sunday)
                             .focused($focusedField, equals: .sunday)
                             .id(DayField.sunday)
-                            .onChange(of: sunday) { oldValue, newValue in
-                                sunday = TextHelper.limitByWidth(sunday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
+                            .onChange(of: model.sunday) { oldValue, newValue in
+                                model.sunday = TextHelper.limitByWidth(model.sunday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
                         
                         
@@ -111,13 +107,13 @@ struct CommentView: View {
                         }
                     })
                     .onAppear(perform: {
-                        monday = week.monday
-                        tuesday = week.tuesday
-                        wednesday = week.wednesday
-                        thursday = week.thursday
-                        friday = week.friday
-                        saturday = week.saturday
-                        sunday = week.sunday
+                        model.monday = week.monday
+                        model.tuesday = week.tuesday
+                        model.wednesday = week.wednesday
+                        model.thursday = week.thursday
+                        model.friday = week.friday
+                        model.saturday = week.saturday
+                        model.sunday = week.sunday
                         
                         TelemetryDeck.signal("Visit Comment View")
                         
@@ -128,13 +124,13 @@ struct CommentView: View {
                     //
                     Button {
                         // save
-                        week.monday = monday
-                        week.tuesday = tuesday
-                        week.wednesday = wednesday
-                        week.thursday = thursday
-                        week.friday = friday
-                        week.saturday = saturday
-                        week.sunday = sunday
+                        week.monday = model.monday
+                        week.tuesday = model.tuesday
+                        week.wednesday = model.wednesday
+                        week.thursday = model.thursday
+                        week.friday = model.friday
+                        week.saturday = model.saturday
+                        week.sunday = model.sunday
                         
                         try? context.save()
                         
@@ -160,6 +156,3 @@ struct CommentView: View {
     }
 }
 
-//#Preview {
-//  CommentView()
-//}

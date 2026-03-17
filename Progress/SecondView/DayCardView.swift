@@ -10,6 +10,7 @@ import SwiftData
 
 struct DayCardView: View {
     
+    @Environment(HabitModel.self) var model
     // через context мы можешь сохранять и удалять
     @Environment(\.modelContext) private var context
     
@@ -24,7 +25,6 @@ struct DayCardView: View {
     var week: Week
     var goal: Goal
 
-    
     // Проверяем, есть ли галочка
     var isMarked: Bool {
         // activityList — это массив всех активностей (галочек) на неделю. .contains { ... } спрашивает: «Есть ли в массиве хотя бы одна активность, которая удовлетворяет условию?»

@@ -11,7 +11,6 @@ struct OneCommentView: View {
     
     var day: String
     var bindingDay: Binding<String>
-   // var buttonAction: () -> Void
     
     var body: some View {
         

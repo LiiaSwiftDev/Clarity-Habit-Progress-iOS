@@ -10,18 +10,16 @@ import SwiftData
 
 struct GoalCardView: View {
     
-    @Query private var allWeeks: [Week]
+    @Environment(HabitModel.self) var model
     
-    // хранит список всех целей
-    var goalStorage: Goal
-    @State private var marked: Int = 0
+    @Query private var allWeeks: [Week]
     
     // проверяем либо эта неделя имеет дату пн и вс либо nil
     var thisWeek: Week? {
         // кладем нашу цель
         currentWeek(goal: goalStorage)
     }
-    
+    var goalStorage: Goal
     // посчитай процент для progress bar
     var progressForThisWeek: Double {
         // guard let — безопасно "распаковываем" опционал
@@ -36,9 +34,7 @@ struct GoalCardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
                             .fill(Color.white)
-                            // .frame(width: 500)
                             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
-
 
             VStack(spacing: 10) {
                 HStack {
@@ -62,14 +58,10 @@ struct GoalCardView: View {
                 }
             }
             .padding(.horizontal, 20)
-           // .frame(width: 500)
-                .padding(.vertical, 18)
-            
+            .padding(.vertical, 18)
         }
-        
     }
 
-    
     // Эта функция ищет ОДНУ текущую неделю для конкретной цели.
     // -> Week? значит может такая неделя есть, а может и нет
     func currentWeek(goal: Goal) -> Week? {
