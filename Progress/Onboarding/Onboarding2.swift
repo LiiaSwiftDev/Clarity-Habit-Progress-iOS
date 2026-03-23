@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Onboarding2: View {
     
+    // Переключатель между картинками screen1 и screen2
     @State private var showDetail = false
     @State private var pointerOpacity = 0.0
     @State private var scale = 1.0
@@ -69,10 +70,12 @@ struct Onboarding2: View {
                 }
                 
             }
+            // Когда экран появился → запускаем анимацию
             .onAppear {
                 startAnimationLoop()
-            }
+            } // Когда экран исчез
             .onDisappear {
+                // останавливаем цикл, чтобы не было утечек
                 animationTask?.cancel()
             }
         }
@@ -83,6 +86,7 @@ struct Onboarding2: View {
 
             animationTask = Task {
 
+                //“Крути этот цикл, пока задачу не отменили”
                 while !Task.isCancelled {
 
                     showDetail = false

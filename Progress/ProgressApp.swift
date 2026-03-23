@@ -13,6 +13,8 @@ import DeviceKit
 @main
 struct ProgressApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     @State var model = HabitModel()
     
     init() {
