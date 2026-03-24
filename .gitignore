@@ -98,4 +98,10 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+# Custom ignored folders
+Pods/
+Progress.xcworkspace
+Podspecs/
+DerivedData/
+
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
