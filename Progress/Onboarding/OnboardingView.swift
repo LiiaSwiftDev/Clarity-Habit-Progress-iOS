@@ -22,7 +22,7 @@ struct OnboardingView: View {
                 
                 Onboarding1(actionButton: {
                     withAnimation {
-                        // переходим на сторую страницу
+                        // navigate to the second screen
                         selectedIndex = 1
                     }
                     
@@ -32,7 +32,7 @@ struct OnboardingView: View {
                 
                 Onboarding2 {
                     withAnimation {
-                        // переходим на сторую страницу
+                        // navigate to the third screen
                         selectedIndex = 2
                     }
                 }
@@ -40,7 +40,7 @@ struct OnboardingView: View {
                 .tag(1)
                 
                 Onboarding3 {
-                    // выходим из onboarding и переходим в приложение
+                    // exit onboarding and enter the app
                     dismiss()
                 }
                 .ignoresSafeArea()
