@@ -16,13 +16,13 @@ struct ProgressApp: App {
     @State var model = HabitModel()
     
     init() {
-            let config = TelemetryDeck.Config(appID: "***REMOVED***")
-            TelemetryDeck.initialize(config: config)
+        let config = TelemetryDeck.Config(appID: "***REMOVED***")
+        TelemetryDeck.initialize(config: config)
         
         TelemetryDeck.signal("App Opened")
-        }
+    }
     
-    // @AppStorage - сохраняет состояние
+    // @AppStorage — stores the onboarding state
     @AppStorage("onboarding") var needsOnboarding = true
     
     var body: some Scene {
@@ -30,28 +30,26 @@ struct ProgressApp: App {
             MainView()
                 .environment(model)
                 .modelContainer(for: [Goal.self, Activity.self])
-            // Binding.constant(true) - значит всегда показывай onboarding view
                 .fullScreenCover(isPresented: $needsOnboarding) {
                     // on dismiss
                     needsOnboarding = false
                 } content: {
-                    // что покажем
+                    // display when the app loads for the first time
                     OnboardingView()
                 }
                 .onAppear {
-                    // info about device
+                    // Info about device
                     print(UIDevice.current.systemVersion)
-                    // говорит какая модель телефона, например iPhone 14 plus
+                    // Indicates the phone model, e.g., iPhone 14 Plus
                     let device = Device.current
                     print(device.description)
-                    // название приложения
+                    // App name
                     print(Bundle.main.displayName)
                     // Buld number
                     print(Bundle.main.appBuild)
                     // App Version
                     print(Bundle.main.appVersion)
                 }
-
         }
     }
 }
