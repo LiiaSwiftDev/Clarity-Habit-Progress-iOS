@@ -9,9 +9,40 @@ import SwiftUI
 import SwiftData
 import TelemetryDeck
 import DeviceKit
+import FirebaseCore
+import FirebaseMessaging
+
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        
+        // FCM токен = это адрес, куда слать письмо, “Окей, вот уникальный адрес для этого устройства”, “Firebase, когда узнаешь адрес — скажи его мне”
+        Messaging.messaging().delegate = self
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        return true
+    }
+    // ✅ Ловим обновления FCM токена
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("FCM token: \(fcmToken ?? "")")
+    }
+    
+    // ✅ Привязываем APNs токен к FCM
+        func application(_ application: UIApplication,
+                         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+            Messaging.messaging().apnsToken = deviceToken
+            print("APNs token mapped to FCM")
+        }
+    
+    
+}
 
 @main
 struct ProgressApp: App {
+    // register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @State var model = HabitModel()
     
@@ -50,6 +81,25 @@ struct ProgressApp: App {
                     // App Version
                     print(Bundle.main.appVersion)
                 }
+                .onChange(of: needsOnboarding) { newValue in
+                    if newValue == false {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            requestNotificationPermission()
+                        }
+                    }
+                }
+        }
+    }
+    
+    // Запрошены права у пользователя на уведомления
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+            DispatchQueue.main.async {
+                if granted {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    Messaging.messaging().isAutoInitEnabled = true
+                }
+            }
         }
     }
 }

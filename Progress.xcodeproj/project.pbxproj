@@ -42,6 +42,8 @@
 		187044362ECBA54F0021D1B5 /* OneCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187044352ECBA54F0021D1B5 /* OneCommentView.swift */; };
 		1870443E2ECCE3D10021D1B5 /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = 1870443D2ECCE3D10021D1B5 /* TelemetryDeck */; };
 		187246312F69A840003F0B8C /* HabitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187246302F69A840003F0B8C /* HabitModel.swift */; };
+		187246502F732F6C003F0B8C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1872464F2F732F6C003F0B8C /* GoogleService-Info.plist */; };
+		187246532F733567003F0B8C /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 187246522F733567003F0B8C /* FirebaseMessaging */; };
 		1887F1152EDBCC3E008B8C18 /* TextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887F1142EDBCC3E008B8C18 /* TextHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		187044332EC79BED0021D1B5 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		187044352ECBA54F0021D1B5 /* OneCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCommentView.swift; sourceTree = "<group>"; };
 		187246302F69A840003F0B8C /* HabitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModel.swift; sourceTree = "<group>"; };
+		1872464F2F732F6C003F0B8C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		187246542F75DE8E003F0B8C /* Progress.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Progress.entitlements; sourceTree = "<group>"; };
 		1887F1142EDBCC3E008B8C18 /* TextHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				187246532F733567003F0B8C /* FirebaseMessaging in Frameworks */,
 				1870443E2ECCE3D10021D1B5 /* TelemetryDeck in Frameworks */,
 				186D5ED42ED2B1F800439BAF /* DeviceKit in Frameworks */,
 			);
@@ -146,8 +151,10 @@
 		186E67BB2E904193006661CA /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				187246542F75DE8E003F0B8C /* Progress.entitlements */,
 				186E67C42E906782006661CA /* Info.plist */,
 				186E67B82E904193006661CA /* Assets.xcassets */,
+				1872464F2F732F6C003F0B8C /* GoogleService-Info.plist */,
 				186E67BA2E904193006661CA /* ProgressApp.swift */,
 				18475AC72E98416A00CD18CD /* Onboarding */,
 				186E67C92E90B28C006661CA /* FirstScreen */,
@@ -246,6 +253,7 @@
 			packageProductDependencies = (
 				1870443D2ECCE3D10021D1B5 /* TelemetryDeck */,
 				186D5ED32ED2B1F800439BAF /* DeviceKit */,
+				187246522F733567003F0B8C /* FirebaseMessaging */,
 			);
 			productName = Progress;
 			productReference = 186E67AA2E8DA5BB006661CA /* Progress.app */;
@@ -278,6 +286,7 @@
 			packageReferences = (
 				1870443C2ECCE3D10021D1B5 /* XCRemoteSwiftPackageReference "SwiftSDK" */,
 				186D5ED22ED2B1F800439BAF /* XCRemoteSwiftPackageReference "DeviceKit" */,
+				187246512F733567003F0B8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 186E67AB2E8DA5BB006661CA /* Products */;
@@ -295,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				187043FD2EB2FF990021D1B5 /* SF-Pro-Display-Semibold.otf in Resources */,
+				187246502F732F6C003F0B8C /* GoogleService-Info.plist in Resources */,
 				187044032EB304050021D1B5 /* SF-Pro-Text-Light.otf in Resources */,
 				186E67BC2E904193006661CA /* Assets.xcassets in Resources */,
 				187044082EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf in Resources */,
@@ -468,6 +478,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Progress/Progress.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 3S53HGH48M;
@@ -501,6 +512,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Progress/Progress.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 3S53HGH48M;
@@ -569,6 +581,14 @@
 				minimumVersion = 2.9.8;
 			};
 		};
+		187246512F733567003F0B8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.11.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -581,6 +601,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1870443C2ECCE3D10021D1B5 /* XCRemoteSwiftPackageReference "SwiftSDK" */;
 			productName = TelemetryDeck;
+		};
+		187246522F733567003F0B8C /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 187246512F733567003F0B8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

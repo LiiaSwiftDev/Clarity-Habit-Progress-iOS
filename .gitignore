@@ -104,4 +104,7 @@ Progress.xcworkspace
 Podspecs/
 DerivedData/
 
+# Firebase config
+GoogleService-Info.plist
+
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
