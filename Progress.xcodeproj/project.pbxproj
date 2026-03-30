@@ -12,6 +12,7 @@
 		1826536D2F57BBA200F8A400 /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826536C2F57BBA200F8A400 /* OptionView.swift */; };
 		182653712F57BC4C00F8A400 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182653702F57BC4C00F8A400 /* DataService.swift */; };
 		182653742F57BCAB00F8A400 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182653732F57BCAB00F8A400 /* Options.swift */; };
+		1839DC7B2F7B14F9004CC3AC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1839DC7A2F7B14F9004CC3AC /* Config.xcconfig */; };
 		18475AC62E982FCE00CD18CD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475AC52E982FCE00CD18CD /* OnboardingView.swift */; };
 		18475ACB2E98796200CD18CD /* Onboarding1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475ACA2E98796200CD18CD /* Onboarding1.swift */; };
 		18475ACD2E995F5A00CD18CD /* WeekCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475ACC2E995F5A00CD18CD /* WeekCardView.swift */; };
@@ -53,6 +54,7 @@
 		1826536C2F57BBA200F8A400 /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
 		182653702F57BC4C00F8A400 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		182653732F57BCAB00F8A400 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
+		1839DC7A2F7B14F9004CC3AC /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		18475AC52E982FCE00CD18CD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		18475ACA2E98796200CD18CD /* Onboarding1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding1.swift; sourceTree = "<group>"; };
 		18475ACC2E995F5A00CD18CD /* WeekCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCardView.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				186E67B82E904193006661CA /* Assets.xcassets */,
 				1872464F2F732F6C003F0B8C /* GoogleService-Info.plist */,
 				186E67BA2E904193006661CA /* ProgressApp.swift */,
+				1839DC7A2F7B14F9004CC3AC /* Config.xcconfig */,
 				18475AC72E98416A00CD18CD /* Onboarding */,
 				186E67C92E90B28C006661CA /* FirstScreen */,
 				186E67D02E9202CA006661CA /* SecondView */,
@@ -307,6 +310,7 @@
 				187246502F732F6C003F0B8C /* GoogleService-Info.plist in Resources */,
 				187044032EB304050021D1B5 /* SF-Pro-Text-Light.otf in Resources */,
 				186E67BC2E904193006661CA /* Assets.xcassets in Resources */,
+				1839DC7B2F7B14F9004CC3AC /* Config.xcconfig in Resources */,
 				187044082EB3E6D00021D1B5 /* SF-Pro-Text-Thin.otf in Resources */,
 				186D7E882F591D03006249BA /* GoalOptions.json in Resources */,
 				187044012EB3027F0021D1B5 /* SF-Pro-Text-Medium.otf in Resources */,
@@ -356,6 +360,7 @@
 /* Begin XCBuildConfiguration section */
 		186E67B32E8DA5BE006661CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1839DC7A2F7B14F9004CC3AC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -419,6 +424,7 @@
 		};
 		186E67B42E8DA5BE006661CA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1839DC7A2F7B14F9004CC3AC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

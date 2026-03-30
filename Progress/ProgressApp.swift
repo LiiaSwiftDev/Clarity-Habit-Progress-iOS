@@ -47,7 +47,8 @@ struct ProgressApp: App {
     @State var model = HabitModel()
     
     init() {
-        let config = TelemetryDeck.Config(appID: "15E29687-5792-4F26-BD26-BB0B285173CA")
+        let TELEMETRY_APP_ID = Bundle.main.infoDictionary?["TELEMETRY_APP_ID"] as? String ?? "No appID found"
+        let config = TelemetryDeck.Config(appID: TELEMETRY_APP_ID)
         TelemetryDeck.initialize(config: config)
         
         TelemetryDeck.signal("App Opened")

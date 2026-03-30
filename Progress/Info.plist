@@ -4,6 +4,8 @@
 <dict>
 	<key>FirebaseMessagingAutoInitEnabled</key>
 	<string>false</string>
+	<key>TELEMETRY_APP_ID</key>
+	<string>$(TELEMETRY_APP_ID)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Pro-Text-Thin.otf</string>
