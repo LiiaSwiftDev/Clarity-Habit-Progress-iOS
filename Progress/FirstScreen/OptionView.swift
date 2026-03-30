@@ -19,9 +19,10 @@ struct OptionView: View {
     
     var body: some View {
         
-            VStack {
+        VStack(spacing: 0) {
                  
                 ZStack {
+                    // круг
                     Circle()
                         .frame(width: 70, height: 70)
                         .foregroundStyle(Color.purple)
@@ -47,9 +48,12 @@ struct OptionView: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .frame(width: 78)
+                    .padding(.top, 7)
         
             }
-                .frame(width: 75, height: 140, alignment: .top)
+                .frame(width: 75,
+                       height: 140, alignment: .top)
+              //  .padding(.leading)
                 .scaleEffect(model.scale)
                 .onTapGesture {
                     // 1️⃣ сжать до 0.85
