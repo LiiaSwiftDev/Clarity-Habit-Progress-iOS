@@ -40,7 +40,8 @@ struct AddNewGoalView: View {
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: model.text) { oldValue, newValue in
                         model.text = TextHelper.limitChars(input: model.text, limit: 18)
-                    }
+                    }.padding(.horizontal)
+                    .padding(.top)
                 
                 // options
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -64,8 +65,9 @@ struct AddNewGoalView: View {
                             })
                             
                         }
-                    }
+                    }.padding(.horizontal)
                 }
+                
                 
                 // times per week
                 HStack(spacing: 0) {
@@ -133,8 +135,10 @@ struct AddNewGoalView: View {
                     .padding(.trailing, 10)
                     
                 }
+                .padding(.horizontal)
+                .padding(.bottom)
                 
-            }.padding()
+            }
                 .onAppear {
                     model.displayOptions = model.service.getOptions()
                     
