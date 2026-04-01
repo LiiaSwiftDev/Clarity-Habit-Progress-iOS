@@ -16,11 +16,13 @@ struct OptionView: View {
     var isSelected: Bool
     //То есть onTap — это как кнопка-пустышка, в которую можно положить любую функцию, и потом вызвать её.
     let onTap: () -> Void
+    @State private var tapped = false
+    @State private var scale: CGFloat = 1.0
     
     var body: some View {
         
         VStack(spacing: 0) {
-                 
+
                 ZStack {
                     // круг
                     Circle()
@@ -52,28 +54,31 @@ struct OptionView: View {
         
             }
                 .frame(width: 75,
-                       height: 140, alignment: .top)
-              //  .padding(.leading)
-                .scaleEffect(model.scale)
+                       height: 140,
+                       alignment: .top)
+                .scaleEffect(scale)
                 .onTapGesture {
                     // 1️⃣ сжать до 0.85
                         withAnimation(.easeIn(duration: 0.2)) {
-                            model.scale = 0.85
+                            scale = 0.85
                         }
                         
                         // 2️⃣ расширить до 1.1 с небольшой задержкой
                         withAnimation(.easeOut(duration: 0.3).delay(0.12)) {
-                            model.scale = 1.1
+                            scale = 1.1
                         }
                         
                         // 3️⃣ вернуть в 1.0
                         withAnimation(.easeOut(duration: 0.35).delay(0.17)) {
-                            model.scale = 1.0
+                            scale = 1.0
                     }
                     
                     //Когда SwiftUI видит, что пользователь нажал на кружок (onTapGesture), оно выполняет функцию, которая хранится в onTap.
                     onTap()
-                }
+                    
+                    tapped.toggle()
+                } // Haptic Feedback
+                .sensoryFeedback(.impact(weight: .light, intensity: 0.8), trigger: tapped)
         }
     }
 

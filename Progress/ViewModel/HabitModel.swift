@@ -32,8 +32,7 @@ class HabitModel {
     var selectedGoal: Options?
     // All emoji and options in AddNewGoalView
     var displayOptions = [Options]()
-    // Circle in Option View
-    var scale: CGFloat = 1.0
+    
     
     // Show add week view in Detail view
     var showSheet = false

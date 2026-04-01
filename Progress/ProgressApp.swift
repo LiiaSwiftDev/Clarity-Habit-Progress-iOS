@@ -24,18 +24,17 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         return true
     }
-    // ✅ Ловим обновления FCM токена
+    // Ловим обновления FCM токена
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("FCM token: \(fcmToken ?? "")")
     }
     
-    // ✅ Привязываем APNs токен к FCM
-        func application(_ application: UIApplication,
-                         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-            Messaging.messaging().apnsToken = deviceToken
-            print("APNs token mapped to FCM")
-        }
-    
+    // Привязываем APNs токен к FCM
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
+        print("APNs token mapped to FCM")
+    }
     
 }
 
