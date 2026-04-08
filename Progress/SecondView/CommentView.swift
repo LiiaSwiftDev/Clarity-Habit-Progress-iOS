@@ -11,18 +11,22 @@ import TelemetryDeck
 
 struct CommentView: View {
     
+    // This is a shared object that holds app data and is used across different screens
     @Environment(HabitModel.self) var model
-    // чтобы сохранять, удалять
+    
+    // SwiftData context (save/update/delete)
     @Environment(\.modelContext) private var context
+    
+    // Dismiss current screen
     @Environment(\.dismiss) private var dismiss
     
     var goal: Goal
     var week: Week
     
-    // Хранит какое TextField сейчас активно (куда нажал пользователь).
+    // Track which TextField is currently focused
     @FocusState private var focusedField: DayField?
     
-    // Просто имена для каждого поля, чтобы их различать.
+    // Names for each day field
     enum DayField: Hashable {
         case monday, tuesday, wednesday, thursday, friday, saturday, sunday
     }
@@ -35,14 +39,15 @@ struct CommentView: View {
             // «Прокрути ScrollView туда, куда я скажу».
             ScrollViewReader { proxy in
                 ScrollView {
-
+                    
                     VStack(alignment: .center, spacing: 0) {
                         
+                        // OneCommentView for each day
                         OneCommentView(day: "Mon", bindingDay: $model.monday)
-                        // «Это поле — Monday. Когда на него нажали, запомни это».
                             .focused($focusedField, equals: .monday)
                             .id(DayField.monday)
                             .padding(.top, 30)
+                        // Limit text width
                             .onChange(of: model.monday) { oldValue, newValue in
                                 model.monday = TextHelper.limitByWidth(model.monday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
@@ -88,24 +93,21 @@ struct CommentView: View {
                             .onChange(of: model.sunday) { oldValue, newValue in
                                 model.sunday = TextHelper.limitByWidth(model.sunday, font: UIFont.systemFont(ofSize: 21, weight: .regular), maxWidth: 250)
                             }
-                        
-                        
                     }
                     .padding(.horizontal, 30)
                     .background {
                         Color.white
                             .clipShape(.rect(topLeadingRadius: 15, topTrailingRadius: 15))
                     }
-                    // «Каждый раз, когда focusedField изменится — выполни код».
-                    // oldValue - nil (нечего не выбрано), newValue - выбранный textfield
                     .onChange(of: focusedField, { oldValue, newValue in
-                        // proxy — это объект, который умеет управлять прокруткой ScrollView Он позволяет программно прокручивать ScrollView к конкретным элементам
+                        // Scroll to active TextField
                         if let field = newValue {
                             withAnimation {
                                 proxy.scrollTo(field, anchor: .center)
                             }
                         }
                     })
+                    // Load existing comments for this week
                     .onAppear(perform: {
                         model.monday = week.monday
                         model.tuesday = week.tuesday
@@ -116,14 +118,12 @@ struct CommentView: View {
                         model.sunday = week.sunday
                         
                         TelemetryDeck.signal("Visit Comment View")
-                        
                     })
                     .padding(.bottom, 8)
                 }
                 .safeAreaInset(edge: .bottom) {
-                    //
                     Button {
-                        // save
+                        // Save all comments to week
                         week.monday = model.monday
                         week.tuesday = model.tuesday
                         week.wednesday = model.wednesday
@@ -152,7 +152,6 @@ struct CommentView: View {
                 }
             }
         }
-        
     }
 }
 

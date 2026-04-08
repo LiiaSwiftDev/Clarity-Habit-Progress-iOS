@@ -17,7 +17,6 @@ class Week: Identifiable {
     var goal: Goal?
     var markedDaysCount = 0
     
-    // сохраняем день начала недели
     var startDate: Date
     var endDate: Date
     

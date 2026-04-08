@@ -12,7 +12,6 @@ import SwiftData
 class Goal: Identifiable {
     
     @Attribute(.unique) var id: String
-    // надо или нет??
     var createDate = Date()
     var goal = ""
     var timePerWeek = 0

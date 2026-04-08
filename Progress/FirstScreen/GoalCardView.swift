@@ -10,33 +10,36 @@ import SwiftData
 
 struct GoalCardView: View {
     
+    // This is a shared object that holds app data and is used across different screens
     @Environment(HabitModel.self) var model
     
+    // Fetch all weeks from database
     @Query private var allWeeks: [Week]
     
-    // проверяем либо эта неделя имеет дату пн и вс либо nil
+    // Returns current week for this goal or nil
     var thisWeek: Week? {
-        // кладем нашу цель
         currentWeek(goal: goalStorage)
     }
+    
+    // Goal data
     var goalStorage: Goal
-    // посчитай процент для progress bar
+    
+    // Progress bar for current week (0...1)
     var progressForThisWeek: Double {
-        // guard let — безопасно "распаковываем" опционал
-        // let week = thisWeek — если thisWeek не nil, то присваиваем значение константе week и продолжаем выполнять код ниже.
-        //else { return 0 } — если thisWeek nil, то выполняем тело else и выходим из функции сразу, в данном случае возвращаем 0.
         guard let week = thisWeek else { return 0 }
-        // week - это именно эта неделя, markedDaysCount - сколько отмечено дней
+        
+        // completed days / required days
         return Double(week.markedDaysCount) / Double(goalStorage.timePerWeek)
     }
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.white)
-                            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
-
+                .fill(Color.white)
+                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
+            
             VStack(spacing: 10) {
+                // Goal title + target per week
                 HStack {
                     Text(goalStorage.goal)
                         .font(.nameOfGoal)
@@ -47,6 +50,7 @@ struct GoalCardView: View {
                     
                 }.foregroundStyle(Color.black)
                 
+                // Weekly progress
                 HStack {
                     Text("This week")
                         .font(.textInCard)
@@ -61,33 +65,28 @@ struct GoalCardView: View {
             .padding(.vertical, 18)
         }
     }
-
-    // Эта функция ищет ОДНУ текущую неделю для конкретной цели.
-    // -> Week? значит может такая неделя есть, а может и нет
+    
+    // Find current week for a specific goal
     func currentWeek(goal: Goal) -> Week? {
-        // создаем помощника по датам
         let calendar = Calendar.current
-        // сегодняшняя дата
         let today = Date()
-
-        // allWeeks.first - возьми первую неделю что подходит под условие в скобках
+        
+        // Return the first week that matches conditions
         return allWeeks.first { week in
-            // Метод startOfDay(for:) делает время = 00:00, чтобы учитывать только день, игнорируя часы/минуты
-            // Было 12:20 стало 00:00
+            
+            // Set time to 00:00 (ignore hours/minutes)
             let start = calendar.startOfDay(for: week.startDate)
-            // Метод date(bySettingHour:minute:second:of:) устанавливает время = 23:59:59, чтобы воскресенье считалось полностью.
-            // конец недели = конец дня (23:59:59) воскресенья
+            
+            // End of day (23:59:59)
             let end = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: week.endDate)!
-
-            // мы типа проверяем все недели чтобы они подошли под это условие из 3 компонентов
-            // 1. цель должна быть той, что goal
-            // 2. сегодня не раньше начала недели
-            // 3. сегодня не позже конца недели
+            
+            // Check:
+            // 1. Same goal
+            // 2. Today is after or equal to start date
+            // 3. Today is before or equal to end date
             return week.goal?.id == goal.id &&
-            // Проверяем: сегодняшняя дата не раньше начала недели
-                   today >= start &&
-            // Проверяем: сегодняшняя дата не позже конца недели
-                   today <= end
+            today >= start &&
+            today <= end
         }
     }
 }

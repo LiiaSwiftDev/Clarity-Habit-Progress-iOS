@@ -10,36 +10,41 @@ import SwiftData
 import TelemetryDeck
 
 struct AddWeekView: View {
+    
+    // Dismiss current screen
     @Environment(\.dismiss) var dismiss
+    
+    // SwiftData context (save/update/delete)
     @Environment(\.modelContext) private var context
-
-    // цель будет передаваться сверху неделя должна прикрепляться к цели
+    
+    // Goal this week will be attached to
     var goal: Goal
-
-    // в эту переменную мы положим выбраннйю дату. Date() – сегодняшнее число
+    
+    // Selected date from calendar (default today)
     @State private var selectedDate = Date()
+    
+    // Show alert if week already exists
     @State private var showAlert = false
-
+    
     var body: some View {
         VStack(spacing: 0) {
-            // подпись для пользователя
+            
+            // Instruction for user
             Text("Select a day from the week you’d like to track.")
                 .multilineTextAlignment(.center)
                 .font(.title3)
                 .padding(.top, 10)
-
-            // DatePicker – календарь, где можно выбрать дату.
-            //selection: $selectedDate – выбранная дата сохранится в нашей переменной selectedDate.
-            //displayedComponents: .date – показываем только день/месяц/год, без времени.
+            
+            // Calendar picker for selecting a date
             DatePicker("Pick a date", selection: $selectedDate, displayedComponents: .date)
                 .datePickerStyle(.graphical)
-            // .labelsHidden() – убираем подпись «Pick a date».
                 .labelsHidden()
                 .padding()
-
+            
+            // Button to add week
             Button {
+                // Create week for selected date
                 addWeek()
-                
             } label: {
                 Text("Add Week")
                     .font(.system(size: 20, weight: .semibold))
@@ -54,75 +59,55 @@ struct AddWeekView: View {
         }
         .padding()
         .alert("This week already exists.", isPresented: $showAlert) {
-                   Button("ОК", role: .cancel) {}
-               }
+            Button("ОК", role: .cancel) {}
+        }
     }
-
-    // функция чтобы взять понедельник и воскресенье
+    
+    // Create a new week for the selected date
     func addWeek() {
-        // calendar – это наш персональный календарный помощник
-        // Calendar.current – это календарь, который берётся из настроек устройства, где запущено приложение.
         var calendar = Calendar.current
-        // говорим, бери понедельники
-        calendar.firstWeekday = 2 // 1 = Sunday, 2 = Monday ✅
-
-        // weekStart - куда положим понедельник
-        // calendar.date(from: говорим помощнику: «Сделай дату».
-        // calendar.dateComponents(...) – спрашиваем у календаря: yearForWeekOfYear → какой год недели и weekOfYear → какой номер недели в этом году
-        // 22 октября 2025 → год недели = 2025, номер недели = 43 (это пример)
-        // Неделя начинается с понедельника, потому что мы сделали calendar.firstWeekday = 2» Календарь автоматически берёт первый день этой недели, то есть понедельник 20 октября 2025.
+        // 1 = Sunday, 2 = Monday
+        calendar.firstWeekday = 2
+        
+        // Calculate start of week (Monday)
         let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: selectedDate))!
         
-        
-        // воскресенье = +6 дней от понедельника
-        // calendar.date - говорим помощнику: «сделай дату».
-        // byAdding: – «добавь…» , .day – «…дни», to: weekStart – «к понедельнику» ! – говорим: «Я уверен, что это получится, не бойся».
+        // Calculate end of week (Sunday)
         let weekEnd = calendar.date(byAdding: .day, value: 6, to: weekStart)!
         
-        //  Проверяем, есть ли такая неделя уже в базе ---
-                // достаём все недели этой цели
+        // Check if week already exists for this goal
         let existingWeeks = goal.weeks
-
-                // ищем неделю, у которой такие же даты начала и конца
-                if existingWeeks.contains(where: { $0.startDate == weekStart && $0.endDate == weekEnd }) {
-                    // если нашли — показываем окошко
-                    showAlert = true
-                    return
-                }
         
-        // создай новый обьет - новую неделю
+        // ищем неделю, у которой такие же даты начала и конца
+        if existingWeeks.contains(where: { $0.startDate == weekStart && $0.endDate == weekEnd }) {
+            showAlert = true
+            return
+        }
+        
+        // Create new week object
         let newWeek = Week(
-            // «Для какой цели?»: отвечает: «Для той цели, которая уже передана сюда сверху»
             goal: goal,
-            // понедельник это? : справа результат нашего высчета
             startDate: weekStart,
-            
-            // воскресенье это? : справа результат нашего высчета
             endDate: weekEnd
         )
         
         if goal.weeks.isEmpty {
             withAnimation(.none) {
-                    // вставляем первую неделю без анимации
-                    context.insert(newWeek)
-                    try? context.save()
+                context.insert(newWeek)
+                try? context.save()
                 
                 TelemetryDeck.signal("Add week")
             }
         } else {
-                withAnimation {
-                    context.insert(newWeek)
-                    try? context.save()
-                    
-                    TelemetryDeck.signal("Add week")
-                }
-            
+            withAnimation {
+                context.insert(newWeek)
+                try? context.save()
+                
+                TelemetryDeck.signal("Add week")
+            }
         }
-        
         dismiss()
-
     }
-
 }
 
 #Preview {

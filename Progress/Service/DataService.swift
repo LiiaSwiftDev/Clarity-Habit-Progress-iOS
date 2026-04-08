@@ -9,16 +9,17 @@ import Foundation
 
 struct DataService {
     
+    // Load goal options from local JSON file
     func getOptions() -> [Options] {
         
-        // 1. путь к файлу
+        // 1. Get file URL from bundle
         if let url = Bundle.main.url(forResource: "GoalOptions", withExtension: "json") {
             
             do {
-                // 2. прочитать файл
+                // 2. Read file data
                 let data = try Data(contentsOf: url)
                 
-                // 3. parse json
+                // 3. Parse json
                 let decoder = JSONDecoder()
                 do {
                     let result = try decoder.decode([Options].self, from: data)
@@ -28,7 +29,7 @@ struct DataService {
                 catch {
                     print("Couldn't parse file \(error)")
                 }
-                
+
             }
             catch {
                 print("Couldn't read file \(error)")

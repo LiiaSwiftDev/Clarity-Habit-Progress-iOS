@@ -11,23 +11,28 @@ import TelemetryDeck
 
 struct DetailView: View {
     
+    // This is a shared object that holds app data and is used across different screens
     @Environment(HabitModel.self) var model
+    
+    // SwiftData context (save/update/delete)
     @Environment(\.modelContext) private var context
+    
+    // Dismiss current screen
     @Environment(\.dismiss) var dismiss
-    // Скажи мне, сколько места есть по ширине экрана прямо сейчас
+    
+    // Current screen width
     @Environment(\.horizontalSizeClass) private var hSize
     
-    // "Я храню их в массиве allWeeks — это список всех недель." allWeeks — это полный массив всех недель, которые есть в базе, для всех целей. Например, если у тебя три цели, и у каждой есть по 2 недели, то allWeeks будет содержать все 6 объектов.
+    // All weeks in database (for all goals)
     @Query private var allWeeks: [Week]
     
-    // "На этом экране мы показываем одну конкретную цель и её прогресс."
+    // The goal we are showing on this screen
     var progress: Goal
     
-    // отфильтрованые недели "Возьми из всего массива только те недели, которые принадлежат текущей цели progress."
+    // Weeks for this goal, sorted (newest first)
     var goalWeeks: [Week] {
-        // "Возьми только те недели, которые принадлежат этой цели." и номер которых больше чем 0
         allWeeks.filter { $0.goal?.id == progress.id }
-        //"И отсортируй их по номеру недели, от последней до первого." Например, если недели в базе были [2,1,3], после сортировки получится [3,2,1].
+        
             .sorted(by: { $0.startDate > $1.startDate })
     }
     
@@ -41,6 +46,8 @@ struct DetailView: View {
             
             VStack {
                 HStack {
+                    
+                    // Back button
                     Button {
                         dismiss()
                     } label: {
@@ -60,6 +67,7 @@ struct DetailView: View {
                     
                 }
                 
+                // Goal title and times per week
                 HStack {
                     Text(progress.goal)
                         .font(.screanTitle)
@@ -73,13 +81,11 @@ struct DetailView: View {
                     
                 }.padding(.horizontal)
                 
+                // Weeks list
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 16) {
-                        // "Для каждой недели создаём отдельную карточку."
                         ForEach(goalWeeks, id: \.id) { week in
-                            // у кадлой карточки есть цель и неделя
                             WeekCardView(progress: progress, week: week)
-                            //
                                 .padding(.horizontal, 20)
                                 .animation(.easeInOut(duration: 0.5), value: goalWeeks)
                                 .onTapGesture {
@@ -94,7 +100,6 @@ struct DetailView: View {
                                     Alert(
                                         title: Text("Delete Week"),
                                         message: Text("Delete this week permanently? This action cannot be undone."),
-                                        // .destructive - make button red
                                         primaryButton: .destructive(Text("Delete"), action: {
                                             
                                             if let week = model.weekToDelete {
@@ -113,8 +118,8 @@ struct DetailView: View {
                 }
             }
             
+            // Add Week button at bottom
             VStack {
-                
                 Spacer()
                 
                 HStack {
@@ -136,13 +141,10 @@ struct DetailView: View {
                                 .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: 0.5)
                                 .shadow(color: Color("GrayOutside").opacity(0.9) ,radius: 0, x: 0, y: -0.5)
                             
-                            
-                            
                         } .frame(height: 60)
                             .padding(.bottom, 20)
                             .padding(.top, 10)
                             .padding(.horizontal, 10)
-                        
                     }
                     
                     Spacer()
@@ -157,54 +159,45 @@ struct DetailView: View {
                         .ignoresSafeArea()
                 }
             }
-            
         }
         .navigationBarBackButtonHidden(true)
+        // Show Add Week sheet
         .sheet(isPresented: $model.showSheet) {
-                    // iPhone
-                    AddWeekView(goal: progress)
-                        .presentationDetents([.height(560)])
-            }
+            AddWeekView(goal: progress)
+                .presentationDetents([.height(560)])
+        }
+        // Show Comment sheet
         .sheet(isPresented: $model.showSheetComment, content: {
             if let week = model.selectedWeek {
-                        CommentView(goal: progress, week: week)
-                            .presentationDetents([.height(560)])
-                }
-            })
-            
-            .onAppear {
-                TelemetryDeck.signal("Visited Detail Screen")
-                
-                // Проверяем, есть ли недели у этой цели
-                    if goalWeeks.isEmpty {
-                        firstWeek()
-                    }
+                CommentView(goal: progress, week: week)
+                    .presentationDetents([.height(560)])
             }
+        })
         
+        .onAppear {
+            TelemetryDeck.signal("Visited Detail Screen")
+            
+            // Create first week if none exist
+            if goalWeeks.isEmpty {
+                firstWeek()
+            }
+        }
     }
     
+    // Create first week for a goal if it doesn't exist
     func firstWeek() {
-        // узнает даты пн и вс этой недели
         var calendar = Calendar.current
-        calendar.firstWeekday = 2 // 1 = Sunday, 2 = Monday ✅
+        // Monday
+        calendar.firstWeekday = 2
         let today = Date()
         let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
-        // воскресенье = +6 дней от понедельника
-        // calendar.date - говорим помощнику: «сделай дату».
-        // byAdding: – «добавь…» , .day – «…дни», to: weekStart – «к понедельнику» ! – говорим: «Я уверен, что это получится, не бойся».
         let weekEnd = calendar.date(byAdding: .day, value: 6, to: weekStart)!
         
-        
-        // создаём неделю только если ещё нет такой
-        // if ! — если такой недели нет, создаём её.
-        //.contains(where: { ... }) — функция, которая проверяет, есть ли элемент, который удовлетворяет условию.
-        // week это каждый элемент из массива weeks
+        // Only create if this week doesn't already exist
         if !progress.weeks.contains(where: { week in
             week.startDate == weekStart && week.endDate == weekEnd
         }) {
-            // создаем новую неделю и кладем на пн и вс
             let firstWeek = Week(goal: progress, startDate: weekStart, endDate: weekEnd)
-            // сохраняем
             context.insert(firstWeek)
             try? context.save()
         }

@@ -25,12 +25,15 @@ struct SupportEmail {
     """
     }
     
+    // Open email client with prefilled data
     func send(urlOpener: OpenURLAction) {
-        // 1. Формируем адрес
+        
+        // 1. Create mailto URL
         let urlString = "mailto:\(toAddress)?subject=\(subject.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")&body=\(body.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")"
-        // 2. Проверяем, что URL не nil
+        // 2. Check if URL not nil
         guard let url = URL(string: urlString) else { return }
-        // 3. urlOpener(url) — это сам инструмент iOS, который открывает ссылку. { accepted in … } — это замыкание, которое говорит: удалось ли открыть ссылку
+        
+        // Open email app
         urlOpener(url) { accepted in
             if !accepted {
                 print("""
@@ -41,5 +44,4 @@ struct SupportEmail {
             }
         }
     }
-    
 }

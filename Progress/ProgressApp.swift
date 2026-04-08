@@ -12,24 +12,26 @@ import DeviceKit
 import FirebaseCore
 import FirebaseMessaging
 
+// AppDelegate handles Firebase setup and push notifications
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Initialize Firebase
         FirebaseApp.configure()
         
-        // FCM токен = это адрес, куда слать письмо, “Окей, вот уникальный адрес для этого устройства”, “Firebase, когда узнаешь адрес — скажи его мне”
+        // Set the delegate to receive FCM token
         Messaging.messaging().delegate = self
         
         UNUserNotificationCenter.current().delegate = self
         
         return true
     }
-    // Ловим обновления FCM токена
+    // New FCM token
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("FCM token: \(fcmToken ?? "")")
     }
     
-    // Привязываем APNs токен к FCM
+    // Connect device token to Firebase
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
@@ -40,7 +42,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
 @main
 struct ProgressApp: App {
-    // register app delegate for Firebase setup
+    // Register AppDelegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @State var model = HabitModel()
@@ -53,7 +55,7 @@ struct ProgressApp: App {
         TelemetryDeck.signal("App Opened")
     }
     
-    // @AppStorage — stores the onboarding state
+    // Onboarding flag stored in AppStorage
     @AppStorage("onboarding") var needsOnboarding = true
     
     var body: some Scene {
@@ -81,8 +83,8 @@ struct ProgressApp: App {
                     // App Version
                     print(Bundle.main.appVersion)
                 }
-                .onChange(of: needsOnboarding) { newValue in
-                    if newValue == false {
+                .onChange(of: needsOnboarding) {
+                    if needsOnboarding == false {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             requestNotificationPermission()
                         }
@@ -91,12 +93,14 @@ struct ProgressApp: App {
         }
     }
     
-    // Запрошены права у пользователя на уведомления
+    // Request user permission for push notifications
     func requestNotificationPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
             DispatchQueue.main.async {
                 if granted {
+                    // Register device for remote notifications
                     UIApplication.shared.registerForRemoteNotifications()
+                    // Enable Firebase push notifications
                     Messaging.messaging().isAutoInitEnabled = true
                 }
             }

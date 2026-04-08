@@ -10,73 +10,71 @@ import SwiftData
 
 struct DayCardView: View {
     
+    // This is a shared object that holds app data and is used across different screens
     @Environment(HabitModel.self) var model
-    // через context мы можешь сохранять и удалять
+    
+    // SwiftData context (save/update/delete)
     @Environment(\.modelContext) private var context
     
-    //activityList — массив всех активностей из базы (для всех дней недели).
+    // All activities from the database (for all days in the week)
     var activityList: [Activity]
     
-    // day — название дня ("Mon", "Tue" и т.д.), чтобы показывать текст на кнопке.
+    // Day name ("Mon", "Tue", etc.) for display
     var day: String
-    // dayIndex — число 0…6, чтобы понимать, какой это день недели.
+    
+    // Day index 0…6 to identify the day of the week
     var dayIndex: Int
-    // week — какая неделя (1, 2, 3…).
+    
+    // Which week this day belongs to
     var week: Week
+    
+    // Goal this day belongs to
     var goal: Goal
-
-    // Проверяем, есть ли галочка
+    
+    // Check if this day is marked (completed)
     var isMarked: Bool {
-        // activityList — это массив всех активностей (галочек) на неделю. .contains { ... } спрашивает: «Есть ли в массиве хотя бы одна активность, которая удовлетворяет условию?»
-        // activity — это каждый объект Activity из массива. «Есть ли в корзине галочка для понедельника первой недели?» activity.week - 1 неделя, activity.dayOfWeek. rawValue - понедельник, rawValue — это число или значение, которое скрыто внутри enum.
         activityList.contains { activity in
             activity.dayOfWeek.rawValue == dayIndex &&
             activity.week == week &&
             activity.goal == goal
-            
         }
-        
-    }
-    var body: some View {
-      
-            VStack(alignment: .center, spacing: 0) {
-                
-                Button {
-                    // Мы смотрим в списке всех активностей (activityList), есть ли уже галочка для этого дня и недели. first(where:) значит: найти первый объект, который подходит под условие. если есть галочка для понедельника первой недели значит условие получает true и мы выполняем удаление
-                    // другими словами если я нажимаю как галочку, програма проверяет да там есть значит убирает таким образом мы можем убрать галочку
-                    if let activity = activityList.first(where: { $0.week == week && $0.dayOfWeek.rawValue == dayIndex && $0.goal == goal }) {
-                        // удалить активность
-                        context.delete(activity)
-                        week.markedDaysCount -= 1
-                    } else {
-                        // Это значит: если галочки ещё нет, то мы её создаём.
-                        // создать активность
-                        //Activity.DayOfWeek - Это наш список дней недели: monday, tuesday, wednesday…
-                        // rawValue — это число, которое соответствует дню. dayIndex = индекс дня в массиве (["Mon","Tue","Wed",…]).
-                        let activity = Activity(week: week,
-                                                dayOfWeek: Activity.DayOfWeek(rawValue: dayIndex)!,
-                                                goal: goal)
-                        // сохранить
-                        context.insert(activity)
-                        week.markedDaysCount += 1
-                    }
-                    // сохранить результат
-                    try? context.save()
-                } label: {
-                    Image(systemName: isMarked ? "checkmark.circle.fill" : "circle")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(isMarked ? Color("CheckBoxInside") : Color("EmptyCheckBox"))
-                        .font(.system(size: 40))
-                        .padding(.bottom, 4)
-                }
-                
-                Text(day)
-                    .font(.daysOfWeek)
-                    .foregroundStyle(Color.black)
-            }
     }
     
+    var body: some View {
+        
+        VStack(alignment: .center, spacing: 0) {
+            
+            // Button to toggle completion
+            Button {
+                // If a checkmark already exists for this day & week, remove it
+                if let activity = activityList.first(where: { $0.week == week && $0.dayOfWeek.rawValue == dayIndex && $0.goal == goal }) {
+                    context.delete(activity)
+                    week.markedDaysCount -= 1
+                } else {
+                    // If there’s no checkmark yet, add one
+                    let activity = Activity(week: week,
+                                            dayOfWeek: Activity.DayOfWeek(rawValue: dayIndex)!,
+                                            goal: goal)
+                    context.insert(activity)
+                    week.markedDaysCount += 1
+                }
+                try? context.save()
+            } label: {
+                // Checkmark image
+                Image(systemName: isMarked ? "checkmark.circle.fill" : "circle")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(isMarked ? Color("CheckBoxInside") : Color("EmptyCheckBox"))
+                    .font(.system(size: 40))
+                    .padding(.bottom, 4)
+            }
+            
+            // Day label under the button
+            Text(day)
+                .font(.daysOfWeek)
+                .foregroundStyle(Color.black)
+        }
+    }
 }
 
 

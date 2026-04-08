@@ -11,15 +11,19 @@ import TelemetryDeck
 
 struct AddNewGoalView: View {
     
+    // This is a shared object that holds app data and is used across different screens
     @Environment(HabitModel.self) var model
     
-    // context - сохраняем, редактируем и удаляем (кладем)
+    // SwiftData context (save/update/delete)
     @Environment(\.modelContext) private var context
+    
+    // Dismiss current screen
     @Environment(\.dismiss) private var dismiss
     
-    // вынимаем. Сам следит за изменениями. Сам перерисовывает экран, если данные изменились
+    // Fetch all goals
     @Query private var allGoals: [Goal]
     
+    // Current goal (new or editing)
     var goal: Goal
     var editMood: Bool
     
@@ -29,47 +33,46 @@ struct AddNewGoalView: View {
         
         ZStack {
             
+            // Background
             Color.white
             
             VStack(alignment: .leading, spacing: 20) {
                 
                 Spacer()
                 
-                // goal
+                // Goal input
                 TextField("My habit is...", text: $model.text)
                     .textFieldStyle(.roundedBorder)
+                // Limit input length
                     .onChange(of: model.text) { oldValue, newValue in
                         model.text = TextHelper.limitChars(input: model.text, limit: 18)
-                    }.padding(.horizontal)
+                    }
+                    .padding(.horizontal)
                     .padding(.top)
                 
-                // options
+                // Suggested habit options
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(model.displayOptions) { option in
-                            // если пользователь нажал 2, тогда selectedOption = 2, если в списке displayOptions, каждый их него это option он в этом списке ищет 2, когда находит станоивтся true и появляется обводка
-                            // Когда SwiftUI видит, что пользователь нажал на кружок (onTapGesture), оно выполняет функцию, которая хранится в onTap.
+                            
                             OptionView(emoji: option.emoji, habitOption: option.goalOption, isSelected: model.selectedGoal?.id == option.id, onTap: {
-                                // если она уже выбрана, тогда selectedOption сделай nil тогда уберется обводка. 2 слева, справа в списке ищет 2, находит тогда isSelected = true
+                                
+                                // Toggle selection
                                 if model.selectedGoal?.id == option.id {
                                     model.selectedGoal = nil
                                     model.text = ""
                                 }
                                 else {
-                                    // если не выбрана то selectedOption = выбранная карточка
                                     model.selectedGoal = option
                                     
-                                    model.text = "\(option.emoji) \(option.goalOption)" // заполняем поле
-                                    
+                                    model.text = "\(option.emoji) \(option.goalOption)"
                                 }
                             })
-                            
                         }
                     }.padding(.horizontal)
                 }
                 
-                
-                // times per week
+                // Times per week picker
                 HStack(spacing: 0) {
                     Picker("", selection: $model.selectedOption) {
                         ForEach(model.options, id: \.self) { option in
@@ -81,6 +84,7 @@ struct AddNewGoalView: View {
                     
                     Spacer()
                     
+                    // Delete button (only in edit mode)
                     if editMood {
                         Button("Delete") {
                             
@@ -92,9 +96,9 @@ struct AddNewGoalView: View {
                             .padding(.trailing, 10)
                     }
                     
-                    
+                    // Save button
                     Button("Save") {
-                        
+                        // Update existing goal
                         if editMood {
                             withAnimation {
                                 goal.goal = model.text
@@ -104,6 +108,7 @@ struct AddNewGoalView: View {
                             }
                         }
                         else {
+                            // Create new goal
                             if allGoals.count == 0 {
                                 goal.goal = model.text
                                 goal.timePerWeek = model.selectedOption
@@ -131,6 +136,7 @@ struct AddNewGoalView: View {
                     .buttonStyle(.borderedProminent)
                     .foregroundStyle(Color.white)
                     .tint(Color.blue)
+                    // Disable if input is empty
                     .disabled(model.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     .padding(.trailing, 10)
                     
@@ -139,39 +145,42 @@ struct AddNewGoalView: View {
                 .padding(.bottom)
                 
             }
-                .onAppear {
-                    model.displayOptions = model.service.getOptions()
-                    
-                    model.text = goal.goal
-                    
-                    // eсли то число в скорбах (goal.timePerWeek) есть в списке массиве options тогда ответ будет true и сработает код в скобках
-                    if model.options.contains(goal.timePerWeek) {
-                        model.selectedOption = goal.timePerWeek
-                    } else {
-                        model.selectedOption = model.options.first ?? 1
-                    }
+            .onAppear {
+                // Load options
+                model.displayOptions = model.service.getOptions()
+                
+                // Fill existing data (edit mode)
+                model.text = goal.goal
+                
+                // Number of times per week
+                if model.options.contains(goal.timePerWeek) {
+                    model.selectedOption = goal.timePerWeek
+                } else {
+                    model.selectedOption = model.options.first ?? 1
                 }
-                .confirmationDialog("Delete this permanently?", isPresented: $model.showConfirmation, titleVisibility: .visible) {
-                    Button("Delete") {
-                        if allGoals.count == 1 {
+            }
+            // Delete confirmation
+            .confirmationDialog("Delete this permanently?", isPresented: $model.showConfirmation, titleVisibility: .visible) {
+                Button("Delete") {
+                    if allGoals.count == 1 {
+                        context.delete(goal)
+                        try? context.save()
+                        
+                        TelemetryDeck.signal("Delete goal")
+                    }
+                    else {
+                        withAnimation {
                             context.delete(goal)
                             try? context.save()
                             
                             TelemetryDeck.signal("Delete goal")
                         }
-                        else {
-                            withAnimation {
-                                context.delete(goal)
-                                try? context.save()
-                                
-                                TelemetryDeck.signal("Delete goal")
-                            }
-                        }
-                        
-                        dismiss()
-                        
                     }
+                    
+                    dismiss()
+                    
                 }
+            }
         }
     }
 }

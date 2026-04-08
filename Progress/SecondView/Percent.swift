@@ -9,12 +9,15 @@ import SwiftUI
 
 struct Percent: View {
     
+    // This is a shared object that holds app data and is used across different screens
     @Environment(HabitModel.self) var model
-    // передает значение из detailView отмеченные дни : на всего дней. например: 2/3 = 0.66
+    
+    // Completed days / Planned days for the week (e.g., 2/3 = 0.66)
     var myProgress: Double
     
     var body: some View {
         HStack(spacing: 0) {
+            // Display percentage with color and shadow
             Text("\(model.getPercentage(input: myProgress))%")
                 .font(.timesPerWeek)
                 .foregroundStyle(model.colorProgressBar(progress: myProgress))
@@ -24,7 +27,6 @@ struct Percent: View {
                 .shadow(color: model.colorStroke(progress: myProgress).opacity(0.9) ,radius: 0, x: 0, y: -0.5)
         }
     }
-    
 }
 
 #Preview {
